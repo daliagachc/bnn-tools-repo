@@ -56,7 +56,7 @@ import matplotlib.pyplot as plt
 import bnn_tools.funs as fu
 import bnn_tools.bnn_array
 
-# %% [markdown] tags=[]
+# %% [markdown]
 # # open sum nais file 
 
 # %%
@@ -86,7 +86,7 @@ s2 = dict(a=3,c=4)
 s1.update(s2)
 s1
 
-# %% [markdown] tags=[]
+# %% [markdown]
 # # resample time in a file
 
 # %%
@@ -99,14 +99,14 @@ ds1 = ds.bnn.resample_ts(3600)
 
 ds1.bnn.plot_psd()
 
-# %% [markdown] tags=[]
+# %% [markdown]
 # # regridding
 
 # %%
 ds3 = ds.bnn.dp_regrid(10,.2)
 ds3.bnn.plot_psd()
 
-# %% [markdown] tags=[] jp-MarkdownHeadingCollapsed=true
+# %% [markdown]
 # # get N from psd
 
 # %%
@@ -121,7 +121,7 @@ N.plot()
 
 # %%
 
-# %% [markdown] tags=[]
+# %% [markdown]
 # # open psm file 
 #
 # you need to check with magda the specifications of the psm inversion file 
@@ -144,7 +144,7 @@ ds_psm.bnn.upsample_ts(300).bnn.plot_psd()
 # be careful when upsampling or downsampling. here an error
 ds_psm.bnn.upsample_ts(900).bnn.plot_psd()
 
-# %% [markdown] tags=[]
+# %% [markdown]
 # # open smsp 
 
 # %%

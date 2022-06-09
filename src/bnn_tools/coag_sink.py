@@ -133,7 +133,6 @@ def test_CoagSnk():
     assert CoagSnk == test, f'{CoagSnk} is not {test}'
     return True
 
-
 def test_xarray_form():
     dp = 10 ** np.arange(0, 3.001, .1) * 1e-9
 
@@ -163,7 +162,6 @@ def test_xarray_form():
     #     print(((CoagSnk - test)/CoagSnk)*100)
     return True
 
-
 def add_lims_lDp(dc):
     blDp = infer_interval_breaks(dc['lDp'])
     blDpm = blDp[:-1]
@@ -176,7 +174,6 @@ def add_lims_lDp(dc):
     dc['DpM'] = 10 ** dc['lDpM']
     return dc
 
-
 def calc_coag_snk_xr(*, dN_tot_m3, d1, d2, P, T, alpha, dens1, dens2):
     """
     calculates de coagulation sink
@@ -186,36 +183,34 @@ def calc_coag_snk_xr(*, dN_tot_m3, d1, d2, P, T, alpha, dens1, dens2):
     :param P: pressure in pascals
     :param T: temperature in kelvin
     :param alpha: mass accommodation coefficient (usually 1 )
-    :param dens1: density 1 kg/m3
-    :param dens2: density 2 kg/m3
+    :param dens1: density 1 kg/m3  usually 1200
+    :param dens2: density 2 kg/m3  usually 1200
     :return: (
         number of particles lost to coagulation between d1 and d2 in [# m-3 s-1 ] ,
         the true minimum diameter,
         the true max bin
         )
     """
+
+    assert d1<d2, 'd2 needs to be higher than d1'
+
+
     dN_total_ = add_lims_lDp(dN_tot_m3)
 
     assert 'Dp' in dN_total_.dims, 'probably you need to set Dp [m] instead of lDp as de dimension'
 
     _Dp12 = dN_total_['Dp'].loc[{'Dp': slice(d1, d2)}]
     Dp12 = xr.DataArray(_Dp12.values, dims='Dp12', coords={'Dp12': _Dp12.values})
-
     _dN12 = dN_total_.loc[{'Dp': slice(d1, d2)}]
     dN12 = _dN12.rename({'Dp': 'Dp12'})
 
     #     dN12 = xr.DataArray(_dN12.values, dims='Dp12', coords={'Dp12': _Dp12.values})
-    Dp_, Dp12_ = xr.broadcast(dN_total_['Dp'], Dp12)
-
-    beta = CalCoagCoefFuchs(
-        d1=Dp12_, dens1=dens1, d2=Dp_, dens2=dens2, T=T, P=P, alpha=alpha)
-
-    CoagS_ = (beta * dN_total_).sum('Dp')
-    CoagS = CoagS_.assign_attrs({'units': '1/s'})
+    CoagS = calc_coagS(Dp12, P, T, alpha, dN_total_, dens1, dens2)
     #     print(CoagS)
     CoagSnk_: xr.DataArray = (dN12 * CoagS).sum(['Dp12'])
     CoagSnk = CoagSnk_.assign_attrs({'units': '#/m3'})
     CoagSnk.name = 'CoagSnk'
+    # CoagSnk.bnn.u('1/s')
 
     # true_d1 = _dN12['Dpm'].min().item()
     # true_d2 = _dN12['DpM'].max().item()
@@ -235,6 +230,14 @@ def calc_coag_snk_xr(*, dN_tot_m3, d1, d2, P, T, alpha, dens1, dens2):
 
     res_ds
     return res_ds
+
+def calc_coagS(Dp12, P, T, alpha, dN_total_, dens1, dens2):
+    Dp_, Dp12_ = xr.broadcast(dN_total_['Dp'], Dp12)
+    beta = CalCoagCoefFuchs(
+        d1=Dp12_, dens1=dens1, d2=Dp_, dens2=dens2, T=T, P=P, alpha=alpha)
+    CoagS_ = (beta * dN_total_).sum('Dp')
+    CoagS = CoagS_.assign_attrs({'units': '1/s'})
+    return CoagS
 
 
 # % dp and mfp in nm
@@ -270,16 +273,21 @@ def CalCS_single_par(dp_m, T, P):
     return CS
 
 
-def calc_CS(dN_m3, T, P):
+def calc_CS(*,dN_m3, T, P):
     dN_m3: xr.DataArray
     '''data array containing the particle number concentration
     - Dp is in meters 
     - Concentration in m-3, etc. 
     '''
 
+
     Dp = dN_m3['Dp']
     cs_single_par = CalCS_single_par(dp_m=Dp, T=T, P=P)
     cs_ = cs_single_par * dN_m3
     cs = cs_.sum('Dp')
+
+    cs.name = 'CS'
+    cs.bnn.u('1/s')
+
     '''condensation sink in units of 1/s '''
     return cs
