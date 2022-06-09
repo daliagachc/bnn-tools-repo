@@ -33,22 +33,22 @@ except:
 
 
 # import most used packages
-import os 
-import glob
-import sys
-import pprint
-import datetime as dt
-import pandas as pd 
+# import os
+# import glob
+# import sys
+# import pprint
+# import datetime as dt
+# import pandas as pd
 import numpy as np
-import matplotlib as mpl
-import matplotlib.colors
+# import matplotlib as mpl
+# import matplotlib.colors
 import matplotlib.pyplot as plt 
-import xarray as xr 
-import seaborn as sns
-import cartopy as crt
+# import xarray as xr
+# import seaborn as sns
+# import cartopy as crt
 
 # %%
-import bnn_tools
+# import bnn_tools
 
 # %%
 # import customs functions
