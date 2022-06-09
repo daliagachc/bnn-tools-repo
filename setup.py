@@ -24,7 +24,7 @@ pip install --upgrade pip
 
 here = path.abspath(path.dirname(__file__))
 
-with open(path.join(here, 'README.rst'), encoding='utf-8') as readme_file:
+with open(path.join(here, 'README.md'), encoding='utf-8') as readme_file:
     readme = readme_file.read()
 
 with open(path.join(here, 'requirements.txt')) as requirements_file:
@@ -37,7 +37,8 @@ setup(
     name='bnn-tools',
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
-    description="collection of functions and extensions to xarray for working with atmospehric particle size distribtutions",
+    description="collection of functions and extensions to xarray for working with atmospehric particle size "
+                "distribtutions",
     long_description=readme,
     author="diego aliaga",
     author_email='diego dot aliaga at helsinki dot fi',

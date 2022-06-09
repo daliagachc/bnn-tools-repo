@@ -6,6 +6,7 @@ Maintainer
 ----------
 
 * diego aliaga <diego dot aliaga at helsinki dot fi>
+* sara blichner
 
 Contributors
 ------------
