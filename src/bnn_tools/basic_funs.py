@@ -7,6 +7,10 @@ diego.aliaga at helsinki dot fi
 based on Runlongs code
 """
 
+####################
+# before using functions from here
+# most likely you need to first import bnn_array (not here but in the destination script)
+
 # import most used packages
 # import os
 # import glob
@@ -318,3 +322,54 @@ def dp_regrid(da,*, n_subs, log_dy):
     # dout['Dp'] = 10 ** dout['lDp']
 
     return dsout
+
+def get_exact_N(dc1, Dp_min, Dp_max):
+    """
+    counts the exact number of particles in the range Dp_min Dp_max using linear intregration
+    Parameters
+    ----------
+    dc1 : array like
+    Dp_min : float
+    Dp_max : float
+
+    Returns
+    -------
+    array like
+
+    """
+    assert dc1.name == 'dndlDp', 'you can only calc N on dndlogDp'
+    assert Dp_min < Dp_max, 'd1 not < d2'
+
+    _breaks = infer_interval_breaks(dc1['lDp'])
+    lDp1 = _breaks[0]
+    lDp2 = _breaks[-1]
+
+    ld1 = np.log10(Dp_min)
+    ld2 = np.log10(Dp_max)
+
+    assert ld1 >= lDp1
+    assert ld2 <= lDp2
+
+
+    orig_dis = dc1['lDp'].diff('lDp').median().item()
+
+    new_full_dis = ld2 - ld1
+
+    dis = np.min([orig_dis, new_full_dis])
+
+    dis_i = int(np.ceil(new_full_dis / dis) * 2)
+
+    new_ld_list = np.linspace(ld1, ld2, dis_i)
+
+    new_arr = dc1.interp({'lDp': new_ld_list}, method='linear')
+
+    # new_arr['dndlDp'].bnn.set_Dp().plot()
+
+    # dc1['dndlDp'].bnn.set_Dp().plot(norm=mpl.colors.LogNorm(vmin=1e1),yscale='log')
+
+    new_inte = set_Dp(new_arr).integrate('lDp')
+
+    new_inte = new_inte.expand_dims({'Dp_interval': [pd.Interval(Dp_min,Dp_max)]})
+    new_inte.name = 'N'
+
+    return new_inte

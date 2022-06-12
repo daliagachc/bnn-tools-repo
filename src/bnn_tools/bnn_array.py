@@ -95,6 +95,24 @@ class BNN:
     def get_dN(self, d1, d2):
         return bfu.get_dN(self._obj,d1,d2)
 
+    def get_exact_N(self, Dp_min,Dp_max):
+        """
+        counts the exact number of particles in the range Dp_min Dp_max using linear intregration
+        Parameters
+        ----------
+
+        Dp_min : float
+            inferior particle diameter limit in meters
+        Dp_max : float
+            superior particle diameter limit in meters
+
+        Returns
+        -------
+        array like
+
+        """
+        o = self._obj
+        return bfu.get_exact_N(o, Dp_min, Dp_max )
 
     def get_N(self, d1, d2):
         return bfu.get_N(self._obj,d1,d2)
@@ -113,6 +131,10 @@ class BNN:
     def ln(self,ln):
         o:xr.DataArray = self._obj
         o.attrs.update({'long_name':ln})
+
+
+
+
 
 
 
