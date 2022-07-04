@@ -43,7 +43,21 @@ def format_ticks(ax):
     formatter = mdates.ConciseDateFormatter(locator)
     ax.xaxis.set_major_locator(locator)
     ax.xaxis.set_major_formatter(formatter)
-    locator = mdates.AutoDateLocator(minticks=60, maxticks=60)
+    locator = mdates.AutoDateLocator(minticks=50, maxticks=60)
+    ax.xaxis.set_minor_locator(locator)
+    # ax.xaxis.set_minor_formatter(formatter)
+
+    for xlabels in ax.get_xticklabels():
+        xlabels.set_rotation(0)
+        xlabels.set_ha("center")
+
+def format_ticks2(ax,M,m):
+    import matplotlib.dates as mdates
+    locator = mdates.AutoDateLocator(minticks=int(M/2), maxticks=int(2*M))
+    formatter = mdates.ConciseDateFormatter(locator)
+    ax.xaxis.set_major_locator(locator)
+    ax.xaxis.set_major_formatter(formatter)
+    locator = mdates.AutoDateLocator(minticks=int(m/2), maxticks=(m*2))
     ax.xaxis.set_minor_locator(locator)
     # ax.xaxis.set_minor_formatter(formatter)
 
@@ -161,11 +175,18 @@ def set_sec(o):
 
 
 def plot_psd(o, **kwargs):
-    if isinstance(o, xr.Dataset):
-        o = o['dndlDp']
+    o_ = o
+    if isinstance(o_, xr.Dataset):
+        o_ = o_['dndlDp']
 
-    o = set_time(o)
-    o = set_Dp(o)
+    o_ = set_time(o_)
+    o_ = set_Dp(o_)
+    onn = o_.notnull()
+
+    #differentiate between null and negative.
+    # - null is plotted as missing
+    # - negative becomes low value.
+    o_ = o_.where(o_ > 0, .00001).where(onn)
 
     # q1 = o.quantile(.05)
     # q2 = o.quantile(.95)
@@ -174,7 +195,8 @@ def plot_psd(o, **kwargs):
 
     # set a nice color bar
     cm = plt.get_cmap('plasma').copy()
-    cm.set_bad(color=cm(0))
+    # cm.set_bad(color=cm(0))
+    cm.set_bad(color='w')
 
     s1 = dict(
         x='time',
@@ -188,18 +210,26 @@ def plot_psd(o, **kwargs):
 
     s1.update(kwargs)
 
-    o.plot(
+    # print(s1)
+
+    res = o_.plot(
         **s1
     )
 
-    ax = plt.gca()
+    axs = res.axes
 
-    format_ticks(ax)
+    if not isinstance(axs,np.ndarray):
+        # ax = plt.gca()
+        axs = np.array([axs])
 
-    ax.grid(c='w', ls='--', alpha=.5)
-    ax.grid(c='w', ls='-', which='minor', lw=.5, alpha=.3)
+    for ax in axs.flatten():
+        format_ticks(ax)
+
+        ax.grid(c='w', ls='--', alpha=.5)
+        ax.grid(c='w', ls='-', which='minor', lw=.5, alpha=.3)
 
     plt.gcf().set_figwidth(10)
+    return res 
 
 
 def get_dN(o, d1, d2):
@@ -227,15 +257,39 @@ def get_N(o, d1, d2):
     return N, dmin, dmax
 
 
-def resample_ts(o, dt):
+def resample_ts(o, dt_secs):
     orig_dim = list(o.dims)
 
-    orgi_dt = set_sec(o)['secs'].diff('secs').mean().item()
+    orgi_dt = set_sec(o)['secs'].diff('secs').median().item()
 
-    assert dt >= orgi_dt, 'you are trying to downsample when you should be upsampling'
+    assert dt_secs >= orgi_dt, 'you are trying to downsample when you should be upsampling'
+
+    o_ = set_time(o)
+
+    o_['time'] = o_['time'] + pd.Timedelta(dt_secs/2,'seconds')
+
+    o_ = o_.resample({'time':pd.Timedelta(dt_secs,'seconds')}).mean()
+
+
+    # ddt = np.round(o_['secs'] / dt_secs) * dt_secs
+    # o_ = o_.groupby(ddt).mean()
+
+    if 'time' in orig_dim:
+        o_ = set_time(o_)
+    if 'secs' in orig_dim:
+        o_ = set_sec(o_)
+
+    return o_
+
+def resample_ts_old(o, dt_secs):
+    orig_dim = list(o.dims)
+
+    orgi_dt = set_sec(o)['secs'].diff('secs').median().item()
+
+    assert dt_secs >= orgi_dt, 'you are trying to downsample when you should be upsampling'
 
     o = set_sec(o)
-    ddt = np.round(o['secs'] / dt) * dt
+    ddt = np.round(o['secs'] / dt_secs) * dt_secs
     o = o.groupby(ddt).mean()
 
     if 'time' in orig_dim:
@@ -286,9 +340,15 @@ def dp_regrid_old(*, da, n_subs, log_dy):
     return dout
 
 
-def dp_regrid(da,*, n_subs, log_dy):
+def dp_regrid(da, *, n_subs, log_dy):
 
-    ds1 = set_lDp(da).reset_coords(drop=True)
+    if isinstance(da,xr.DataArray):
+        assert da.name == 'dndlDp'
+        da_  = da
+    elif isinstance(da,xr.Dataset):
+        da_ = da['dndlDp']
+
+    ds1 = set_lDp(da_).reset_coords(drop=True)
 
     dy = log_dy/n_subs
 
@@ -306,16 +366,24 @@ def dp_regrid(da,*, n_subs, log_dy):
 
     d1 = ds1.interp(
         {'lDp': yl},
-        # kwargs=dict(fill_value="extrapolate")
+        kwargs=dict(fill_value="extrapolate")
     )
 
 
     g = d1.groupby(np.round(d1['lDp']/log_dy)*log_dy)
 
-    cs = g.count()['dndlDp'].median('time').reset_coords(drop=True)
+    # return g
+
+    # we take time as a dummy var.
+    cs = g.count().median('time').reset_coords(drop=True)
     # return cs
 
-    dsout = g.mean()[{'lDp':cs>=(n_subs/2)}]
+    dmean = g.mean()
+    dmean = dmean.where(dmean['lDp']>=ym_).where(dmean['lDp']<=yM_)
+
+
+    #todo change to 2 below
+    dsout = dmean[{'lDp':cs>=(n_subs/2)}]
 
     # dout['time'] = dout['secs'].astype('datetime64[s]')
 
@@ -328,7 +396,7 @@ def get_exact_N(dc1, Dp_min, Dp_max):
     counts the exact number of particles in the range Dp_min Dp_max using linear intregration
     Parameters
     ----------
-    dc1 : array like
+    dc1_ : array like
     Dp_min : float
     Dp_max : float
 
@@ -340,7 +408,8 @@ def get_exact_N(dc1, Dp_min, Dp_max):
     assert dc1.name == 'dndlDp', 'you can only calc N on dndlogDp'
     assert Dp_min < Dp_max, 'd1 not < d2'
 
-    _breaks = infer_interval_breaks(dc1['lDp'])
+    dc1_ = dc1.bnn.set_lDp()
+    _breaks = infer_interval_breaks(dc1_['lDp'])
     lDp1 = _breaks[0]
     lDp2 = _breaks[-1]
 
@@ -351,7 +420,7 @@ def get_exact_N(dc1, Dp_min, Dp_max):
     assert ld2 <= lDp2
 
 
-    orig_dis = dc1['lDp'].diff('lDp').median().item()
+    orig_dis = dc1_['lDp'].diff('lDp').median().item()
 
     new_full_dis = ld2 - ld1
 
@@ -361,7 +430,7 @@ def get_exact_N(dc1, Dp_min, Dp_max):
 
     new_ld_list = np.linspace(ld1, ld2, dis_i)
 
-    new_arr = dc1.interp({'lDp': new_ld_list}, method='linear')
+    new_arr = dc1_.interp({'lDp': new_ld_list}, method='linear')
 
     # new_arr['dndlDp'].bnn.set_Dp().plot()
 

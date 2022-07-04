@@ -42,9 +42,12 @@ CONC = 'conc'
 LOG_DP_DIS = 'log_Dp_dis'
 
 
-def open_sum2ds(path_sum):
+def open_sum2ds_old_wrong(path_sum):
     """opens a sum path and created an xarray ds out of it
-    - im assuming the dp size from sum is the geomean location of the bin"""
+    - im assuming the dp size from sum is the geomean location of the bin
+    2022-07-02_01-17-17_
+         - this is a wrong assumption. it is the limits and thats why you have an extra lim
+    """
 
     # open ds
     da = pd.read_csv(path_sum, sep='\s+', header=None)
@@ -86,6 +89,56 @@ def open_sum2ds(path_sum):
 
     return ds
 
+
+def open_sum2ds(path_sum):
+    """opens a sum path and created an xarray ds out of it
+    - im assuming the dp size from sum is the geomean location of the bin
+    2022-07-02_01-17-17_
+         - this is a wrong assumption. it is the limits and thats why you have an extra lim
+    """
+
+    # open ds
+    da = pd.read_csv(path_sum, sep='\s+', header=None)
+
+    # get columns
+    time = da.iloc[1:, 0]
+
+    # transforming from matlab datenum to python's timestamps ->
+    # https://stackoverflow.com/questions/13965740/converting-matlabs-datenum-format-to-python
+    time = pd.to_datetime(time - 719529, unit='D')
+
+    geo_mid_edge = da.iloc[0, 2:]
+    d = log_geo_mid_edge = np.log10(geo_mid_edge)
+    log_geo_mid_size = [(d[i]+d[i+1])/2 for i in range(len(d)-1)]
+    geo_mid_size = 10**log_geo_mid_size
+    data = da.iloc[1:, 2:-1]
+    conc = da.iloc[1:, 1]
+
+    # mid_size = [np.sqrt(size.iloc[i]*size.iloc[i+1])
+    #             for i in range(0,len(size)-1)]
+
+    log_dis = [np.log10(geo_mid_size.iloc[i + 1]) - np.log10(geo_mid_size.iloc[i])
+               for i in range(0, len(geo_mid_size) - 1)]
+
+    log_dis = pd.Series([*log_dis, log_dis[-1]], index=geo_mid_size)
+    log_dis.index.name = DP
+    data = data.set_index(time)
+    data.index.name = TIME
+    data = data.set_axis(geo_mid_size, axis=1)
+    data.axes[1].name = DP
+
+    conc = conc.set_axis(time)
+    conc.index.name = TIME
+    d = data.unstack().to_xarray()
+    ds = d.to_dataset(name=DNDLDP)
+    ds[CONC] = conc
+
+    ds[LOG_DP_DIS] = log_dis
+    ds = ds.set_coords(LOG_DP_DIS)
+
+    ds = ds.dropna(dim=DP, how='all')
+
+    return ds
 
 def mob_from_dp_T_P(dp, T, P, n=1):
     mfp = cal_mfp(T=T, P=P)

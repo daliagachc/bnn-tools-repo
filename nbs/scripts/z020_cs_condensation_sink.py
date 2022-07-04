@@ -160,9 +160,6 @@ _plt_pandis(ccf)
 # - it seems quite good 
 #     - however for 10 um we are overestimated—doubling
 
-# %% [markdown]
-# ## what comes here ? 
-
 # %%
 
 # %%
@@ -204,7 +201,27 @@ p3 = os.path.join(_p,'example_data/202205101400_SMPS.txt')
 ds_s = fu.open_smps2ds(p3).loc[{'time':'2022-05-15'}]
 
 # %%
-ds_s.bnn.plot_psd()
+ds_s.bnn.plot_psd(vmax=1e5)
+
+# %%
+ds_s.bnn.plot_psd(vmax=1e5,levels=9)
+
+# %%
+ds_s.resample({'time':'10.01T'}).median().bnn.plot_psd(vmax=1e5,levels=9)
+
+# %%
+_ds_
+
+# %%
+_ds_s = ds_s.bnn.set_lDp()
+for i in range(5):
+    _ds_s = _ds_s.rolling({'time':3},center=True,min_periods=1).mean()
+    _ds_s = _ds_s.rolling({'lDp':3},center=True,min_periods=1).mean()
+
+    
+
+# %%
+_ds_s.bnn.plot_psd(vmax=1e5,levels=17)
 
 # %% [markdown]
 # # combine two along DP
@@ -213,7 +230,11 @@ ds_s.bnn.plot_psd()
 N, _,_ = ds_s.bnn.get_N(d1=10e-9,d2=1)
 
 # %%
-N
+N1 = ds_s['dndlDp'].bnn.get_exact_N(15e-9,500e-9)
+
+# %%
+N.plot()
+N1.plot()
 
 # %%
 ts = 300
@@ -344,9 +365,6 @@ dc1['dndlDp'].bnn.get_exact_N(d1,d2).bnn.set_time().plot()
 bfu.format_ticks(plt.gca())
 ax = plt.gca()
 ax.grid(which='both',alpha=.2)
-
-# %%
-new_inte['dndlDp'].bnn.set_time().plot()
 
 # %%
 # dc in m3 
