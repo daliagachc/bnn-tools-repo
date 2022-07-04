@@ -109,7 +109,7 @@ def open_sum2ds(path_sum):
 
     geo_mid_edge = da.iloc[0, 2:]
     d = log_geo_mid_edge = np.log10(geo_mid_edge)
-    log_geo_mid_size = [(d[i]+d[i+1])/2 for i in range(len(d)-1)]
+    log_geo_mid_size = pd.Series([(d.iloc[i]+d.iloc[i+1])/2 for i in range(len(d)-1)])
     geo_mid_size = 10**log_geo_mid_size
     data = da.iloc[1:, 2:-1]
     conc = da.iloc[1:, 1]
