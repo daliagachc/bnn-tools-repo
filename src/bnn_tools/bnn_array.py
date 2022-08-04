@@ -91,7 +91,6 @@ class BNN:
 
         return bfu.plot_psd(self._obj, **kwargs)
 
-
     def get_dN(self, d1, d2):
         return bfu.get_dN(self._obj,d1,d2)
 

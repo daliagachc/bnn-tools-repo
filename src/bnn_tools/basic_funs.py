@@ -109,6 +109,7 @@ def from_lDp2dlDp(o):
 
 
 def from_Dp2dDp(o):
+    #todo this should de done in lDp and not Dp since interval breaks are prone to erros in Dp
     Dp = o['Dp']
     borders = infer_interval_breaks(Dp)
     d = borders[1:] - borders[:-1]
@@ -383,7 +384,9 @@ def dp_regrid(da, *, n_subs, log_dy):
 
 
     #todo change to 2 below
-    dsout = dmean[{'lDp':cs>=(n_subs/2)}]
+    # return dmean,cs
+    # dsout = dmean[{'lDp':cs>=(n_subs/2)}]
+    dsout = dmean.where(cs>=(n_subs/2)).dropna('lDp',how='all')
 
     # dout['time'] = dout['secs'].astype('datetime64[s]')
 

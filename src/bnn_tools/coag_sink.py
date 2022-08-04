@@ -282,12 +282,11 @@ def calc_CS(*,dN_m3, T, P):
     '''data array containing the particle number concentration
     - Dp is in meters 
     - Concentration in m-3, etc. 
+    - T in Kelvin 
+    - P in PA 
     '''
 
-
-    Dp = dN_m3['Dp']
-    cs_single_par = calCS_single_par(dp_m=Dp, T=T, P=P)
-    cs_ = cs_single_par * dN_m3
+    cs_ = calc_bin_CS(dN_m3 = dN_m3, T = T, P = P)
     cs = cs_.sum('Dp')
 
     cs.name = 'CS'
@@ -295,6 +294,16 @@ def calc_CS(*,dN_m3, T, P):
 
     '''condensation sink in units of 1/s '''
     return cs
+
+
+def calc_bin_CS(*, dN_m3, T, P):
+    Dp = dN_m3['Dp']
+    cs_single_par = calCS_single_par(dp_m=Dp, T=T, P=P)
+    cs_ = cs_single_par * dN_m3
+    cs_.name = 'CS per bin'
+    cs_.bnn.u('1/s')
+    return cs_
+
 
 def test_CoagSnk():
     dp = 10 ** np.arange(0, 3.001, .1) * 1e-9
