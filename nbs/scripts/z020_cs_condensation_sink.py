@@ -119,7 +119,10 @@ def _plt_coag_coef():
         d1_.assign_coords({"d1": d1_}), d2_.assign_coords({"d2": d2_})
     )
     alpha = 1
+    
+    # is this correct? 
     dens1 = dens2 = 1_000
+    
     T = 300
     P = 101_000
     ccf = cs.calc_coag_coef_fuchs(d1, dens1, d2, dens2, T, P, alpha)
@@ -217,9 +220,6 @@ ds_s.bnn.plot_psd(vmax=1e5, levels=9)
 ds_s.resample({"time": "10.01T"}).median().bnn.plot_psd(vmax=1e5, levels=9)
 
 # %%
-_ds_
-
-# %%
 _ds_s = ds_s.bnn.set_lDp()
 for i in range(5):
     _ds_s = _ds_s.rolling({"time": 3}, center=True, min_periods=1).mean()
@@ -268,7 +268,7 @@ dc = fu.combine_2_spectras(dsp2, dsn2, cut_dim="lDp", cut_point=np.log10(Dp_cut)
 dc1 = fu.combine_2_spectras(dc, dss2, cut_dim="lDp", cut_point=np.log10(Dp_cut1))
 
 # %%
-dc1.bnn.set_time().bnn.dp_regrid(10, 0.3).bnn.set_Dp()["dndlDp"].plot(hue="Dp")
+dc1.bnn.set_time().bnn.dp_regrid(10, 0.3).bnn.set_Dp().plot(hue="Dp")
 f = plt.gcf()
 f.set_figwidth(20)
 ax = plt.gca()
@@ -280,29 +280,26 @@ f = plt.gcf()
 f.set_figwidth(20)
 
 # %%
-xr.DataArray.rolling()
-
-# %%
 dc1_ = dc1
 for i in range(5):
     dc1_ = dc1_.rolling({"secs": 3}, center=True, min_periods=1).mean()
 
 # %%
-dc1["dndlDp"].bnn.get_exact_N(10e-9, 500e-9).bnn.set_time().plot(
+dc1.bnn.get_exact_N(10e-9, 500e-9).bnn.set_time().plot(
     marker=".", lw=0, c=".8"
 )
-dc1["dndlDp"].bnn.get_exact_N(3e-9, 500e-9).bnn.set_time().plot(
+dc1.bnn.get_exact_N(3e-9, 500e-9).bnn.set_time().plot(
     marker=".", lw=0, c=".8"
 )
-dc1["dndlDp"].bnn.get_exact_N(10e-9, 20e-9).bnn.set_time().plot(
+dc1.bnn.get_exact_N(10e-9, 20e-9).bnn.set_time().plot(
     marker=".", lw=0, c=".8"
 )
-dc1["dndlDp"].bnn.get_exact_N(3e-9, 7e-9).bnn.set_time().plot(marker=".", lw=0, c=".8")
+dc1.bnn.get_exact_N(3e-9, 7e-9).bnn.set_time().plot(marker=".", lw=0, c=".8")
 
-dc1_["dndlDp"].bnn.get_exact_N(10e-9, 500e-9).bnn.set_time().plot(label="10-500nm")
-dc1_["dndlDp"].bnn.get_exact_N(3e-9, 500e-9).bnn.set_time().plot(label="3-500nm")
-dc1_["dndlDp"].bnn.get_exact_N(10e-9, 20e-9).bnn.set_time().plot(label="10-20nm")
-dc1_["dndlDp"].bnn.get_exact_N(3e-9, 7e-9).bnn.set_time().plot(label="3-7nm")
+dc1_.bnn.get_exact_N(10e-9, 500e-9).bnn.set_time().plot(label="10-500nm")
+dc1_.bnn.get_exact_N(3e-9, 500e-9).bnn.set_time().plot(label="3-500nm")
+dc1_.bnn.get_exact_N(10e-9, 20e-9).bnn.set_time().plot(label="10-20nm")
+dc1_.bnn.get_exact_N(3e-9, 7e-9).bnn.set_time().plot(label="3-7nm")
 
 
 bfu.format_ticks(plt.gca())
@@ -311,11 +308,11 @@ plt.gcf().set_figwidth(20)
 # plt.gca().set_xlim('2022-05-15 09','2022-05-15 12')
 
 # %%
-dc1["dndlDp"].bnn.get_exact_N(3e-9, 500e-9).bnn.set_time().plot()
+dc1.bnn.get_exact_N(3e-9, 500e-9).bnn.set_time().plot()
 bfu.format_ticks(plt.gca())
 
 # %%
-dc1["dndlDp"].bnn.get_exact_N(3e-9, 7e-9).bnn.set_time().plot()
+dc1.bnn.get_exact_N(3e-9, 7e-9).bnn.set_time().plot()
 bfu.format_ticks(plt.gca())
 
 # %%
@@ -327,9 +324,6 @@ _tups = [np.array([_l[i_], _l[i_ + 1]]) for i_ in range(len(_l) - 1)]
 
 # %%
 dc1.bnn.set_Dp()["Dp"]
-
-# %%
-t_
 
 # %%
 cm = plt.get_cmap("plasma")
@@ -344,7 +338,7 @@ print(Line2D.markers.keys())
 # %%
 m_ = ["^", "8", "s", "p", "*", "h", "H"]
 for i, t_ in enumerate(_tups):
-    _d = dc1["dndlDp"].bnn.get_exact_N(*(t_ * 1e-9))
+    _d = dc1.bnn.get_exact_N(*(t_ * 1e-9))
     _d1 = _d.rolling({"secs": 15}, center=True).mean()
     (_d / _d1.max()).bnn.set_time().plot(
         x="time", label="", c=cm(i / len(_tups)), lw=0, marker=m_[i], alpha=0.2, ms=3
@@ -378,7 +372,7 @@ d1 = 7e-9
 d2 = 20e-9
 
 # %%
-dc1["dndlDp"].bnn.get_exact_N(d1, d2).bnn.set_time().plot()
+dc1.bnn.get_exact_N(d1, d2).bnn.set_time().plot()
 bfu.format_ticks(plt.gca())
 ax = plt.gca()
 ax.grid(which="both", alpha=0.2)
@@ -414,44 +408,45 @@ _plt1(10e-9, 1000e-9)
 _plt1(50e-9, 1000e-9)
 _plt1(100e-9, 1000e-9)
 
-
 # %%
+(dcM*1e-6).bnn.plot_psd()
 
-# %%
 
 # %%
 def _plt_coag_snk():
-    dN_m3, d1, d2 = dcM.bnn.set_Dp()["dndlDp"].bnn.get_dN(0, 1)
-    dens1 = dens2 = 1200
+    dN_m3, d1, d2 = dcM.bnn.set_Dp().bnn.get_dN(0, 1)
+    dens1 = dens2 = 1_200
     alpha = 1
     d1 = 3e-9
-    d2 = 10000e-9
+    d2 = 1_000e-9
 
     _r = cs.calc_coag_snk_xr(
         dN_tot_m3=dN_m3, d1=d1, d2=d2, P=P, T=T, alpha=alpha, dens1=dens1, dens2=dens2
     )
 
     __r = _r["CoagS"].bnn.set_time()
+    _cm = plt.get_cmap('plasma',10)
     __r.bnn.set_time().plot(
-        norm=mpl.colors.LogNorm(vmin=1e-5, vmax=1e-3), yscale="log", robust=True
+        norm=mpl.colors.LogNorm(vmin=1e-5, vmax=1e-3), yscale="log", robust=True,
+        cmap = _cm 
     )
     bfu.format_ticks(plt.gca())
 
 
 _plt_coag_snk()
 
-    # %%
-    dN_m3,d1,d2 = dcM.bnn.set_Dp()['dndlDp'].bnn.get_dN(0,1)
-    dens1 = dens2 = 1200 
-    alpha = 1 
-    d1 = 3e-9
-    d2 = 4e-9
+# %%
+dN_m3,d1,d2 = dcM.bnn.set_Dp()['dndlDp'].bnn.get_dN(0,1)
+dens1 = dens2 = 1200 
+alpha = 1 
+d1 = 3e-9
+d2 = 4e-9
 
-    _r = cs.calc_coag_snk_xr(dN_tot_m3 = dN_m3 , d1 = d1, d2 = d2 , P = P, T = T , alpha = alpha, dens1 = dens1, dens2 = dens2)
+_r = cs.calc_coag_snk_xr(dN_tot_m3 = dN_m3 , d1 = d1, d2 = d2 , P = P, T = T , alpha = alpha, dens1 = dens1, dens2 = dens2)
 
-    __r = _r['CoagS'].bnn.set_time()
-    __r.bnn.set_time().plot(norm=mpl.colors.LogNorm(vmin=1e-5,vmax = 1e-3),yscale='log', robust = True)
-    bfu.format_ticks(plt.gca())
+__r = _r['CoagS'].bnn.set_time()
+__r.bnn.set_time().plot(norm=mpl.colors.LogNorm(vmin=1e-5,vmax = 1e-3),yscale='log', robust = True)
+bfu.format_ticks(plt.gca())
 
 # %%
 
@@ -509,5 +504,53 @@ method_name()
 
 # %%
 (dN_m3 + 0.00001).bnn.set_time().plot(norm=mpl.colors.LogNorm(vmin=1e7), yscale="log")
+
+# %%
+p = '/Users/aliaga/Documents/Work_DA/Work_inar/paper-2/small_data/v2_tratead_psd_data_smps_nais_chc_alto/v2_tratead_psd_data_smps_nais_chc_alto.nc'
+
+# %%
+ds = xr.open_dataarray(p)
+
+# %%
+ds.id
+
+# %%
+d = '2018-05-17'
+i = 'nais_ion_neg_neutral_smps'
+
+
+# %%
+
+# %%
+
+# %%
+def _plt_coag_snk(loc):
+    
+    ds1 = ds.loc[{'id':i,'loc':loc,'time':d}]
+    
+    f,(ax1,ax2) = plt.subplots(2,figsize=(4,8))
+    ds1.bnn.plot_psd(ax=ax1)
+    dN_m3, d1, d2 = (ds1*1e6).bnn.get_dN(0,1)
+    dens1 = dens2 = 1_200
+    alpha = 1
+    d1 = 3e-9
+    d2 = 1_000e-9
+
+    _r = cs.calc_coag_snk_xr(
+        dN_tot_m3=dN_m3, d1=d1, d2=d2, P=530, T=270, alpha=alpha, dens1=dens1, dens2=dens2
+    )
+
+    __r = _r["CoagS"].bnn.set_time()
+    _cm = plt.get_cmap('plasma',10)
+    __r.bnn.set_time().plot(ax=ax2,
+        norm=mpl.colors.Normalize(vmin=.001, vmax=.007), yscale="log", robust=True,
+        cmap = _cm 
+    )
+    bfu.format_ticks(plt.gca())
+    f.tight_layout()
+
+
+_plt_coag_snk('alto')
+_plt_coag_snk('chc')
 
 # %%
