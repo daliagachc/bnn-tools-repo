@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import xarray as xr
-from xarray.plot.plot import _infer_interval_breaks as infer_interval_breaks
+from xarray.plot.utils import _infer_interval_breaks as infer_interval_breaks
 
 kB = 1.38064852e-23
 '''Boltzmann constant in SI units'''

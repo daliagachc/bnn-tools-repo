@@ -324,7 +324,7 @@ def open_psm2ds(pp):
 
 
 def is_regular_grid(coor, tolerance_percentage=1):
-    from xarray.plot.plot import _infer_interval_breaks as infer_interval_breaks
+    from xarray.plot.utils import _infer_interval_breaks as infer_interval_breaks
 
     tol = tolerance_percentage / 100
 

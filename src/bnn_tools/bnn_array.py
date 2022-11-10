@@ -3,7 +3,7 @@ add accessors to xarray so that conversions are easier
 """
 import xarray as xr
 import numpy as np
-from xarray.plot.plot import _infer_interval_breaks as infer_interval_breaks
+from xarray.plot.utils import _infer_interval_breaks as infer_interval_breaks
 # import matplotlib as mpl
 # import matplotlib.colors
 # import matplotlib.pyplot as plt

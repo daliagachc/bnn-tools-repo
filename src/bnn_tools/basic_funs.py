@@ -31,7 +31,7 @@ import xarray as xr
 # import scipy.interpolate
 # import bnn_tools.bnn_array
 
-from xarray.plot.plot import _infer_interval_breaks as infer_interval_breaks
+from xarray.plot.utils import _infer_interval_breaks as infer_interval_breaks
 
 ## constants come here
 
