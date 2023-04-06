@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bnn_tools.basic_funs &mdash; bnn tools 0.1.111.post4.dev0+gc460eba documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            bnn tools
+          </a>
+              <div class="version">
+                0.1.111.post4.dev0+gc460eba
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">bnn_tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">bnn tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">bnn_tools.basic_funs</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for bnn_tools.basic_funs</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">this module contains basic funcionts that are used in other modules</span>
+<span class="sd">it should bot import anything from this packages except maybe constants</span>
+
+<span class="sd">some of the function are loosely based on Runlongs code</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">####################</span>
+<span class="c1"># before using functions from here</span>
+<span class="c1"># most likely you need to first import bnn_array (not here but in the destination script)</span>
+
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.colors</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+
+<span class="kn">from</span> <span class="nn">xarray.plot.utils</span> <span class="kn">import</span> <span class="n">_infer_interval_breaks</span> <span class="k">as</span> <span class="n">infer_interval_breaks</span>
+
+<span class="c1">## constants come here</span>
+
+<span class="c1"># All the variables are in the SI metric units, e.g., dp in m</span>
+
+<div class="viewcode-block" id="format_ticks"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.format_ticks">[docs]</a><span class="k">def</span> <span class="nf">format_ticks</span><span class="p">(</span><span class="n">ax</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Format ticks on the x-axis of a matplotlib plot with dates.</span>
+<span class="sd">    In increases the numbers of ticks</span>
+<span class="sd">    This funcitons is superseded by format_ticks2 and is only kept for</span>
+<span class="sd">    backward compatibility</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ax : matplotlib.axes.Axes</span>
+<span class="sd">        The axes object to format ticks.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">    &gt;&gt;&gt; fig, ax = plt.subplots()</span>
+<span class="sd">    &gt;&gt;&gt; ax.plot([1, 2, 3], [4, 5, 6])</span>
+<span class="sd">    &gt;&gt;&gt; format_ticks(ax)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mdates</span>
+
+    <span class="c1"># Set up locator and formatter for major ticks</span>
+    <span class="n">locator</span> <span class="o">=</span> <span class="n">mdates</span><span class="o">.</span><span class="n">AutoDateLocator</span><span class="p">(</span><span class="n">minticks</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">maxticks</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="n">mdates</span><span class="o">.</span><span class="n">ConciseDateFormatter</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+
+    <span class="c1"># Set up locator for minor ticks</span>
+    <span class="n">locator</span> <span class="o">=</span> <span class="n">mdates</span><span class="o">.</span><span class="n">AutoDateLocator</span><span class="p">(</span><span class="n">minticks</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">maxticks</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_minor_locator</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+
+    <span class="c1"># Set the rotation and horizontal alignment of xtick labels</span>
+    <span class="k">for</span> <span class="n">xlabels</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">():</span>
+        <span class="n">xlabels</span><span class="o">.</span><span class="n">set_rotation</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">xlabels</span><span class="o">.</span><span class="n">set_ha</span><span class="p">(</span><span class="s2">&quot;center&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="format_ticks2"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.format_ticks2">[docs]</a><span class="k">def</span> <span class="nf">format_ticks2</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">m</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Format the x-axis of a matplotlib plot to show dates and ticks.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ax : matplotlib.axes.Axes</span>
+<span class="sd">        The axes object to be modified.</span>
+<span class="sd">    M : int</span>
+<span class="sd">        The maximum number of major ticks to be displayed.</span>
+<span class="sd">    m : int</span>
+<span class="sd">        The maximum number of minor ticks to be displayed.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">    &gt;&gt;&gt; import datetime</span>
+<span class="sd">    &gt;&gt;&gt; fig, ax = plt.subplots()</span>
+<span class="sd">    &gt;&gt;&gt; dates = [datetime.datetime(2022, 1, 1) + datetime.timedelta(days=i) for i in range(365)]</span>
+<span class="sd">    &gt;&gt;&gt; values = range(365)</span>
+<span class="sd">    &gt;&gt;&gt; ax.plot(dates, values)</span>
+<span class="sd">    &gt;&gt;&gt; format_ticks2(ax, 10, 50)</span>
+<span class="sd">    &gt;&gt;&gt; plt.show()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mdates</span>
+    <span class="n">locator</span> <span class="o">=</span> <span class="n">mdates</span><span class="o">.</span><span class="n">AutoDateLocator</span><span class="p">(</span><span class="n">minticks</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">M</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">maxticks</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">M</span><span class="p">))</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="n">mdates</span><span class="o">.</span><span class="n">ConciseDateFormatter</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+    <span class="n">locator</span> <span class="o">=</span> <span class="n">mdates</span><span class="o">.</span><span class="n">AutoDateLocator</span><span class="p">(</span><span class="n">minticks</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">maxticks</span><span class="o">=</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_minor_locator</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">xlabels</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">():</span>
+        <span class="n">xlabels</span><span class="o">.</span><span class="n">set_rotation</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">xlabels</span><span class="o">.</span><span class="n">set_ha</span><span class="p">(</span><span class="s2">&quot;center&quot;</span><span class="p">)</span></div>
+
+
+
+
+<span class="c1">####################</span>
+<span class="c1"># bnn funs</span>
+<span class="c1">####################</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<div class="viewcode-block" id="from_time2sec"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.from_time2sec">[docs]</a><span class="k">def</span> <span class="nf">from_time2sec</span><span class="p">(</span><span class="n">o</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert time to seconds since 1970-01-01</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    o : Union[xr.Dataset, xr.DataArray]</span>
+<span class="sd">        DataArray or Dataset with a &#39;time&#39; coordinate</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Union[xr.Dataset, xr.DataArray]</span>
+<span class="sd">        DataArray or Dataset with a &#39;secs&#39; coordinate added,</span>
+<span class="sd">        where &#39;secs&#39; is the time in seconds since 1970-01-01.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">o</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+    <span class="n">s1</span> <span class="o">=</span> <span class="n">date</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+    <span class="n">s2</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">({</span><span class="s1">&#39;secs&#39;</span><span class="p">:</span> <span class="n">s2</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">o</span></div>
+
+
+<div class="viewcode-block" id="from_sec2time"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.from_sec2time">[docs]</a><span class="k">def</span> <span class="nf">from_sec2time</span><span class="p">(</span><span class="n">o</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert seconds since 1970-01-01 to time</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    o : Union[xr.Dataset, xr.DataArray]</span>
+<span class="sd">        DataArray or Dataset with a &#39;secs&#39; coordinate</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Union[xr.Dataset, xr.DataArray]</span>
+<span class="sd">        DataArray or Dataset with a &#39;time&#39; coordinate added,</span>
+<span class="sd">        where &#39;time&#39; is the date and time corresponding to the</span>
+<span class="sd">        number of seconds since 1970-01-01.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">secs</span> <span class="o">=</span> <span class="n">o</span><span class="p">[</span><span class="s1">&#39;secs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;datetime64[s]&#39;</span><span class="p">)</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">secs</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">o</span></div>
+
+
+<div class="viewcode-block" id="from_Dp2lDp"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.from_Dp2lDp">[docs]</a><span class="k">def</span> <span class="nf">from_Dp2lDp</span><span class="p">(</span><span class="n">o</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span>
+<span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert particle diameter to log10(particle diameter)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    o : xr.Dataset</span>
+<span class="sd">        Dataset with a &#39;Dp&#39; variable</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    xr.Dataset</span>
+<span class="sd">        Dataset with a &#39;lDp&#39; variable added,</span>
+<span class="sd">        where &#39;lDp&#39; is the base-10 logarithm of &#39;Dp&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">lDp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">o</span><span class="p">[</span><span class="s1">&#39;Dp&#39;</span><span class="p">])</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">({</span><span class="s1">&#39;lDp&#39;</span><span class="p">:</span> <span class="n">lDp</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">o</span></div>
+
+
+<div class="viewcode-block" id="from_lDp2Dp"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.from_lDp2Dp">[docs]</a><span class="k">def</span> <span class="nf">from_lDp2Dp</span><span class="p">(</span><span class="n">o</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span>
+<span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert log10(particle diameter) to particle diameter</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    o : xr.Dataset</span>
+<span class="sd">        Dataset with a &#39;lDp&#39; variable</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    xr.Dataset</span>
+<span class="sd">        Dataset with a &#39;Dp&#39; variable added,</span>
+<span class="sd">        where &#39;Dp&#39; is the base-10 exponential of &#39;lDp&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Dp</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="n">o</span><span class="p">[</span><span class="s1">&#39;lDp&#39;</span><span class="p">])</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">({</span><span class="s1">&#39;Dp&#39;</span><span class="p">:</span> <span class="n">Dp</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">o</span></div>
+
+
+<div class="viewcode-block" id="from_lDp2dlDp"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.from_lDp2dlDp">[docs]</a><span class="k">def</span> <span class="nf">from_lDp2dlDp</span><span class="p">(</span><span class="n">o</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span>
+<span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the interval between log10(particle diameters)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    o : xr.Dataset</span>
+<span class="sd">        Dataset with a &#39;lDp&#39; variable</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    xr.Dataset</span>
+<span class="sd">        Dataset with a &#39;dlDp&#39; variable added,</span>
+<span class="sd">        where &#39;dlDp&#39; is the difference in log10(particle diameter)</span>
+<span class="sd">        between consecutive bins.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">lDp</span> <span class="o">=</span> <span class="n">o</span><span class="p">[</span><span class="s1">&#39;lDp&#39;</span><span class="p">]</span>
+    <span class="n">borders</span> <span class="o">=</span> <span class="n">infer_interval_breaks</span><span class="p">(</span><span class="n">lDp</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">borders</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">borders</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">d1</span> <span class="o">=</span> <span class="n">lDp</span> <span class="o">*</span> <span class="mi">0</span> <span class="o">+</span> <span class="n">d</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">o</span></div>
+
+
+<div class="viewcode-block" id="from_Dp2dDp"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.from_Dp2dDp">[docs]</a><span class="k">def</span> <span class="nf">from_Dp2dDp</span><span class="p">(</span><span class="n">o</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span>
+<span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">]:</span>
+    <span class="c1">#todo this should de done in lDp and not Dp since interval breaks are prone to erros in Dp</span>
+    <span class="n">Dp</span> <span class="o">=</span> <span class="n">o</span><span class="p">[</span><span class="s1">&#39;Dp&#39;</span><span class="p">]</span>
+    <span class="n">borders</span> <span class="o">=</span> <span class="n">infer_interval_breaks</span><span class="p">(</span><span class="n">Dp</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">borders</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">borders</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">d1</span> <span class="o">=</span> <span class="n">Dp</span> <span class="o">*</span> <span class="mi">0</span> <span class="o">+</span> <span class="n">d</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">({</span><span class="s1">&#39;dDp&#39;</span><span class="p">:</span> <span class="n">d1</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">o</span></div>
+
+
+<div class="viewcode-block" id="set_time"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.set_time">[docs]</a><span class="k">def</span> <span class="nf">set_time</span><span class="p">(</span><span class="n">o</span><span class="p">):</span>
+    <span class="n">dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+    <span class="c1"># o_coords = set(coords)-set(dims)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;time&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">coords</span><span class="p">:</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">from_sec2time</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;time&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dims</span><span class="p">:</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">swap_dims</span><span class="p">({</span><span class="s1">&#39;secs&#39;</span><span class="p">:</span> <span class="s1">&#39;time&#39;</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">o</span></div>
+
+
+<div class="viewcode-block" id="set_Dp"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.set_Dp">[docs]</a><span class="k">def</span> <span class="nf">set_Dp</span><span class="p">(</span><span class="n">o</span><span class="p">):</span>
+    <span class="n">dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+    <span class="c1"># o_coords = set(coords)-set(dims)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;Dp&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">coords</span><span class="p">:</span>
+        <span class="c1"># print(coords)</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">from_lDp2Dp</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;Dp&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dims</span><span class="p">:</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">swap_dims</span><span class="p">({</span><span class="s1">&#39;lDp&#39;</span><span class="p">:</span> <span class="s1">&#39;Dp&#39;</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">o</span></div>
+
+
+<div class="viewcode-block" id="set_lDp"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.set_lDp">[docs]</a><span class="k">def</span> <span class="nf">set_lDp</span><span class="p">(</span><span class="n">o</span><span class="p">):</span>
+    <span class="n">dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+    <span class="c1"># o_coords = set(coords)-set(dims)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;lDp&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">coords</span><span class="p">:</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">from_Dp2lDp</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;lDp&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dims</span><span class="p">:</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">swap_dims</span><span class="p">({</span><span class="s1">&#39;Dp&#39;</span><span class="p">:</span> <span class="s1">&#39;lDp&#39;</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">o</span></div>
+
+
+<div class="viewcode-block" id="set_sec"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.set_sec">[docs]</a><span class="k">def</span> <span class="nf">set_sec</span><span class="p">(</span><span class="n">o</span><span class="p">):</span>
+    <span class="n">dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+    <span class="c1"># o_coords = set(coords)-set(dims)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;secs&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">coords</span><span class="p">:</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">from_time2sec</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;secs&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dims</span><span class="p">:</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">swap_dims</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="s1">&#39;secs&#39;</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">o</span></div>
+
+
+<div class="viewcode-block" id="plot_psd"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.plot_psd">[docs]</a><span class="k">def</span> <span class="nf">plot_psd</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">o_</span> <span class="o">=</span> <span class="n">o</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o_</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+        <span class="n">o_</span> <span class="o">=</span> <span class="n">o_</span><span class="p">[</span><span class="s1">&#39;dndlDp&#39;</span><span class="p">]</span>
+
+    <span class="n">o_</span> <span class="o">=</span> <span class="n">set_time</span><span class="p">(</span><span class="n">o_</span><span class="p">)</span>
+    <span class="n">o_</span> <span class="o">=</span> <span class="n">set_Dp</span><span class="p">(</span><span class="n">o_</span><span class="p">)</span>
+    <span class="n">onn</span> <span class="o">=</span> <span class="n">o_</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span>
+
+    <span class="c1">#differentiate between null and negative.</span>
+    <span class="c1"># - null is plotted as missing</span>
+    <span class="c1"># - negative becomes low value.</span>
+    <span class="n">o_</span> <span class="o">=</span> <span class="n">o_</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">o_</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">.00001</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">onn</span><span class="p">)</span>
+
+    <span class="c1"># q1 = o.quantile(.05)</span>
+    <span class="c1"># q2 = o.quantile(.95)</span>
+    <span class="n">vmin</span> <span class="o">=</span> <span class="mf">1e1</span>
+    <span class="n">vmax</span> <span class="o">=</span> <span class="mf">1e6</span>
+
+    <span class="c1"># set a nice color bar</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;plasma&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1"># cm.set_bad(color=cm(0))</span>
+    <span class="n">cm</span><span class="o">.</span><span class="n">set_bad</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+    <span class="n">s1</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Dp&#39;</span><span class="p">,</span>
+        <span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">LogNorm</span><span class="p">(),</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="p">,</span>
+        <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span>
+        <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span>
+        <span class="n">yscale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">s1</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="c1"># print(s1)</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">o_</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="o">**</span><span class="n">s1</span>
+    <span class="p">)</span>
+
+    <span class="n">axs</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">axes</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axs</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="c1"># ax = plt.gca()</span>
+        <span class="n">axs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">axs</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="o">.</span><span class="n">flatten</span><span class="p">():</span>
+        <span class="n">format_ticks</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.3</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span> </div>
+
+
+<div class="viewcode-block" id="get_dN"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.get_dN">[docs]</a><span class="k">def</span> <span class="nf">get_dN</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">o</span><span class="p">[</span><span class="s1">&#39;dndlDp&#39;</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">o</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;dndlDp&#39;</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">from_lDp2dlDp</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">set_Dp</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+    <span class="n">o1</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">loc</span><span class="p">[{</span><span class="s1">&#39;Dp&#39;</span><span class="p">:</span> <span class="nb">slice</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">)}]</span>
+    <span class="n">dmin</span> <span class="o">=</span> <span class="n">o1</span><span class="p">[</span><span class="s1">&#39;Dp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">dmax</span> <span class="o">=</span> <span class="n">o1</span><span class="p">[</span><span class="s1">&#39;Dp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="n">o1</span><span class="p">[</span><span class="s1">&#39;dN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">o1</span> <span class="o">*</span> <span class="n">o1</span><span class="p">[</span><span class="s1">&#39;dlDp&#39;</span><span class="p">])</span>
+
+    <span class="n">dN</span> <span class="o">=</span> <span class="n">o1</span><span class="p">[</span><span class="s1">&#39;dN&#39;</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">dN</span><span class="p">,</span> <span class="n">dmin</span><span class="p">,</span> <span class="n">dmax</span></div>
+
+
+<div class="viewcode-block" id="get_N"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.get_N">[docs]</a><span class="k">def</span> <span class="nf">get_N</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">):</span>
+    <span class="n">dN</span><span class="p">,</span> <span class="n">dmin</span><span class="p">,</span> <span class="n">dmax</span> <span class="o">=</span> <span class="n">get_dN</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">)</span>
+
+    <span class="n">N</span> <span class="o">=</span> <span class="n">dN</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="s1">&#39;Dp&#39;</span><span class="p">)</span>
+    <span class="n">N</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;N&#39;</span>
+    <span class="k">return</span> <span class="n">N</span><span class="p">,</span> <span class="n">dmin</span><span class="p">,</span> <span class="n">dmax</span></div>
+
+
+<div class="viewcode-block" id="resample_ts"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.resample_ts">[docs]</a><span class="k">def</span> <span class="nf">resample_ts</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">dt_secs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Resamples a time series with a given time step.</span>
+<span class="sd">    it assumes that the time stamp is centered aligned.</span>
+<span class="sd">    the result is also ceter aligned</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    o : Union[xr.Dataset, xr.DataArray]</span>
+<span class="sd">        A dataset or data array with a time dimension.</span>
+<span class="sd">    dt_secs : float</span>
+<span class="sd">        The new time step in seconds. Must be greater than or equal to the original time step.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Union[xr.Dataset, xr.DataArray]</span>
+<span class="sd">        The resampled time series.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function resamples the time series to a new time step using linear interpolation.</span>
+<span class="sd">    It is intended for use with xarray data arrays and datasets.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; # Resample a dataset with a new time step of 10 seconds</span>
+<span class="sd">    &gt;&gt;&gt; new_ds = resample_ts(orig_ds, 10)</span>
+
+<span class="sd">    &gt;&gt;&gt; # Resample a data array with a new time step of 60 seconds</span>
+<span class="sd">    &gt;&gt;&gt; new_da = resample_ts(orig_da, 60)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="n">orig_dim</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
+
+    <span class="n">orgi_dt</span> <span class="o">=</span> <span class="n">set_sec</span><span class="p">(</span><span class="n">o</span><span class="p">)[</span><span class="s1">&#39;secs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="s1">&#39;secs&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="k">assert</span> <span class="n">dt_secs</span> <span class="o">&gt;=</span> <span class="n">orgi_dt</span><span class="p">,</span> <span class="s1">&#39;you are trying to downsample when you should be upsampling&#39;</span>
+
+    <span class="n">o_</span> <span class="o">=</span> <span class="n">set_time</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+
+    <span class="n">o_</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">o_</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">dt_secs</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;seconds&#39;</span><span class="p">)</span>
+
+    <span class="n">o_</span> <span class="o">=</span> <span class="n">o_</span><span class="o">.</span><span class="n">resample</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">dt_secs</span><span class="p">,</span><span class="s1">&#39;seconds&#39;</span><span class="p">)})</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+
+    <span class="c1"># ddt = np.round(o_[&#39;secs&#39;] / dt_secs) * dt_secs</span>
+    <span class="c1"># o_ = o_.groupby(ddt).mean()</span>
+
+    <span class="k">if</span> <span class="s1">&#39;time&#39;</span> <span class="ow">in</span> <span class="n">orig_dim</span><span class="p">:</span>
+        <span class="n">o_</span> <span class="o">=</span> <span class="n">set_time</span><span class="p">(</span><span class="n">o_</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;secs&#39;</span> <span class="ow">in</span> <span class="n">orig_dim</span><span class="p">:</span>
+        <span class="n">o_</span> <span class="o">=</span> <span class="n">set_sec</span><span class="p">(</span><span class="n">o_</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">o_</span></div>
+
+<div class="viewcode-block" id="resample_ts_old"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.resample_ts_old">[docs]</a><span class="k">def</span> <span class="nf">resample_ts_old</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">dt_secs</span><span class="p">):</span>
+    <span class="n">orig_dim</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
+
+    <span class="n">orgi_dt</span> <span class="o">=</span> <span class="n">set_sec</span><span class="p">(</span><span class="n">o</span><span class="p">)[</span><span class="s1">&#39;secs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="s1">&#39;secs&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="k">assert</span> <span class="n">dt_secs</span> <span class="o">&gt;=</span> <span class="n">orgi_dt</span><span class="p">,</span> <span class="s1">&#39;you are trying to downsample when you should be upsampling&#39;</span>
+
+    <span class="n">o</span> <span class="o">=</span> <span class="n">set_sec</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+    <span class="n">ddt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">o</span><span class="p">[</span><span class="s1">&#39;secs&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">dt_secs</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt_secs</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">ddt</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="s1">&#39;time&#39;</span> <span class="ow">in</span> <span class="n">orig_dim</span><span class="p">:</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">set_time</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;secs&#39;</span> <span class="ow">in</span> <span class="n">orig_dim</span><span class="p">:</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">set_sec</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">o</span></div>
+
+
+<div class="viewcode-block" id="upsample_ts"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.upsample_ts">[docs]</a><span class="k">def</span> <span class="nf">upsample_ts</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+
+    <span class="n">orgi_dt</span> <span class="o">=</span> <span class="n">set_sec</span><span class="p">(</span><span class="n">o</span><span class="p">)[</span><span class="s1">&#39;secs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="s1">&#39;secs&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="k">assert</span> <span class="n">dt</span> <span class="o">&lt;=</span> <span class="n">orgi_dt</span><span class="p">,</span> <span class="s1">&#39;you are trying to upsample when you should be downsampling&#39;</span>
+
+    <span class="n">orig_dim</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
+
+    <span class="n">o</span> <span class="o">=</span> <span class="n">set_time</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+
+    <span class="n">o</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">resample</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)})</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;time&#39;</span> <span class="ow">in</span> <span class="n">orig_dim</span><span class="p">:</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">set_time</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;secs&#39;</span> <span class="ow">in</span> <span class="n">orig_dim</span><span class="p">:</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">set_sec</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">o</span></div>
+
+
+<div class="viewcode-block" id="dp_regrid_old"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.dp_regrid_old">[docs]</a><span class="k">def</span> <span class="nf">dp_regrid_old</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">da</span><span class="p">,</span> <span class="n">n_subs</span><span class="p">,</span> <span class="n">log_dy</span><span class="p">):</span>
+
+    <span class="n">darray</span> <span class="o">=</span> <span class="n">set_lDp</span><span class="p">(</span><span class="n">da</span><span class="p">)</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="n">log_dy</span> <span class="o">/</span> <span class="n">n_subs</span>
+    <span class="n">dm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">darray</span><span class="p">[</span><span class="s1">&#39;lDp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="n">log_dy</span><span class="p">)</span> <span class="o">*</span> <span class="n">log_dy</span>
+    <span class="n">dM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">darray</span><span class="p">[</span><span class="s1">&#39;lDp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="n">log_dy</span><span class="p">)</span> <span class="o">*</span> <span class="n">log_dy</span>
+
+    <span class="n">dms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">dm</span> <span class="o">-</span> <span class="p">(((</span><span class="n">n_subs</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">dy</span><span class="p">),</span> <span class="n">dM</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+
+    <span class="n">d1</span> <span class="o">=</span> <span class="n">darray</span><span class="o">.</span><span class="n">interp</span><span class="p">({</span><span class="s1">&#39;lDp&#39;</span><span class="p">:</span> <span class="n">dms</span><span class="p">})</span>
+
+    <span class="n">dout</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">coarsen</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;lDp&#39;</span><span class="p">:</span> <span class="n">n_subs</span><span class="p">},</span> <span class="n">boundary</span><span class="o">=</span><span class="s1">&#39;trim&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_coords</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># dout[&#39;time&#39;] = dout[&#39;secs&#39;].astype(&#39;datetime64[s]&#39;)</span>
+
+    <span class="c1"># dout[&#39;Dp&#39;] = 10 ** dout[&#39;lDp&#39;]</span>
+
+    <span class="k">return</span> <span class="n">dout</span></div>
+
+
+<div class="viewcode-block" id="dp_regrid"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.dp_regrid">[docs]</a><span class="k">def</span> <span class="nf">dp_regrid</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">n_subs</span><span class="p">,</span> <span class="n">log_dy</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">da</span><span class="p">,</span><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">da</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;dndlDp&#39;</span>
+        <span class="n">da_</span>  <span class="o">=</span> <span class="n">da</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">da</span><span class="p">,</span><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+        <span class="n">da_</span> <span class="o">=</span> <span class="n">da</span><span class="p">[</span><span class="s1">&#39;dndlDp&#39;</span><span class="p">]</span>
+
+    <span class="n">ds1</span> <span class="o">=</span> <span class="n">set_lDp</span><span class="p">(</span><span class="n">da_</span><span class="p">)</span><span class="o">.</span><span class="n">reset_coords</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">dy</span> <span class="o">=</span> <span class="n">log_dy</span><span class="o">/</span><span class="n">n_subs</span>
+
+    <span class="n">ints</span> <span class="o">=</span> <span class="n">infer_interval_breaks</span><span class="p">(</span><span class="n">ds1</span><span class="p">[</span><span class="s1">&#39;lDp&#39;</span><span class="p">],</span><span class="n">check_monotonic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># print(ints)</span>
+
+    <span class="n">ym_</span> <span class="o">=</span> <span class="n">ints</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">yM_</span> <span class="o">=</span> <span class="n">ints</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">yM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="n">yM_</span><span class="o">/</span><span class="n">dy</span><span class="p">))</span><span class="o">*</span><span class="n">dy</span>
+    <span class="n">ym</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="n">ym_</span><span class="o">/</span><span class="n">dy</span><span class="p">))</span><span class="o">*</span><span class="n">dy</span>
+
+    <span class="n">yl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ym</span><span class="p">,</span><span class="n">yM</span><span class="p">,</span><span class="n">dy</span><span class="p">)</span>
+
+    <span class="n">d1</span> <span class="o">=</span> <span class="n">ds1</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span>
+        <span class="p">{</span><span class="s1">&#39;lDp&#39;</span><span class="p">:</span> <span class="n">yl</span><span class="p">},</span>
+        <span class="n">kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="s2">&quot;extrapolate&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+
+    <span class="c1"># g = d1.groupby(np.round(d1[&#39;lDp&#39;]/log_dy)*log_dy)</span>
+
+    <span class="n">g</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">d1</span>
+        <span class="o">.</span><span class="n">assign_coords</span><span class="p">({</span><span class="s1">&#39;lDp&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">d1</span><span class="p">[</span><span class="s1">&#39;lDp&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">log_dy</span><span class="p">)</span> <span class="o">*</span> <span class="n">log_dy</span><span class="p">})</span>
+        <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;lDp&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># return g</span>
+
+    <span class="c1"># we take time as a dummy var.</span>
+    <span class="n">cs</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_coords</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># return cs</span>
+
+    <span class="n">dmean</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">dmean</span> <span class="o">=</span> <span class="n">dmean</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dmean</span><span class="p">[</span><span class="s1">&#39;lDp&#39;</span><span class="p">]</span><span class="o">&gt;=</span><span class="n">ym_</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dmean</span><span class="p">[</span><span class="s1">&#39;lDp&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="n">yM_</span><span class="p">)</span>
+
+
+    <span class="c1">#todo change to 2 below</span>
+    <span class="c1"># return dmean,cs</span>
+    <span class="c1"># dsout = dmean[{&#39;lDp&#39;:cs&gt;=(n_subs/2)}]</span>
+    <span class="n">dsout</span> <span class="o">=</span> <span class="n">dmean</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cs</span><span class="o">&gt;=</span><span class="p">(</span><span class="n">n_subs</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="s1">&#39;lDp&#39;</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+
+    <span class="c1"># dout[&#39;time&#39;] = dout[&#39;secs&#39;].astype(&#39;datetime64[s]&#39;)</span>
+
+    <span class="c1"># dout[&#39;Dp&#39;] = 10 ** dout[&#39;lDp&#39;]</span>
+
+    <span class="k">return</span> <span class="n">dsout</span></div>
+
+<div class="viewcode-block" id="get_exact_N"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.get_exact_N">[docs]</a><span class="k">def</span> <span class="nf">get_exact_N</span><span class="p">(</span><span class="n">dc1</span><span class="p">,</span> <span class="n">Dp_min</span><span class="p">,</span> <span class="n">Dp_max</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Counts the exact number of particles in the range Dp_min to Dp_max using linear integration.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dc1 : xr.DataArray</span>
+<span class="sd">        Array-like variable containing the number distribution function with log-normal diameter.</span>
+<span class="sd">    Dp_min : float</span>
+<span class="sd">        Minimum diameter in meters for which particle number is to be calculated.</span>
+<span class="sd">    Dp_max : float</span>
+<span class="sd">        Maximum diameter in meters for which particle number is to be calculated.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    xr.DataArray</span>
+<span class="sd">        Array-like variable containing the exact number of particles in the specified diameter range.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">dc1</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;dndlDp&#39;</span><span class="p">,</span> <span class="s1">&#39;you can only calc N on dndlogDp&#39;</span>
+    <span class="k">assert</span> <span class="n">Dp_min</span> <span class="o">&lt;</span> <span class="n">Dp_max</span><span class="p">,</span> <span class="s1">&#39;d1 not &lt; d2&#39;</span>
+
+    <span class="n">dc1_</span> <span class="o">=</span> <span class="n">dc1</span><span class="o">.</span><span class="n">bnn</span><span class="o">.</span><span class="n">set_lDp</span><span class="p">()</span>
+    <span class="n">_breaks</span> <span class="o">=</span> <span class="n">infer_interval_breaks</span><span class="p">(</span><span class="n">dc1_</span><span class="p">[</span><span class="s1">&#39;lDp&#39;</span><span class="p">])</span>
+    <span class="c1"># print(_breaks)</span>
+    <span class="n">lDp1</span> <span class="o">=</span> <span class="n">_breaks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">lDp2</span> <span class="o">=</span> <span class="n">_breaks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">ld1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Dp_min</span><span class="p">)</span>
+    <span class="n">ld2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Dp_max</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">ld1</span> <span class="o">&gt;=</span> <span class="n">lDp1</span>
+    <span class="k">assert</span> <span class="n">ld2</span> <span class="o">&lt;=</span> <span class="n">lDp2</span>
+
+
+    <span class="n">orig_dis</span> <span class="o">=</span> <span class="n">dc1_</span><span class="p">[</span><span class="s1">&#39;lDp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="s1">&#39;lDp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="n">new_full_dis</span> <span class="o">=</span> <span class="n">ld2</span> <span class="o">-</span> <span class="n">ld1</span>
+
+    <span class="n">dis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">orig_dis</span><span class="p">,</span> <span class="n">new_full_dis</span><span class="p">])</span>
+
+    <span class="n">dis_i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">new_full_dis</span> <span class="o">/</span> <span class="n">dis</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">new_ld_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">ld1</span><span class="p">,</span> <span class="n">ld2</span><span class="p">,</span> <span class="n">dis_i</span><span class="p">)</span>
+
+    <span class="n">new_arr</span> <span class="o">=</span> <span class="n">dc1_</span><span class="o">.</span><span class="n">interp</span><span class="p">({</span><span class="s1">&#39;lDp&#39;</span><span class="p">:</span> <span class="n">new_ld_list</span><span class="p">},</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+
+    <span class="c1"># new_arr[&#39;dndlDp&#39;].bnn.set_Dp().plot()</span>
+
+    <span class="c1"># dc1[&#39;dndlDp&#39;].bnn.set_Dp().plot(norm=mpl.colors.LogNorm(vmin=1e1),yscale=&#39;log&#39;)</span>
+
+    <span class="n">new_inte</span> <span class="o">=</span> <span class="n">set_Dp</span><span class="p">(</span><span class="n">new_arr</span><span class="p">)</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="s1">&#39;lDp&#39;</span><span class="p">)</span>
+
+    <span class="n">new_inte</span> <span class="o">=</span> <span class="n">new_inte</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">({</span><span class="s1">&#39;Dp_interval&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="n">Dp_min</span><span class="p">,</span><span class="n">Dp_max</span><span class="p">)]})</span>
+    <span class="n">new_inte</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;N&#39;</span>
+
+    <span class="k">return</span> <span class="n">new_inte</span></div>
+
+
+<span class="kn">import</span> <span class="nn">bokeh.models</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">LogColorMapper</span><span class="p">,</span> <span class="n">ColorBar</span><span class="p">,</span> <span class="n">CustomJS</span>
+<span class="kn">from</span> <span class="nn">bokeh.layouts</span> <span class="kn">import</span> <span class="n">Row</span>
+<span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">Figure</span><span class="p">,</span> <span class="n">output_notebook</span><span class="p">,</span> <span class="n">show</span>
+
+<div class="viewcode-block" id="bokeh_plot_psd"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.bokeh_plot_psd">[docs]</a><span class="k">def</span> <span class="nf">bokeh_plot_psd</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span><span class="n">width</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">):</span>
+
+    <span class="n">output_notebook</span><span class="p">()</span>
+    <span class="n">cb</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">basic_bokeh_plot</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span><span class="n">width</span><span class="p">)</span>
+    <span class="n">show</span><span class="p">(</span><span class="n">Row</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">cb</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">p</span><span class="p">,</span><span class="n">cb</span></div>
+
+
+<div class="viewcode-block" id="basic_bokeh_plot"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.basic_bokeh_plot">[docs]</a><span class="k">def</span> <span class="nf">basic_bokeh_plot</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="c1">######### EDGES #########</span>
+    <span class="n">vmin</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">vmax</span> <span class="o">=</span> <span class="mi">10_000</span>
+    <span class="c1"># get intervals time</span>
+    <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">infer_interval_breaks</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])[[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="c1"># get interval break. add 9 for nanometers</span>
+    <span class="n">y0</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">infer_interval_breaks</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;lDp&#39;</span><span class="p">])[[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">9</span>
+    <span class="c1">######### FIGURE ############</span>
+    <span class="n">_w</span> <span class="o">=</span> <span class="n">bokeh</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">WheelZoomTool</span><span class="p">()</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">(</span><span class="n">x_axis_type</span><span class="o">=</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
+               <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;pan&quot;</span><span class="p">,</span> <span class="s2">&quot;box_zoom&quot;</span><span class="p">,</span> <span class="s2">&quot;reset&quot;</span><span class="p">,</span> <span class="n">_w</span><span class="p">,</span> <span class="s2">&quot;crosshair&quot;</span><span class="p">,</span> <span class="s2">&quot;hover&quot;</span><span class="p">],</span>
+               <span class="n">y_axis_type</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_scroll</span> <span class="o">=</span> <span class="n">_w</span>
+    <span class="n">color_mapper</span> <span class="o">=</span> <span class="n">LogColorMapper</span><span class="p">(</span><span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Plasma256&quot;</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">image</span><span class="p">([</span><span class="n">ds</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="s1">&#39;lDp&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">],</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">dw</span><span class="o">=</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">10</span> <span class="o">**</span> <span class="n">y0</span><span class="p">,</span> <span class="n">dh</span><span class="o">=</span><span class="mi">10</span> <span class="o">**</span> <span class="n">y1</span> <span class="o">-</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">y0</span><span class="p">,</span>
+            <span class="n">color_mapper</span><span class="o">=</span><span class="n">color_mapper</span><span class="p">)</span>
+    <span class="c1">######### COLOR BAR #############</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="n">get_colorbar</span><span class="p">(</span><span class="n">color_mapper</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">vmin</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cb</span><span class="p">,</span> <span class="n">p</span></div>
+
+
+<div class="viewcode-block" id="get_colorbar"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.get_colorbar">[docs]</a><span class="k">def</span> <span class="nf">get_colorbar</span><span class="p">(</span><span class="n">color_mapper</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">vmin</span><span class="p">):</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">y_axis_type</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">x_range</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">x_range</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">x_range</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">x_range</span><span class="o">.</span><span class="n">min_interval</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="c1"># cb.y_range.bounds=[10,100]</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">min_border_left</span> <span class="o">=</span> <span class="mi">60</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_scroll</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">tools</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">toolbar_location</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">y_range</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">vmin</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">y_range</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">vmax</span>
+    <span class="n">cbar</span> <span class="o">=</span> <span class="n">ColorBar</span><span class="p">(</span><span class="n">color_mapper</span><span class="o">=</span><span class="n">color_mapper</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">callback</span> <span class="o">=</span> <span class="n">CustomJS</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color_mapper</span><span class="o">=</span><span class="n">color_mapper</span><span class="p">,</span> <span class="n">y_range</span><span class="o">=</span><span class="n">cb</span><span class="o">.</span><span class="n">y_range</span><span class="p">),</span> <span class="n">code</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        color_mapper.low = y_range.start</span>
+<span class="s2">        color_mapper.high = y_range.end</span>
+<span class="s2">        color_mapper.change.emit();</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">y_range</span><span class="o">.</span><span class="n">js_on_change</span><span class="p">(</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">cbar</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">)</span>
+    <span class="n">cbar</span><span class="o">.</span><span class="n">major_label_text_font_size</span> <span class="o">=</span> <span class="s2">&quot;0.1px&quot;</span>
+    <span class="k">return</span> <span class="n">cb</span></div>
+
+
+<div class="viewcode-block" id="remote_jupyter_proxy_url"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.basic_funs.remote_jupyter_proxy_url">[docs]</a><span class="k">def</span> <span class="nf">remote_jupyter_proxy_url</span><span class="p">(</span><span class="n">port</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Callable to configure Bokeh&#39;s show method when a proxy must be</span>
+<span class="sd">    configured.</span>
+
+<span class="sd">    If port is None we&#39;re asking about the URL</span>
+<span class="sd">    for the origin header.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># asdf</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="kn">import</span> <span class="nn">urllib</span>
+
+    <span class="c1"># base_url = os.environ[&#39;EXTERNAL_URL&#39;]</span>
+    <span class="n">base_url</span> <span class="o">=</span> <span class="s2">&quot;http://128.214.253.41&quot;</span>
+    <span class="n">host</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">base_url</span><span class="p">)</span><span class="o">.</span><span class="n">netloc</span>
+
+    <span class="c1"># If port is None we&#39;re asking for the URL origin</span>
+    <span class="c1"># so return the public hostname.</span>
+    <span class="k">if</span> <span class="n">port</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">host</span>
+
+    <span class="n">service_url_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;JUPYTERHUB_SERVICE_PREFIX&quot;</span><span class="p">]</span>
+    <span class="n">proxy_url_path</span> <span class="o">=</span> <span class="s2">&quot;proxy/</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">port</span>
+
+    <span class="n">user_url</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urljoin</span><span class="p">(</span><span class="n">base_url</span><span class="p">,</span> <span class="n">service_url_path</span><span class="p">)</span>
+    <span class="n">full_url</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urljoin</span><span class="p">(</span><span class="n">user_url</span><span class="p">,</span> <span class="n">proxy_url_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">full_url</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, diego aliaga.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

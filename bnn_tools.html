@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bnn_tools package &mdash; bnn tools 0.1.111.post4.dev0+gc460eba documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="bnn_tools" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            bnn tools
+          </a>
+              <div class="version">
+                0.1.111.post4.dev0+gc460eba
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">bnn_tools</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">bnn_tools package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-bnn_tools.basic_funs">bnn_tools.basic_funs module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.basic_bokeh_plot"><code class="docutils literal notranslate"><span class="pre">basic_bokeh_plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.bokeh_plot_psd"><code class="docutils literal notranslate"><span class="pre">bokeh_plot_psd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.dp_regrid"><code class="docutils literal notranslate"><span class="pre">dp_regrid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.dp_regrid_old"><code class="docutils literal notranslate"><span class="pre">dp_regrid_old()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.format_ticks"><code class="docutils literal notranslate"><span class="pre">format_ticks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.format_ticks2"><code class="docutils literal notranslate"><span class="pre">format_ticks2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.from_Dp2dDp"><code class="docutils literal notranslate"><span class="pre">from_Dp2dDp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.from_Dp2lDp"><code class="docutils literal notranslate"><span class="pre">from_Dp2lDp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.from_lDp2Dp"><code class="docutils literal notranslate"><span class="pre">from_lDp2Dp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.from_lDp2dlDp"><code class="docutils literal notranslate"><span class="pre">from_lDp2dlDp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.from_sec2time"><code class="docutils literal notranslate"><span class="pre">from_sec2time()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.from_time2sec"><code class="docutils literal notranslate"><span class="pre">from_time2sec()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.get_N"><code class="docutils literal notranslate"><span class="pre">get_N()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.get_colorbar"><code class="docutils literal notranslate"><span class="pre">get_colorbar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.get_dN"><code class="docutils literal notranslate"><span class="pre">get_dN()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.get_exact_N"><code class="docutils literal notranslate"><span class="pre">get_exact_N()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.plot_psd"><code class="docutils literal notranslate"><span class="pre">plot_psd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.remote_jupyter_proxy_url"><code class="docutils literal notranslate"><span class="pre">remote_jupyter_proxy_url()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.resample_ts"><code class="docutils literal notranslate"><span class="pre">resample_ts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.resample_ts_old"><code class="docutils literal notranslate"><span class="pre">resample_ts_old()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.set_Dp"><code class="docutils literal notranslate"><span class="pre">set_Dp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.set_lDp"><code class="docutils literal notranslate"><span class="pre">set_lDp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.set_sec"><code class="docutils literal notranslate"><span class="pre">set_sec()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.set_time"><code class="docutils literal notranslate"><span class="pre">set_time()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.basic_funs.upsample_ts"><code class="docutils literal notranslate"><span class="pre">upsample_ts()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-bnn_tools.bnn_array">bnn_tools.bnn_array module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.bnn_array.BNN"><code class="docutils literal notranslate"><span class="pre">BNN</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-bnn_tools.coag_sink">bnn_tools.coag_sink module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.add_lims_lDp"><code class="docutils literal notranslate"><span class="pre">add_lims_lDp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.calCS_single_par"><code class="docutils literal notranslate"><span class="pre">calCS_single_par()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.calc_CS"><code class="docutils literal notranslate"><span class="pre">calc_CS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.calc_CunSlip"><code class="docutils literal notranslate"><span class="pre">calc_CunSlip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.calc_Kn"><code class="docutils literal notranslate"><span class="pre">calc_Kn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.calc_MFP"><code class="docutils literal notranslate"><span class="pre">calc_MFP()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.calc_bin_CS"><code class="docutils literal notranslate"><span class="pre">calc_bin_CS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.calc_coagS"><code class="docutils literal notranslate"><span class="pre">calc_coagS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.calc_coag_coef_fuchs"><code class="docutils literal notranslate"><span class="pre">calc_coag_coef_fuchs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.calc_coag_snk_xr"><code class="docutils literal notranslate"><span class="pre">calc_coag_snk_xr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.calc_diffusivity"><code class="docutils literal notranslate"><span class="pre">calc_diffusivity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.calc_velocity"><code class="docutils literal notranslate"><span class="pre">calc_velocity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.calc_viscosity"><code class="docutils literal notranslate"><span class="pre">calc_viscosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.kB"><code class="docutils literal notranslate"><span class="pre">kB</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.test_CoagSnk"><code class="docutils literal notranslate"><span class="pre">test_CoagSnk()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.coag_sink.test_xarray_form"><code class="docutils literal notranslate"><span class="pre">test_xarray_form()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-bnn_tools.funs">bnn_tools.funs module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.Z2dp"><code class="docutils literal notranslate"><span class="pre">Z2dp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.cal_Cs"><code class="docutils literal notranslate"><span class="pre">cal_Cs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.cal_Kn"><code class="docutils literal notranslate"><span class="pre">cal_Kn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.cal_mfp"><code class="docutils literal notranslate"><span class="pre">cal_mfp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.cal_vis"><code class="docutils literal notranslate"><span class="pre">cal_vis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.combine_2_spectras"><code class="docutils literal notranslate"><span class="pre">combine_2_spectras()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.dp2Z"><code class="docutils literal notranslate"><span class="pre">dp2Z()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.dp_from_mob_T_P"><code class="docutils literal notranslate"><span class="pre">dp_from_mob_T_P()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.ds2sum"><code class="docutils literal notranslate"><span class="pre">ds2sum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.is_regular_grid"><code class="docutils literal notranslate"><span class="pre">is_regular_grid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.mob_from_dp_T_P"><code class="docutils literal notranslate"><span class="pre">mob_from_dp_T_P()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.open_psm2ds"><code class="docutils literal notranslate"><span class="pre">open_psm2ds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.open_smps2ds"><code class="docutils literal notranslate"><span class="pre">open_smps2ds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.open_sum2ds"><code class="docutils literal notranslate"><span class="pre">open_sum2ds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.open_sum2ds_old_wrong"><code class="docutils literal notranslate"><span class="pre">open_sum2ds_old_wrong()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs.timestamp2matlab"><code class="docutils literal notranslate"><span class="pre">timestamp2matlab()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-bnn_tools.funs_bokeh_flx">bnn_tools.funs_bokeh_flx module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.add_mouse_pan"><code class="docutils literal notranslate"><span class="pre">add_mouse_pan()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.add_time_pan"><code class="docutils literal notranslate"><span class="pre">add_time_pan()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.add_z_pan_timeseries"><code class="docutils literal notranslate"><span class="pre">add_z_pan_timeseries()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.create_plot_surface"><code class="docutils literal notranslate"><span class="pre">create_plot_surface()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.create_th_slice_point"><code class="docutils literal notranslate"><span class="pre">create_th_slice_point()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.ensure_date_ms"><code class="docutils literal notranslate"><span class="pre">ensure_date_ms()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.get_angle"><code class="docutils literal notranslate"><span class="pre">get_angle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.get_cs_sum_z"><code class="docutils literal notranslate"><span class="pre">get_cs_sum_z()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.get_drag_button"><code class="docutils literal notranslate"><span class="pre">get_drag_button()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.get_plot_flx_layout"><code class="docutils literal notranslate"><span class="pre">get_plot_flx_layout()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.get_plot_slice"><code class="docutils literal notranslate"><span class="pre">get_plot_slice()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.get_surface_xs_ys"><code class="docutils literal notranslate"><span class="pre">get_surface_xs_ys()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.get_th_cs"><code class="docutils literal notranslate"><span class="pre">get_th_cs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.get_time_plot"><code class="docutils literal notranslate"><span class="pre">get_time_plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.get_vertical_xs_ys"><code class="docutils literal notranslate"><span class="pre">get_vertical_xs_ys()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.interp_ds_th_z_r"><code class="docutils literal notranslate"><span class="pre">interp_ds_th_z_r()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.interp_ds_time_ms"><code class="docutils literal notranslate"><span class="pre">interp_ds_time_ms()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.open_ds_alto"><code class="docutils literal notranslate"><span class="pre">open_ds_alto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.open_ds_chc"><code class="docutils literal notranslate"><span class="pre">open_ds_chc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.plot_flx_server"><code class="docutils literal notranslate"><span class="pre">plot_flx_server()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.set_wheel"><code class="docutils literal notranslate"><span class="pre">set_wheel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.string_time_to_ms"><code class="docutils literal notranslate"><span class="pre">string_time_to_ms()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.surface_intp_th"><code class="docutils literal notranslate"><span class="pre">surface_intp_th()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bnn_tools.funs_bokeh_flx.time_from_ms_to_dt"><code class="docutils literal notranslate"><span class="pre">time_from_ms_to_dt()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-bnn_tools">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bnn tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">bnn_tools</a></li>
+      <li class="breadcrumb-item active">bnn_tools package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/bnn_tools.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bnn-tools-package">
+<h1>bnn_tools package<a class="headerlink" href="#bnn-tools-package" title="Permalink to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-bnn_tools.basic_funs">
+<span id="bnn-tools-basic-funs-module"></span><h2>bnn_tools.basic_funs module<a class="headerlink" href="#module-bnn_tools.basic_funs" title="Permalink to this heading">¶</a></h2>
+<p>this module contains basic funcionts that are used in other modules
+it should bot import anything from this packages except maybe constants</p>
+<p>some of the function are loosely based on Runlongs code</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.basic_bokeh_plot">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">basic_bokeh_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#basic_bokeh_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.basic_bokeh_plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.bokeh_plot_psd">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">bokeh_plot_psd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#bokeh_plot_psd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.bokeh_plot_psd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.dp_regrid">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">dp_regrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">da</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_subs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_dy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#dp_regrid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.dp_regrid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.dp_regrid_old">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">dp_regrid_old</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">da</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_subs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_dy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#dp_regrid_old"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.dp_regrid_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.format_ticks">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">format_ticks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#format_ticks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.format_ticks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format ticks on the x-axis of a matplotlib plot with dates.
+In increases the numbers of ticks
+This funcitons is superseded by format_ticks2 and is only kept for
+backward compatibility</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ax</strong><span class="classifier">matplotlib.axes.Axes</span></dt><dd><p>The axes object to format ticks.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_ticks</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.format_ticks2">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">format_ticks2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#format_ticks2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.format_ticks2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format the x-axis of a matplotlib plot to show dates and ticks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ax</strong><span class="classifier">matplotlib.axes.Axes</span></dt><dd><p>The axes object to be modified.</p>
+</dd>
+<dt><strong>M</strong><span class="classifier">int</span></dt><dd><p>The maximum number of major ticks to be displayed.</p>
+</dd>
+<dt><strong>m</strong><span class="classifier">int</span></dt><dd><p>The maximum number of minor ticks to be displayed.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dates</span> <span class="o">=</span> <span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">365</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">365</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_ticks2</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.from_Dp2dDp">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">from_Dp2dDp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataArray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dataset</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataArray</span></span></span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#from_Dp2dDp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.from_Dp2dDp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.from_Dp2lDp">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">from_Dp2lDp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataArray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dataset</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataArray</span></span></span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#from_Dp2lDp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.from_Dp2lDp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert particle diameter to log10(particle diameter)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>o</strong><span class="classifier">xr.Dataset</span></dt><dd><p>Dataset with a ‘Dp’ variable</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>xr.Dataset</dt><dd><p>Dataset with a ‘lDp’ variable added,
+where ‘lDp’ is the base-10 logarithm of ‘Dp’.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.from_lDp2Dp">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">from_lDp2Dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataArray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dataset</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataArray</span></span></span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#from_lDp2Dp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.from_lDp2Dp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert log10(particle diameter) to particle diameter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>o</strong><span class="classifier">xr.Dataset</span></dt><dd><p>Dataset with a ‘lDp’ variable</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>xr.Dataset</dt><dd><p>Dataset with a ‘Dp’ variable added,
+where ‘Dp’ is the base-10 exponential of ‘lDp’.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.from_lDp2dlDp">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">from_lDp2dlDp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataArray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dataset</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataArray</span></span></span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#from_lDp2dlDp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.from_lDp2dlDp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the interval between log10(particle diameters)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>o</strong><span class="classifier">xr.Dataset</span></dt><dd><p>Dataset with a ‘lDp’ variable</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>xr.Dataset</dt><dd><p>Dataset with a ‘dlDp’ variable added,
+where ‘dlDp’ is the difference in log10(particle diameter)
+between consecutive bins.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.from_sec2time">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">from_sec2time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataArray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dataset</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataArray</span></span></span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#from_sec2time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.from_sec2time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert seconds since 1970-01-01 to time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>o</strong><span class="classifier">Union[xr.Dataset, xr.DataArray]</span></dt><dd><p>DataArray or Dataset with a ‘secs’ coordinate</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>Union[xr.Dataset, xr.DataArray]</dt><dd><p>DataArray or Dataset with a ‘time’ coordinate added,
+where ‘time’ is the date and time corresponding to the
+number of seconds since 1970-01-01.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.from_time2sec">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">from_time2sec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataArray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dataset</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataArray</span></span></span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#from_time2sec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.from_time2sec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert time to seconds since 1970-01-01</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>o</strong><span class="classifier">Union[xr.Dataset, xr.DataArray]</span></dt><dd><p>DataArray or Dataset with a ‘time’ coordinate</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>Union[xr.Dataset, xr.DataArray]</dt><dd><p>DataArray or Dataset with a ‘secs’ coordinate added,
+where ‘secs’ is the time in seconds since 1970-01-01.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.get_N">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">get_N</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#get_N"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.get_N" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.get_colorbar">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">get_colorbar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color_mapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#get_colorbar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.get_colorbar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.get_dN">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">get_dN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#get_dN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.get_dN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.get_exact_N">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">get_exact_N</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dc1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Dp_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Dp_max</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#get_exact_N"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.get_exact_N" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts the exact number of particles in the range Dp_min to Dp_max using linear integration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dc1</strong><span class="classifier">xr.DataArray</span></dt><dd><p>Array-like variable containing the number distribution function with log-normal diameter.</p>
+</dd>
+<dt><strong>Dp_min</strong><span class="classifier">float</span></dt><dd><p>Minimum diameter in meters for which particle number is to be calculated.</p>
+</dd>
+<dt><strong>Dp_max</strong><span class="classifier">float</span></dt><dd><p>Maximum diameter in meters for which particle number is to be calculated.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>xr.DataArray</dt><dd><p>Array-like variable containing the exact number of particles in the specified diameter range.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.plot_psd">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">plot_psd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#plot_psd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.plot_psd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.remote_jupyter_proxy_url">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">remote_jupyter_proxy_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#remote_jupyter_proxy_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.remote_jupyter_proxy_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callable to configure Bokeh’s show method when a proxy must be
+configured.</p>
+<p>If port is None we’re asking about the URL
+for the origin header.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.resample_ts">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">resample_ts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt_secs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#resample_ts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.resample_ts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resamples a time series with a given time step.
+it assumes that the time stamp is centered aligned.
+the result is also ceter aligned</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>o</strong><span class="classifier">Union[xr.Dataset, xr.DataArray]</span></dt><dd><p>A dataset or data array with a time dimension.</p>
+</dd>
+<dt><strong>dt_secs</strong><span class="classifier">float</span></dt><dd><p>The new time step in seconds. Must be greater than or equal to the original time step.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>Union[xr.Dataset, xr.DataArray]</dt><dd><p>The resampled time series.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function resamples the time series to a new time step using linear interpolation.
+It is intended for use with xarray data arrays and datasets.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Resample a dataset with a new time step of 10 seconds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_ds</span> <span class="o">=</span> <span class="n">resample_ts</span><span class="p">(</span><span class="n">orig_ds</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Resample a data array with a new time step of 60 seconds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_da</span> <span class="o">=</span> <span class="n">resample_ts</span><span class="p">(</span><span class="n">orig_da</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.resample_ts_old">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">resample_ts_old</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt_secs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#resample_ts_old"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.resample_ts_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.set_Dp">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">set_Dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#set_Dp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.set_Dp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.set_lDp">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">set_lDp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#set_lDp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.set_lDp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.set_sec">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">set_sec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#set_sec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.set_sec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.set_time">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">set_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#set_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.set_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.basic_funs.upsample_ts">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">upsample_ts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#upsample_ts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.upsample_ts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-bnn_tools.bnn_array">
+<span id="bnn-tools-bnn-array-module"></span><h2>bnn_tools.bnn_array module<a class="headerlink" href="#module-bnn_tools.bnn_array" title="Permalink to this heading">¶</a></h2>
+<p>add accessors to xarray so that conversions are easier</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bnn_tools.bnn_array.</span></span><span class="sig-name descname"><span class="pre">BNN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xarray_obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.dp_regrid">
+<span class="sig-name descname"><span class="pre">dp_regrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_subs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_dy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.dp_regrid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.dp_regrid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.from_Dp2dDp">
+<span class="sig-name descname"><span class="pre">from_Dp2dDp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.from_Dp2dDp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.from_Dp2dDp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.from_Dp2lDp">
+<span class="sig-name descname"><span class="pre">from_Dp2lDp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.from_Dp2lDp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.from_Dp2lDp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.from_lDp2Dp">
+<span class="sig-name descname"><span class="pre">from_lDp2Dp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.from_lDp2Dp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.from_lDp2Dp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.from_lDp2dlDp">
+<span class="sig-name descname"><span class="pre">from_lDp2dlDp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.from_lDp2dlDp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.from_lDp2dlDp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.from_sec2time">
+<span class="sig-name descname"><span class="pre">from_sec2time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.from_sec2time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.from_sec2time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.from_time2sec">
+<span class="sig-name descname"><span class="pre">from_time2sec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.from_time2sec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.from_time2sec" title="Permalink to this definition">¶</a></dt>
+<dd><p>change time to sec</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.get_N">
+<span class="sig-name descname"><span class="pre">get_N</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.get_N"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.get_N" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.get_dN">
+<span class="sig-name descname"><span class="pre">get_dN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.get_dN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.get_dN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.get_exact_N">
+<span class="sig-name descname"><span class="pre">get_exact_N</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Dp_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Dp_max</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.get_exact_N"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.get_exact_N" title="Permalink to this definition">¶</a></dt>
+<dd><p>counts the exact number of particles in the range Dp_min Dp_max using linear intregration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Dp_min</strong><span class="classifier">float</span></dt><dd><p>inferior particle diameter limit in meters</p>
+</dd>
+<dt><strong>Dp_max</strong><span class="classifier">float</span></dt><dd><p>superior particle diameter limit in meters</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>array like</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.ln">
+<span class="sig-name descname"><span class="pre">ln</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ln</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.ln"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.ln" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.plot_psd">
+<span class="sig-name descname"><span class="pre">plot_psd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.plot_psd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.plot_psd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.resample_ts">
+<span class="sig-name descname"><span class="pre">resample_ts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.resample_ts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.resample_ts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.set_Dp">
+<span class="sig-name descname"><span class="pre">set_Dp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.set_Dp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.set_Dp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.set_lDp">
+<span class="sig-name descname"><span class="pre">set_lDp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.set_lDp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.set_lDp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.set_sec">
+<span class="sig-name descname"><span class="pre">set_sec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.set_sec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.set_sec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.set_time">
+<span class="sig-name descname"><span class="pre">set_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.set_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.set_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.u">
+<span class="sig-name descname"><span class="pre">u</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.u"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.u" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN.upsample_ts">
+<span class="sig-name descname"><span class="pre">upsample_ts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN.upsample_ts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN.upsample_ts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-bnn_tools.coag_sink">
+<span id="bnn-tools-coag-sink-module"></span><h2>bnn_tools.coag_sink module<a class="headerlink" href="#module-bnn_tools.coag_sink" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.add_lims_lDp">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">add_lims_lDp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/coag_sink.html#add_lims_lDp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.coag_sink.add_lims_lDp" title="Permalink to this definition">¶</a></dt>
+<dd><p>add bin edges to the Dp dimension.
+the edges are calculated in log space
+Parameters
+———-
+dc : xr.DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>xr.DataFrame</dt><dd><p>original <cite>dc</cite> with lDpm, lDpM, Dpm and DpM added.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.calCS_single_par">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">calCS_single_par</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dp_m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/coag_sink.html#calCS_single_par"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.coag_sink.calCS_single_par" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.calc_CS">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">calc_CS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dN_m3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/coag_sink.html#calc_CS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.coag_sink.calc_CS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.calc_CunSlip">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">calc_CunSlip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Kn</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/coag_sink.html#calc_CunSlip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.coag_sink.calc_CunSlip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.calc_Kn">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">calc_Kn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mfp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/coag_sink.html#calc_Kn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.coag_sink.calc_Kn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.calc_MFP">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">calc_MFP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/coag_sink.html#calc_MFP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.coag_sink.calc_MFP" title="Permalink to this definition">¶</a></dt>
+<dd><p>mean free path approx in air</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>float</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Mean free path of air, Eq. 2-10, P19, Aerosol Measurement, Third Edition</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.calc_bin_CS">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">calc_bin_CS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dN_m3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/coag_sink.html#calc_bin_CS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.coag_sink.calc_bin_CS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.calc_coagS">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">calc_coagS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Dp_d1_d2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dN_total_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/coag_sink.html#calc_coagS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.coag_sink.calc_coagS" title="Permalink to this definition">¶</a></dt>
+<dd><p>be aware that we are only considering coagS due to
+particle higher thant Dp_d1_d2</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Dp_d1_d2</strong></dt><dd></dd>
+<dt><strong>P</strong></dt><dd></dd>
+<dt><strong>T</strong></dt><dd></dd>
+<dt><strong>alpha</strong></dt><dd></dd>
+<dt><strong>dN_total_</strong></dt><dd></dd>
+<dt><strong>dens1</strong></dt><dd></dd>
+<dt><strong>dens2</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"></dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.calc_coag_coef_fuchs">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">calc_coag_coef_fuchs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/coag_sink.html#calc_coag_coef_fuchs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.coag_sink.calc_coag_coef_fuchs" title="Permalink to this definition">¶</a></dt>
+<dd><p>diameter1, density1, diameter2, density2, temperature, pressure,
+mass accomodation coefficient
+The output is : coagulation coefficient between
+two particles (in air), in m^3/s
+Considering that T and P may vary with time in some
+appications and the d1, d2 arrays may not be predetermined
+we use a least efficient way to calculate the coagulation coefficient</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>d1</strong></dt><dd><p>size one in m</p>
+</dd>
+<dt><strong>dens1</strong></dt><dd><p>dens particle one</p>
+</dd>
+<dt><strong>d2</strong></dt><dd><p>size two in m</p>
+</dd>
+<dt><strong>dens2</strong></dt><dd><p>dens particle two</p>
+</dd>
+<dt><strong>T</strong></dt><dd><p>temperature in k</p>
+</dd>
+<dt><strong>P</strong></dt><dd><p>pressure in Pa</p>
+</dd>
+<dt><strong>alpha</strong></dt><dd><p>accomodation coef. (usually 1)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.calc_coag_snk_xr">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">calc_coag_snk_xr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dN_tot_m3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/coag_sink.html#calc_coag_snk_xr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.coag_sink.calc_coag_snk_xr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate coagulation sink.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dN_tot_m3</strong><span class="classifier">float</span></dt><dd><p>Number of particles in the bin per m3.</p>
+</dd>
+<dt><strong>d1</strong><span class="classifier">float</span></dt><dd><p>Lower diameter in m.</p>
+</dd>
+<dt><strong>d2</strong><span class="classifier">float</span></dt><dd><p>Upper diameter in m.</p>
+</dd>
+<dt><strong>P</strong><span class="classifier">float</span></dt><dd><p>Pressure in pascals.</p>
+</dd>
+<dt><strong>T</strong><span class="classifier">float</span></dt><dd><p>Temperature in Kelvin.</p>
+</dd>
+<dt><strong>alpha</strong><span class="classifier">float, optional</span></dt><dd><p>Mass accommodation coefficient (usually 1).</p>
+</dd>
+<dt><strong>dens1</strong><span class="classifier">float, optional</span></dt><dd><p>Density 1 kg/m3, usually 1200.</p>
+</dd>
+<dt><strong>dens2</strong><span class="classifier">float, optional</span></dt><dd><p>Density 2 kg/m3, usually 1200.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple</dt><dd><dl class="simple">
+<dt>A tuple containing:</dt><dd><ul class="simple">
+<li><p>Number of particles lost to coagulation between d1 and d2 in [# m-3 s-1]</p></li>
+<li><p>The true minimum diameter</p></li>
+<li><p>The true max bin</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.calc_diffusivity">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">calc_diffusivity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/coag_sink.html#calc_diffusivity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.coag_sink.calc_diffusivity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.calc_velocity">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">calc_velocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/coag_sink.html#calc_velocity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.coag_sink.calc_velocity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.calc_viscosity">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">calc_viscosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/coag_sink.html#calc_viscosity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.coag_sink.calc_viscosity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.kB">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">kB</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.38064852e-23</span></em><a class="headerlink" href="#bnn_tools.coag_sink.kB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boltzmann constant in SI units</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.test_CoagSnk">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">test_CoagSnk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/coag_sink.html#test_CoagSnk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.coag_sink.test_CoagSnk" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.coag_sink.test_xarray_form">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.coag_sink.</span></span><span class="sig-name descname"><span class="pre">test_xarray_form</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/coag_sink.html#test_xarray_form"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.coag_sink.test_xarray_form" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-bnn_tools.funs">
+<span id="bnn-tools-funs-module"></span><h2>bnn_tools.funs module<a class="headerlink" href="#module-bnn_tools.funs" title="Permalink to this heading">¶</a></h2>
+<p>6/2/21</p>
+<p>diego.aliaga at helsinki dot fi
+based on Runlongs code</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.Z2dp">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">Z2dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mfp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#Z2dp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.Z2dp" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert electrical mobility (Z) to particle electrical mobility diameter (
+dp) according to line 12, dp/Cs(dp) is inversely proportional to Z so some
+iteration is needed to solve dp from dp/Cs(dp), e.g., using a solver.
+This function use a straightforward iteration method since it is not
+computionally expensive
+- diego: i feel this function is prone to errors and is not vectorizable</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.cal_Cs">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">cal_Cs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Kn</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#cal_Cs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.cal_Cs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.cal_Kn">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">cal_Kn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mfp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#cal_Kn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.cal_Kn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.cal_mfp">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">cal_mfp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">293.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">101325</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#cal_mfp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.cal_mfp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.cal_vis">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">cal_vis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">293.15</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#cal_vis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.cal_vis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.combine_2_spectras">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">combine_2_spectras</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">darray_min_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">darray_max_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut_point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#combine_2_spectras"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.combine_2_spectras" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.dp2Z">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">dp2Z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mfp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#dp2Z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.dp2Z" title="Permalink to this definition">¶</a></dt>
+<dd><p>the usual expression of electrical mobility, fractal dimension is
+assumed to be 1.0 see, e.g., Eq. 15.21, P322, Aerosol Technology,
+Second Edition by William Hinds
+:param dp: diameter particle
+:param mfp: mean free path
+:param vis: viscosity
+:param n:
+:return: electric mobility Z</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.dp_from_mob_T_P">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">dp_from_mob_T_P</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mob_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#dp_from_mob_T_P"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.dp_from_mob_T_P" title="Permalink to this definition">¶</a></dt>
+<dd><p>this method uses 3rd order interpolation and therefore is not
+exact but should by a very fast good approx</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.ds2sum">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">ds2sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_out</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#ds2sum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.ds2sum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.is_regular_grid">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">is_regular_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance_percentage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#is_regular_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.is_regular_grid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.mob_from_dp_T_P">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">mob_from_dp_T_P</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#mob_from_dp_T_P"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.mob_from_dp_T_P" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.open_psm2ds">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">open_psm2ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#open_psm2ds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.open_psm2ds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.open_smps2ds">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">open_smps2ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#open_smps2ds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.open_smps2ds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.open_sum2ds">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">open_sum2ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_sum</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#open_sum2ds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.open_sum2ds" title="Permalink to this definition">¶</a></dt>
+<dd><p>opens a sum path and created an xarray ds out of it
+im assuming the dp size from sum is the geomean location of the bin
+2022-07-02_01-17-17
+this is a wrong assumption. it is the limits and thats why you have an extra lim</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.open_sum2ds_old_wrong">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">open_sum2ds_old_wrong</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_sum</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#open_sum2ds_old_wrong"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.open_sum2ds_old_wrong" title="Permalink to this definition">¶</a></dt>
+<dd><p>opens a sum path and created an xarray ds out of it
+im assuming the dp size from sum is the geomean location of the bin
+2022-07-02_01-17-17
+this is a wrong assumption. it is the limits and thats why you have an extra lim</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs.timestamp2matlab">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs.</span></span><span class="sig-name descname"><span class="pre">timestamp2matlab</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs.html#timestamp2matlab"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs.timestamp2matlab" title="Permalink to this definition">¶</a></dt>
+<dd><p>return matlab time in days from pd.Timestamp</p>
+</dd></dl>
+
+</section>
+<section id="module-bnn_tools.funs_bokeh_flx">
+<span id="bnn-tools-funs-bokeh-flx-module"></span><h2>bnn_tools.funs_bokeh_flx module<a class="headerlink" href="#module-bnn_tools.funs_bokeh_flx" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.add_mouse_pan">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">add_mouse_pan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Figure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_vertical</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drag_button</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_source_circle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ColumnDataSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_source_point_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cen_lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cen_lat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#add_mouse_pan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.add_mouse_pan" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.add_time_pan">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">add_time_pan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_data_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_data_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slice_data_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_point_data_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cen_lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cen_lon</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#add_time_pan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.add_time_pan" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.add_z_pan_timeseries">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">add_z_pan_timeseries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line_data_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cen_lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cen_lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">th_point_data_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_slice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_r_point_data_source</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#add_z_pan_timeseries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.add_z_pan_timeseries" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.create_plot_surface">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">create_plot_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#create_plot_surface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.create_plot_surface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.create_th_slice_point">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">create_th_slice_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Figure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cen_lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cen_lat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#create_th_slice_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.create_th_slice_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.ensure_date_ms">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">ensure_date_ms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#ensure_date_ms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.ensure_date_ms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.get_angle">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">get_angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cen_lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cen_lat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#get_angle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.get_angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.get_cs_sum_z">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">get_cs_sum_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#get_cs_sum_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.get_cs_sum_z" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.get_drag_button">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">get_drag_button</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#get_drag_button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.get_drag_button" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.get_plot_flx_layout">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">get_plot_flx_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cen_lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cen_lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_axis_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'log'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#get_plot_flx_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.get_plot_flx_layout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.get_plot_slice">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">get_plot_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_axis_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'log'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#get_plot_slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.get_plot_slice" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.get_surface_xs_ys">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">get_surface_xs_ys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#get_surface_xs_ys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.get_surface_xs_ys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.get_th_cs">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">get_th_cs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds_slice</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#get_th_cs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.get_th_cs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.get_time_plot">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">get_time_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#get_time_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.get_time_plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.get_vertical_xs_ys">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">get_vertical_xs_ys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds_slice</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#get_vertical_xs_ys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.get_vertical_xs_ys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.interp_ds_th_z_r">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">interp_ds_th_z_r</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#interp_ds_th_z_r"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.interp_ds_th_z_r" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.interp_ds_time_ms">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">interp_ds_time_ms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_ms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#interp_ds_time_ms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.interp_ds_time_ms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.open_ds_alto">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">open_ds_alto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#open_ds_alto"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.open_ds_alto" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.open_ds_chc">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">open_ds_chc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#open_ds_chc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.open_ds_chc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.plot_flx_server">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">plot_flx_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cen_lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cen_lon</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#plot_flx_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.plot_flx_server" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.set_wheel">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">set_wheel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#set_wheel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.set_wheel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.string_time_to_ms">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">string_time_to_ms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#string_time_to_ms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.string_time_to_ms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.surface_intp_th">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">surface_intp_th</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">th</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#surface_intp_th"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.surface_intp_th" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bnn_tools.funs_bokeh_flx.time_from_ms_to_dt">
+<span class="sig-prename descclassname"><span class="pre">bnn_tools.funs_bokeh_flx.</span></span><span class="sig-name descname"><span class="pre">time_from_ms_to_dt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_ms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/funs_bokeh_flx.html#time_from_ms_to_dt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.funs_bokeh_flx.time_from_ms_to_dt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-bnn_tools">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bnn_tools" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="bnn_tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, diego aliaga.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

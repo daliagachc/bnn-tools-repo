@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bnn_tools.funs_bokeh_flx &mdash; bnn tools 0.1.111.post4.dev0+gc460eba documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            bnn tools
+          </a>
+              <div class="version">
+                0.1.111.post4.dev0+gc460eba
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">bnn_tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">bnn tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">bnn_tools.funs_bokeh_flx</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for bnn_tools.funs_bokeh_flx</h1><div class="highlight"><pre>
+<span></span><span class="c1"># ---</span>
+<span class="c1"># jupyter:</span>
+<span class="c1">#   jupytext:</span>
+<span class="c1">#     text_representation:</span>
+<span class="c1">#       extension: .py</span>
+<span class="c1">#       format_name: percent</span>
+<span class="c1">#       format_version: &#39;1.3&#39;</span>
+<span class="c1">#       jupytext_version: 1.13.8</span>
+<span class="c1">#   kernelspec:</span>
+<span class="c1">#     display_name: Python 3 (ipykernel)</span>
+<span class="c1">#     language: python</span>
+<span class="c1">#     name: python3</span>
+<span class="c1"># ---</span>
+
+
+<span class="c1"># load and autoreload</span>
+
+<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">get_ipython</span>
+
+<span class="c1"># noinspection PyBroadException</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">_magic</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">magic</span>
+    <span class="n">_magic</span><span class="p">(</span><span class="s1">&#39;load_ext autoreload&#39;</span><span class="p">)</span>
+    <span class="n">_magic</span><span class="p">(</span><span class="s1">&#39;autoreload 2&#39;</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="c1"># noinspection PyUnresolvedReferences</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="c1"># noinspection PyUnresolvedReferences</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="c1"># noinspection PyUnresolvedReferences</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="c1"># noinspection PyUnresolvedReferences</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="c1"># noinspection PyUnresolvedReferences</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># noinspection PyUnresolvedReferences</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="c1"># noinspection PyUnresolvedReferences</span>
+<span class="kn">import</span> <span class="nn">matplotlib.colors</span>
+<span class="c1"># noinspection PyUnresolvedReferences</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1"># noinspection PyUnresolvedReferences</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+<span class="kn">import</span> <span class="nn">bokeh.plotting</span> <span class="k">as</span> <span class="nn">bkp</span>
+<span class="kn">import</span> <span class="nn">bokeh.models</span> <span class="k">as</span> <span class="nn">bkm</span>
+<span class="kn">import</span> <span class="nn">bokeh.layouts</span> <span class="k">as</span> <span class="nn">bkl</span>
+<span class="kn">from</span> <span class="nn">bnn_tools</span> <span class="kn">import</span> <span class="n">basic_funs</span> <span class="k">as</span> <span class="n">bfu</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="c1"># from bnn_tools import gr_gui</span>
+
+<span class="n">CHC_LAT</span> <span class="o">=</span> <span class="o">-</span><span class="mf">16.350427</span>
+<span class="n">CHC_LON</span> <span class="o">=</span> <span class="o">-</span><span class="mf">68.131335</span>
+
+<span class="c1"># cen_lat = 3</span>
+<span class="c1"># cen_lon = 3</span>
+
+<span class="n">ALT_LAT</span> <span class="o">=</span> <span class="o">-</span><span class="mf">16.510154</span>
+<span class="n">ALT_LON</span> <span class="o">=</span> <span class="o">-</span><span class="mf">68.198745</span>
+
+<span class="n">R</span> <span class="o">=</span> <span class="s1">&#39;R_CENTER&#39;</span>
+<span class="n">T</span> <span class="o">=</span> <span class="s1">&#39;TH_CENTER&#39;</span>
+<span class="n">L</span> <span class="o">=</span> <span class="s1">&#39;lt&#39;</span>
+<span class="n">A</span> <span class="o">=</span> <span class="s1">&#39;AGE&#39;</span>
+<span class="n">C</span> <span class="o">=</span> <span class="s1">&#39;CONC&#39;</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="s1">&#39;ZMID&#39;</span>
+<span class="n">yL</span> <span class="o">=</span> <span class="s1">&#39;XLAT&#39;</span>
+<span class="n">xL</span> <span class="o">=</span> <span class="s1">&#39;XLONG&#39;</span>
+<span class="n">GA</span> <span class="o">=</span> <span class="s1">&#39;G_AREA&#39;</span>
+
+
+<div class="viewcode-block" id="get_plot_flx_layout"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.get_plot_flx_layout">[docs]</a><span class="k">def</span> <span class="nf">get_plot_flx_layout</span><span class="p">(</span><span class="n">cen_lat</span><span class="p">,</span> <span class="n">cen_lon</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">x_axis_type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">):</span>
+    <span class="c1"># noinspection PyUnusedLocal</span>
+    <span class="k">for</span> <span class="n">fake_init</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="c1"># d = &#39;2018-05-15 12&#39;</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="mi">5000</span>
+        <span class="n">th</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="mf">.2</span>
+
+        <span class="n">ds_t</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">loc</span><span class="p">[{</span><span class="n">L</span><span class="p">:</span> <span class="n">d</span><span class="p">}]</span>
+
+    <span class="c1"># noinspection PyUnusedLocal</span>
+    <span class="k">for</span> <span class="n">fake_p_center</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">p_cb</span><span class="p">,</span> <span class="n">p_cen</span><span class="p">,</span> <span class="n">surface_data_source</span> <span class="o">=</span> <span class="n">create_plot_surface</span><span class="p">(</span><span class="n">ds_t</span><span class="p">)</span>
+        <span class="n">th_point</span> <span class="o">=</span> <span class="n">create_th_slice_point</span><span class="p">(</span><span class="n">p_cen</span><span class="p">,</span> <span class="n">cen_lon</span><span class="o">=</span><span class="n">cen_lon</span><span class="p">,</span> <span class="n">cen_lat</span><span class="o">=</span><span class="n">cen_lat</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="n">plot_slice</span><span class="p">,</span>
+     <span class="n">c_bot</span><span class="p">,</span>
+     <span class="n">data_source_vertical</span><span class="p">,</span>
+     <span class="n">z_r_point</span><span class="p">)</span> <span class="o">=</span> <span class="n">get_plot_slice</span><span class="p">(</span><span class="n">ds_t</span><span class="p">,</span> <span class="n">th</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">x_axis_type</span><span class="o">=</span><span class="n">x_axis_type</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="n">plot_time</span><span class="p">,</span>
+     <span class="n">circle_glyph_time</span><span class="p">,</span>
+     <span class="n">line_time_glyph</span><span class="p">)</span> <span class="o">=</span> <span class="n">get_time_plot</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">ds</span><span class="o">=</span><span class="n">ds</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">th</span><span class="o">=</span><span class="n">th</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="c1"># noinspection PyUnusedLocal</span>
+    <span class="k">for</span> <span class="n">fake_interactions</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="c1"># noinspection PyUnusedLocal</span>
+        <span class="k">for</span> <span class="n">fake_add_time_pan</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">add_time_pan</span><span class="p">(</span><span class="n">plot</span><span class="o">=</span><span class="n">plot_time</span><span class="p">,</span>
+                         <span class="n">point_data_source</span><span class="o">=</span><span class="n">circle_glyph_time</span><span class="o">.</span><span class="n">data_source</span><span class="p">,</span>
+                         <span class="n">slice_data_source</span><span class="o">=</span><span class="n">data_source_vertical</span><span class="p">,</span>
+                         <span class="n">surface_data_source</span><span class="o">=</span><span class="n">surface_data_source</span><span class="p">,</span>
+                         <span class="n">surface_point_data_source</span><span class="o">=</span><span class="n">th_point</span><span class="o">.</span><span class="n">data_source</span><span class="p">,</span>
+                         <span class="n">ds</span><span class="o">=</span><span class="n">ds</span><span class="p">,</span>
+                         <span class="n">cen_lat</span><span class="o">=</span><span class="n">cen_lat</span><span class="p">,</span>
+                         <span class="n">cen_lon</span><span class="o">=</span><span class="n">cen_lon</span>
+                         <span class="p">)</span>
+
+        <span class="n">drag_button</span> <span class="o">=</span> <span class="n">get_drag_button</span><span class="p">()</span>
+
+        <span class="n">add_z_pan_timeseries</span><span class="p">(</span>
+            <span class="n">cen_lat</span><span class="o">=</span><span class="n">cen_lat</span><span class="p">,</span>
+            <span class="n">cen_lon</span><span class="o">=</span><span class="n">cen_lon</span><span class="p">,</span>
+            <span class="n">plot_slice</span><span class="o">=</span><span class="n">plot_slice</span><span class="p">,</span>
+            <span class="n">ds</span><span class="o">=</span><span class="n">ds</span><span class="p">,</span>
+            <span class="n">line_data_source</span><span class="o">=</span><span class="n">line_time_glyph</span><span class="o">.</span><span class="n">data_source</span><span class="p">,</span>
+            <span class="n">th_point_data_source</span><span class="o">=</span><span class="n">th_point</span><span class="o">.</span><span class="n">data_source</span><span class="p">,</span>
+            <span class="n">plot_line</span><span class="o">=</span><span class="n">plot_time</span><span class="p">,</span>
+            <span class="n">z_r_point_data_source</span><span class="o">=</span><span class="n">z_r_point</span><span class="o">.</span><span class="n">data_source</span>
+        <span class="p">)</span>
+
+        <span class="c1"># noinspection PyUnusedLocal</span>
+        <span class="k">for</span> <span class="n">fake_add_mouse_pan</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">add_mouse_pan</span><span class="p">(</span>
+                <span class="n">p_surface</span><span class="o">=</span><span class="n">p_cen</span><span class="p">,</span>
+                <span class="n">p_vertical</span><span class="o">=</span><span class="n">plot_slice</span><span class="p">,</span>
+                <span class="n">ds</span><span class="o">=</span><span class="n">ds</span><span class="p">,</span>
+                <span class="n">data_source</span><span class="o">=</span><span class="n">data_source_vertical</span><span class="p">,</span>
+                <span class="n">drag_button</span><span class="o">=</span><span class="n">drag_button</span><span class="p">,</span>
+                <span class="n">data_source_circle</span><span class="o">=</span><span class="n">th_point</span><span class="o">.</span><span class="n">data_source</span><span class="p">,</span>
+                <span class="n">data_source_point_t</span><span class="o">=</span><span class="n">circle_glyph_time</span><span class="o">.</span><span class="n">data_source</span><span class="p">,</span>
+                <span class="n">cen_lon</span><span class="o">=</span><span class="n">cen_lon</span><span class="p">,</span>
+                <span class="n">cen_lat</span><span class="o">=</span><span class="n">cen_lat</span>
+            <span class="p">)</span>
+
+    <span class="c1"># noinspection PyUnusedLocal</span>
+    <span class="k">for</span> <span class="n">fake_cons</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">w_c</span> <span class="o">=</span> <span class="mi">400</span>
+        <span class="c1"># w_l = 150</span>
+        <span class="n">h_c</span> <span class="o">=</span> <span class="mi">400</span>
+        <span class="n">h_b</span> <span class="o">=</span> <span class="mi">120</span>
+
+    <span class="c1"># noinspection PyUnusedLocal</span>
+    <span class="k">for</span> <span class="n">fake_figs</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="c1"># p_cen = bkp.figure()</span>
+        <span class="c1"># p_lef = bkp.figure()</span>
+        <span class="c1"># p_bot = bkp.figure()</span>
+        <span class="c1"># p_ble = bkm.Spacer()</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># noinspection PyUnusedLocal</span>
+    <span class="k">for</span> <span class="n">fake_sizes</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">p_cen</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">w_c</span>
+        <span class="n">plot_slice</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">w_c</span>
+
+        <span class="n">p_cen</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">h_c</span>
+        <span class="c1"># p_lef.height = h_c</span>
+
+        <span class="n">plot_slice</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">h_b</span>
+        <span class="c1"># p_lef.width = w_l</span>
+
+        <span class="c1"># p_ble.width = w_l</span>
+        <span class="c1"># p_ble.height = h_b</span>
+        <span class="n">c_bot</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">h_b</span>
+        <span class="n">plot_time</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">h_b</span>
+        <span class="n">plot_time</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">w_c</span>
+
+    <span class="c1"># noinspection PyUnusedLocal</span>
+    <span class="k">for</span> <span class="n">fake_layout</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">lay</span> <span class="o">=</span> <span class="n">bkl</span><span class="o">.</span><span class="n">layout</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">drag_button</span><span class="p">],</span>
+            <span class="p">[</span><span class="n">p_cen</span><span class="p">,</span> <span class="n">p_cb</span><span class="p">],</span>
+            <span class="p">[</span><span class="n">plot_slice</span><span class="p">,</span> <span class="n">c_bot</span><span class="p">],</span>
+            <span class="p">[</span><span class="n">plot_time</span><span class="p">],</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">lay</span></div>
+
+
+<div class="viewcode-block" id="interp_ds_th_z_r"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.interp_ds_th_z_r">[docs]</a><span class="k">def</span> <span class="nf">interp_ds_th_z_r</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="n">_dic</span> <span class="o">=</span> <span class="p">{</span><span class="n">R</span><span class="p">:</span> <span class="n">r</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="n">th</span><span class="p">}</span>
+    <span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span>
+    <span class="n">ds2</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">_dic</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">))</span>
+
+    <span class="n">dsna</span> <span class="o">=</span> <span class="n">ds2</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+    <span class="n">ds3</span> <span class="o">=</span> <span class="n">dsna</span><span class="o">.</span><span class="n">interp</span><span class="p">({</span><span class="n">Z</span><span class="p">:</span> <span class="n">z</span><span class="p">},</span> <span class="n">kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">ds3</span></div>
+
+
+<div class="viewcode-block" id="add_z_pan_timeseries"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.add_z_pan_timeseries">[docs]</a><span class="k">def</span> <span class="nf">add_z_pan_timeseries</span><span class="p">(</span><span class="n">line_data_source</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">cen_lon</span><span class="p">,</span> <span class="n">cen_lat</span><span class="p">,</span>
+                         <span class="n">th_point_data_source</span><span class="p">,</span> <span class="n">plot_slice</span><span class="p">,</span> <span class="n">plot_line</span><span class="p">,</span> <span class="n">z_r_point_data_source</span><span class="p">):</span>
+    <span class="n">tms</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">z_pan_function</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+        <span class="n">tms</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">tms</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">tms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">.1</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">x</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">y</span>
+
+            <span class="n">th_x</span> <span class="o">=</span> <span class="n">th_point_data_source</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">th_y</span> <span class="o">=</span> <span class="n">th_point_data_source</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">th</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_angle</span><span class="p">(</span><span class="n">th_x</span><span class="p">,</span> <span class="n">th_y</span><span class="p">,</span> <span class="n">cen_lon</span><span class="p">,</span> <span class="n">cen_lat</span><span class="p">)</span>
+
+            <span class="c1"># print(th,z,r)</span>
+
+            <span class="n">ds_th_z_t_r</span> <span class="o">=</span> <span class="n">interp_ds_th_z_r</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">ds_th_z_t_r</span><span class="p">[</span><span class="n">L</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">ds_th_z_t_r</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">line_data_source</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+            <span class="n">line_data_source</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+            <span class="n">plot_line</span><span class="o">.</span><span class="n">y_range</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">y_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.1</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">y_max</span><span class="p">):</span>
+                <span class="n">y_max</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">plot_line</span><span class="o">.</span><span class="n">y_range</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">y_max</span>
+
+            <span class="n">z_r_point_data_source</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">]</span>
+            <span class="n">z_r_point_data_source</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">z</span><span class="p">]</span>
+            <span class="n">tms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="n">plot_slice</span><span class="o">.</span><span class="n">on_event</span><span class="p">(</span><span class="s1">&#39;pan&#39;</span><span class="p">,</span> <span class="n">z_pan_function</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="plot_flx_server"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.plot_flx_server">[docs]</a><span class="k">def</span> <span class="nf">plot_flx_server</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">cen_lat</span><span class="p">,</span> <span class="n">cen_lon</span><span class="p">):</span>
+    <span class="n">_1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span>
+    <span class="n">_2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span>
+    <span class="n">_m</span> <span class="o">=</span> <span class="p">(</span><span class="n">_2</span> <span class="o">-</span> <span class="n">_1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">_1</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">_m</span>
+    <span class="n">lay</span> <span class="o">=</span> <span class="n">get_plot_flx_layout</span><span class="p">(</span><span class="n">cen_lat</span><span class="p">,</span> <span class="n">cen_lon</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span><span class="n">ds</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
+    <span class="c1"># _ = lay</span>
+    <span class="n">bkp</span><span class="o">.</span><span class="n">output_notebook</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_a</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">add_root</span><span class="p">(</span><span class="n">lay</span><span class="p">)</span>
+
+    <span class="n">bkp</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">_a</span><span class="p">,</span> <span class="n">notebook_url</span><span class="o">=</span><span class="n">bfu</span><span class="o">.</span><span class="n">remote_jupyter_proxy_url</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="create_plot_surface"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.create_plot_surface">[docs]</a><span class="k">def</span> <span class="nf">create_plot_surface</span><span class="p">(</span><span class="n">ds1</span><span class="p">):</span>
+    <span class="n">xs1</span><span class="p">,</span> <span class="n">ys1</span> <span class="o">=</span> <span class="n">get_surface_xs_ys</span><span class="p">(</span><span class="n">ds1</span><span class="p">)</span>
+    <span class="n">cs1</span> <span class="o">=</span> <span class="n">get_cs_sum_z</span><span class="p">(</span><span class="n">ds1</span><span class="p">)</span>
+    <span class="n">c_map</span><span class="p">,</span> <span class="n">p_cen</span><span class="p">,</span> <span class="n">p_cb</span><span class="p">,</span> <span class="n">surface_data_source</span> <span class="o">=</span> <span class="n">_plot_surface</span><span class="p">(</span><span class="n">cs1</span><span class="p">,</span> <span class="n">xs1</span><span class="p">,</span> <span class="n">ys1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p_cb</span><span class="p">,</span> <span class="n">p_cen</span><span class="p">,</span> <span class="n">surface_data_source</span></div>
+
+
+<span class="k">def</span> <span class="nf">_plot_surface</span><span class="p">(</span><span class="n">cs1</span><span class="p">,</span> <span class="n">xs1</span><span class="p">,</span> <span class="n">ys1</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">bkp</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">match_aspect</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">aspect_scale</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">logo</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">bkm</span><span class="o">.</span><span class="n">LogColorMapper</span><span class="p">(</span><span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Plasma256&quot;</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">1e6</span><span class="p">)</span>
+    <span class="n">cs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;field&#39;</span><span class="p">:</span> <span class="s1">&#39;cs&#39;</span><span class="p">,</span> <span class="s1">&#39;transform&#39;</span><span class="p">:</span> <span class="n">cm</span><span class="p">}</span>
+    <span class="n">_dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;xs&#39;</span><span class="p">:</span> <span class="n">xs1</span><span class="p">,</span> <span class="s1">&#39;ys&#39;</span><span class="p">:</span> <span class="n">ys1</span><span class="p">,</span> <span class="s1">&#39;cs&#39;</span><span class="p">:</span> <span class="n">cs1</span><span class="p">}</span>
+    <span class="n">surface_data_source</span> <span class="o">=</span> <span class="n">bkm</span><span class="o">.</span><span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">_dic</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">patches</span><span class="p">(</span><span class="s1">&#39;xs&#39;</span><span class="p">,</span> <span class="s1">&#39;ys&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">cs</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">surface_data_source</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">.1</span><span class="p">)</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="n">bfu</span><span class="o">.</span><span class="n">get_colorbar</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e6</span><span class="p">)</span>
+    <span class="n">set_wheel</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">tool</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">select_one</span><span class="p">({</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="n">bkm</span><span class="o">.</span><span class="n">BoxZoomTool</span><span class="p">})</span>
+    <span class="n">tool</span><span class="o">.</span><span class="n">match_aspect</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_drag</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_tools</span><span class="p">(</span><span class="n">bkm</span><span class="o">.</span><span class="n">CrosshairTool</span><span class="p">())</span>
+    <span class="c1"># p.</span>
+    <span class="c1"># p.aspect_scale=1</span>
+    <span class="k">return</span> <span class="n">cm</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="n">surface_data_source</span>
+
+
+<div class="viewcode-block" id="get_surface_xs_ys"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.get_surface_xs_ys">[docs]</a><span class="k">def</span> <span class="nf">get_surface_xs_ys</span><span class="p">(</span><span class="n">ds1</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_cols</span><span class="p">(</span><span class="n">_l</span><span class="p">,</span> <span class="n">ds1_</span><span class="p">):</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">ds1_</span><span class="o">.</span><span class="n">reset_coords</span><span class="p">()[</span><span class="n">_l</span><span class="p">]</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">_ly</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
+        <span class="n">ys1_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ys</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">_ly</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ys1_</span>
+
+    <span class="n">_la</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;LAT_00&#39;</span><span class="p">,</span> <span class="s1">&#39;LAT_01&#39;</span><span class="p">,</span> <span class="s1">&#39;LAT_11&#39;</span><span class="p">,</span> <span class="s1">&#39;LAT_10&#39;</span><span class="p">]</span>
+    <span class="n">_lo</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;LON_00&#39;</span><span class="p">,</span> <span class="s1">&#39;LON_01&#39;</span><span class="p">,</span> <span class="s1">&#39;LON_11&#39;</span><span class="p">,</span> <span class="s1">&#39;LON_10&#39;</span><span class="p">]</span>
+    <span class="n">ys1</span> <span class="o">=</span> <span class="n">_get_cols</span><span class="p">(</span><span class="n">_la</span><span class="p">,</span> <span class="n">ds1</span><span class="p">)</span>
+    <span class="n">xs1</span> <span class="o">=</span> <span class="n">_get_cols</span><span class="p">(</span><span class="n">_lo</span><span class="p">,</span> <span class="n">ds1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">xs1</span><span class="p">,</span> <span class="n">ys1</span></div>
+
+
+<div class="viewcode-block" id="get_cs_sum_z"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.get_cs_sum_z">[docs]</a><span class="k">def</span> <span class="nf">get_cs_sum_z</span><span class="p">(</span><span class="n">ds1</span><span class="p">):</span>
+    <span class="c1"># dsz = ds1.interp({Z: z}, kwargs=dict(fill_value=&#39;extrapolate&#39;))</span>
+    <span class="n">dsz</span> <span class="o">=</span> <span class="n">ds1</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+    <span class="n">cs</span> <span class="o">=</span> <span class="n">dsz</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+    <span class="k">return</span> <span class="n">cs</span></div>
+
+
+<div class="viewcode-block" id="create_th_slice_point"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.create_th_slice_point">[docs]</a><span class="k">def</span> <span class="nf">create_th_slice_point</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">bkp</span><span class="o">.</span><span class="n">Figure</span><span class="p">,</span> <span class="n">cen_lon</span><span class="p">,</span> <span class="n">cen_lat</span><span class="p">):</span>
+    <span class="n">z_point</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">circle_x</span><span class="p">([</span><span class="n">cen_lon</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">cen_lat</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
+                         <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">fill_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
+    <span class="c1"># point_draw_tool = bkm.PointDrawTool(renderers=[z_point], num_objects=1)</span>
+    <span class="c1"># p.add_tools(point_draw_tool)</span>
+    <span class="k">return</span> <span class="n">z_point</span></div>
+
+
+<div class="viewcode-block" id="add_time_pan"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.add_time_pan">[docs]</a><span class="k">def</span> <span class="nf">add_time_pan</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="n">point_data_source</span><span class="p">,</span> <span class="n">surface_data_source</span><span class="p">,</span> <span class="n">slice_data_source</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span>
+                 <span class="n">surface_point_data_source</span><span class="p">,</span> <span class="n">cen_lat</span><span class="p">,</span> <span class="n">cen_lon</span><span class="p">):</span>
+    <span class="n">tms</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">pan_function</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+        <span class="n">tms</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">tms</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">tms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">.1</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">x</span>
+            <span class="n">point_data_source</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+            <span class="n">ds_t</span> <span class="o">=</span> <span class="n">interp_ds_time_ms</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+            <span class="n">x_surf</span> <span class="o">=</span> <span class="n">surface_point_data_source</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">y_surf</span> <span class="o">=</span> <span class="n">surface_point_data_source</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">ang</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">get_angle</span><span class="p">(</span><span class="n">x_surf</span><span class="p">,</span> <span class="n">y_surf</span><span class="p">,</span> <span class="n">cen_lon</span><span class="o">=</span><span class="n">cen_lon</span><span class="p">,</span> <span class="n">cen_lat</span><span class="o">=</span><span class="n">cen_lat</span><span class="p">)</span>
+
+            <span class="n">ds_t_th</span> <span class="o">=</span> <span class="n">surface_intp_th</span><span class="p">(</span><span class="n">ds_t</span><span class="p">,</span> <span class="n">th</span><span class="o">=</span><span class="n">ang</span><span class="p">)</span>
+            <span class="n">cs_th</span> <span class="o">=</span> <span class="n">get_th_cs</span><span class="p">(</span><span class="n">ds_t_th</span><span class="p">)</span>
+            <span class="n">slice_data_source</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;cs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cs_th</span>
+
+            <span class="n">cs_surf</span> <span class="o">=</span> <span class="n">get_cs_sum_z</span><span class="p">(</span><span class="n">ds_t</span><span class="p">)</span>
+            <span class="n">surface_data_source</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;cs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cs_surf</span>
+
+            <span class="n">tms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="n">plot</span><span class="o">.</span><span class="n">on_event</span><span class="p">(</span><span class="s1">&#39;pan&#39;</span><span class="p">,</span> <span class="n">pan_function</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_drag_button"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.get_drag_button">[docs]</a><span class="k">def</span> <span class="nf">get_drag_button</span><span class="p">():</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sync&quot;</span><span class="p">]</span>
+
+    <span class="n">checkbox_button_group</span> <span class="o">=</span> <span class="n">bkm</span><span class="o">.</span><span class="n">CheckboxButtonGroup</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">checkbox_button_group</span></div>
+
+
+<div class="viewcode-block" id="add_mouse_pan"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.add_mouse_pan">[docs]</a><span class="k">def</span> <span class="nf">add_mouse_pan</span><span class="p">(</span><span class="n">p_surface</span><span class="p">:</span> <span class="n">bkp</span><span class="o">.</span><span class="n">Figure</span><span class="p">,</span> <span class="n">p_vertical</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">data_source</span><span class="p">,</span> <span class="n">drag_button</span><span class="p">,</span>
+                  <span class="n">data_source_circle</span><span class="p">:</span> <span class="n">bkm</span><span class="o">.</span><span class="n">ColumnDataSource</span><span class="p">,</span> <span class="n">data_source_point_t</span><span class="p">,</span> <span class="n">cen_lon</span><span class="p">,</span> <span class="n">cen_lat</span><span class="p">):</span>
+    <span class="n">tms</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">on_mouse_drag</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">drag_button</span><span class="o">.</span><span class="n">active</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">tms</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">tms</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">tms</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">x</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">y</span>
+                <span class="n">data_source_circle</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+                <span class="n">data_source_circle</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">]</span>
+                <span class="n">tms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tms</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">ang</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">get_angle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cen_lon</span><span class="o">=</span><span class="n">cen_lon</span><span class="p">,</span> <span class="n">cen_lat</span><span class="o">=</span><span class="n">cen_lat</span><span class="p">)</span>
+                <span class="n">ds_t</span> <span class="o">=</span> <span class="n">interp_ds_time_ms</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">data_source_point_t</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">di</span> <span class="o">=</span> <span class="n">surface_intp_th</span><span class="p">(</span><span class="n">ds_t</span><span class="p">,</span> <span class="n">th</span><span class="o">=</span><span class="n">ang</span><span class="p">)</span>
+                <span class="n">cs</span> <span class="o">=</span> <span class="n">get_th_cs</span><span class="p">(</span><span class="n">di</span><span class="p">)</span>
+                <span class="n">data_source</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;cs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cs</span>
+                <span class="n">p_vertical</span><span class="o">.</span><span class="n">x_range</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="mf">0.05</span>
+                <span class="n">p_vertical</span><span class="o">.</span><span class="n">x_range</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="p">(</span><span class="n">xx</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">yy</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">.5</span>
+
+    <span class="n">p_surface</span><span class="o">.</span><span class="n">on_event</span><span class="p">(</span><span class="s1">&#39;pan&#39;</span><span class="p">,</span> <span class="n">on_mouse_drag</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_plot_slice"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.get_plot_slice">[docs]</a><span class="k">def</span> <span class="nf">get_plot_slice</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">x_axis_type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">):</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">bkm</span><span class="o">.</span><span class="n">LogColorMapper</span><span class="p">(</span><span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Plasma256&quot;</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">1e6</span><span class="p">)</span>
+    <span class="n">color_source</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;field&#39;</span><span class="p">:</span> <span class="s1">&#39;cs&#39;</span><span class="p">,</span> <span class="s1">&#39;transform&#39;</span><span class="p">:</span> <span class="n">cm</span><span class="p">}</span>
+    <span class="n">ds_slice</span> <span class="o">=</span> <span class="n">surface_intp_th</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">th</span><span class="p">)</span>
+    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">get_vertical_xs_ys</span><span class="p">(</span><span class="n">ds_slice</span><span class="p">)</span>
+    <span class="n">cs</span> <span class="o">=</span> <span class="n">get_th_cs</span><span class="p">(</span><span class="n">ds_slice</span><span class="p">)</span>
+    <span class="n">_dic</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;cs&#39;</span><span class="p">:</span> <span class="n">cs</span><span class="p">,</span>
+        <span class="s1">&#39;x1&#39;</span><span class="p">:</span> <span class="n">x1</span><span class="p">,</span>
+        <span class="s1">&#39;x2&#39;</span><span class="p">:</span> <span class="n">x2</span><span class="p">,</span>
+        <span class="s1">&#39;y1&#39;</span><span class="p">:</span> <span class="n">y1</span><span class="p">,</span>
+        <span class="s1">&#39;y2&#39;</span><span class="p">:</span> <span class="n">y2</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">data_source</span> <span class="o">=</span> <span class="n">bkm</span><span class="o">.</span><span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">_dic</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">bkp</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">x_axis_type</span><span class="o">=</span><span class="n">x_axis_type</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">logo</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">x_range</span> <span class="o">=</span> <span class="n">bkm</span><span class="o">.</span><span class="n">Range1d</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">quad</span><span class="p">(</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span> <span class="s1">&#39;x2&#39;</span><span class="p">,</span> <span class="s1">&#39;y1&#39;</span><span class="p">,</span> <span class="s1">&#39;y2&#39;</span><span class="p">,</span>
+           <span class="n">color</span><span class="o">=</span><span class="n">color_source</span><span class="p">,</span>
+           <span class="n">source</span><span class="o">=</span><span class="n">data_source</span><span class="p">,</span>
+           <span class="p">)</span>
+    <span class="n">set_wheel</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_tools</span><span class="p">(</span><span class="n">bkm</span><span class="o">.</span><span class="n">CrosshairTool</span><span class="p">())</span>
+
+    <span class="n">cb</span> <span class="o">=</span> <span class="n">bfu</span><span class="o">.</span><span class="n">get_colorbar</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e6</span><span class="p">)</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">ticker</span><span class="o">.</span><span class="n">desired_num_ticks</span> <span class="o">=</span> <span class="mi">3</span>
+
+    <span class="n">circle_glyph</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">circle_x</span><span class="p">([</span><span class="n">r</span><span class="p">],</span> <span class="p">[</span><span class="n">z</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">fill_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_drag</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">p</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="n">data_source</span><span class="p">,</span> <span class="n">circle_glyph</span></div>
+
+
+<div class="viewcode-block" id="get_time_plot"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.get_time_plot">[docs]</a><span class="k">def</span> <span class="nf">get_time_plot</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">bkp</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">x_axis_type</span><span class="o">=</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span>
+                   <span class="c1"># tools=[]</span>
+                   <span class="p">)</span>
+
+    <span class="n">ds_t_z_th</span> <span class="o">=</span> <span class="n">interp_ds_th_z_r</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">th</span><span class="o">=</span><span class="n">th</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">ds_t_z_th</span><span class="p">[</span><span class="n">L</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">ds_t_z_th</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">p_line_glyph</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="c1"># p.add_tools(bkm.WheelZoomTool(dimensions=&#39;width&#39;))</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">logo</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">dd1</span> <span class="o">=</span> <span class="n">ensure_date_ms</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span>
+    <span class="n">dd2</span> <span class="o">=</span> <span class="n">ensure_date_ms</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">x_range</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">dd1</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">x_range</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">dd2</span>
+    <span class="n">circle_glyph</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">circle_x</span><span class="p">([</span><span class="n">dd1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">fill_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
+    <span class="n">set_wheel</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_drag</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">ticker</span><span class="o">.</span><span class="n">desired_num_ticks</span> <span class="o">=</span> <span class="mi">15</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_tools</span><span class="p">(</span><span class="n">bkm</span><span class="o">.</span><span class="n">CrosshairTool</span><span class="p">())</span>
+    <span class="c1"># p.yaxis.visible = False</span>
+    <span class="c1"># p.y_range</span>
+
+    <span class="k">return</span> <span class="n">p</span><span class="p">,</span> <span class="n">circle_glyph</span><span class="p">,</span> <span class="n">p_line_glyph</span></div>
+
+
+<div class="viewcode-block" id="set_wheel"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.set_wheel">[docs]</a><span class="k">def</span> <span class="nf">set_wheel</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">_t</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_t</span><span class="p">,</span> <span class="n">bkm</span><span class="o">.</span><span class="n">WheelZoomTool</span><span class="p">):</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">_t</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_scroll</span> <span class="o">=</span> <span class="n">a</span></div>
+
+
+<div class="viewcode-block" id="interp_ds_time_ms"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.interp_ds_time_ms">[docs]</a><span class="k">def</span> <span class="nf">interp_ds_time_ms</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">t_ms</span><span class="p">):</span>
+    <span class="n">t_dt</span> <span class="o">=</span> <span class="n">time_from_ms_to_dt</span><span class="p">(</span><span class="n">t_ms</span><span class="p">)</span>
+    <span class="n">ds1</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">interp</span><span class="p">({</span><span class="n">L</span><span class="p">:</span> <span class="n">t_dt</span><span class="p">},</span> <span class="n">kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">ds1</span></div>
+
+
+<div class="viewcode-block" id="get_angle"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.get_angle">[docs]</a><span class="k">def</span> <span class="nf">get_angle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cen_lon</span><span class="p">,</span> <span class="n">cen_lat</span><span class="p">):</span>
+    <span class="n">xx</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">cen_lon</span>
+    <span class="n">yy</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">cen_lat</span>
+    <span class="n">ang</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">),</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ang</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span></div>
+
+
+<div class="viewcode-block" id="surface_intp_th"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.surface_intp_th">[docs]</a><span class="k">def</span> <span class="nf">surface_intp_th</span><span class="p">(</span><span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">th</span><span class="p">):</span>
+    <span class="c1"># ds1 = ds.interp({L:t}, kwargs=dict(fill_value=&#39;extrapolate&#39;))</span>
+    <span class="n">ds2</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">interp</span><span class="p">({</span><span class="n">T</span><span class="p">:</span> <span class="n">th</span><span class="p">},</span> <span class="n">kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">ds2</span></div>
+
+
+<div class="viewcode-block" id="get_th_cs"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.get_th_cs">[docs]</a><span class="k">def</span> <span class="nf">get_th_cs</span><span class="p">(</span><span class="n">ds_slice</span><span class="p">):</span>
+    <span class="n">cs</span> <span class="o">=</span> <span class="n">ds_slice</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+    <span class="k">return</span> <span class="n">cs</span></div>
+
+
+<div class="viewcode-block" id="get_vertical_xs_ys"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.get_vertical_xs_ys">[docs]</a><span class="k">def</span> <span class="nf">get_vertical_xs_ys</span><span class="p">(</span><span class="n">ds_slice</span><span class="p">):</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;RN&#39;</span><span class="p">,</span> <span class="s1">&#39;RF&#39;</span><span class="p">,</span> <span class="s1">&#39;ZB&#39;</span><span class="p">,</span> <span class="s1">&#39;ZT&#39;</span><span class="p">]</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">ds_slice</span><span class="o">.</span><span class="n">reset_coords</span><span class="p">()[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
+
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ZB&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ZT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="k">return</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span></div>
+
+
+<div class="viewcode-block" id="ensure_date_ms"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.ensure_date_ms">[docs]</a><span class="k">def</span> <span class="nf">ensure_date_ms</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
+    <span class="n">d_out_</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">d_out_</span> <span class="o">=</span> <span class="n">string_time_to_ms</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d_out_</span></div>
+
+
+<div class="viewcode-block" id="time_from_ms_to_dt"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.time_from_ms_to_dt">[docs]</a><span class="k">def</span> <span class="nf">time_from_ms_to_dt</span><span class="p">(</span><span class="n">t_ms</span><span class="p">):</span>
+    <span class="n">dt_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">t_ms</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;ms&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dt_</span></div>
+
+
+<div class="viewcode-block" id="string_time_to_ms"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.string_time_to_ms">[docs]</a><span class="k">def</span> <span class="nf">string_time_to_ms</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+    <span class="n">d1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">d2</span> <span class="o">=</span> <span class="p">(</span><span class="n">d1</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;ms&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d2</span></div>
+
+
+<div class="viewcode-block" id="open_ds_chc"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.open_ds_chc">[docs]</a><span class="k">def</span> <span class="nf">open_ds_chc</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="s2">&quot;/media/volume/paper-2/data-flexpart/new_log_pol_ds_asl_v01.nc&quot;</span>
+    <span class="k">def</span> <span class="nf">_rellC</span><span class="p">(</span><span class="n">d3</span><span class="p">):</span>
+        <span class="n">d3</span><span class="p">[</span><span class="n">xL</span><span class="p">]</span> <span class="o">=</span> <span class="n">d3</span><span class="p">[</span><span class="n">R</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">d3</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">+</span> <span class="n">CHC_LON</span>
+        <span class="n">d3</span><span class="p">[</span><span class="n">yL</span><span class="p">]</span> <span class="o">=</span> <span class="n">d3</span><span class="p">[</span><span class="n">R</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">d3</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">+</span> <span class="n">CHC_LAT</span>
+        <span class="k">return</span> <span class="n">d3</span>
+
+    <span class="k">def</span> <span class="nf">_get_lt</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+        <span class="n">ds1</span> <span class="o">=</span> <span class="n">ds</span>
+        <span class="n">ds1</span> <span class="o">=</span> <span class="n">ds1</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">({</span><span class="s1">&#39;lt&#39;</span><span class="p">:</span> <span class="n">ds1</span><span class="p">[</span><span class="s1">&#39;releases&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;hours&#39;</span><span class="p">)})</span>
+        <span class="n">ds1</span> <span class="o">=</span> <span class="n">ds1</span><span class="o">.</span><span class="n">swap_dims</span><span class="p">({</span><span class="s1">&#39;releases&#39;</span><span class="p">:</span> <span class="s1">&#39;lt&#39;</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">ds1</span>
+
+    <span class="n">dc</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span> <span class="o">=</span> <span class="n">_rellC</span><span class="p">(</span><span class="n">_get_lt</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">(</span><span class="n">p</span><span class="p">)))</span>
+    <span class="n">dc</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;lc&#39;</span><span class="p">:</span> <span class="s1">&#39;CHC&#39;</span><span class="p">})</span>
+
+    <span class="n">ds1</span> <span class="o">=</span> <span class="n">dc</span><span class="o">.</span><span class="n">loc</span><span class="p">[{</span><span class="s1">&#39;lt&#39;</span><span class="p">:</span> <span class="nb">slice</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">)}]</span>
+    <span class="n">ds2</span> <span class="o">=</span> <span class="n">ds1</span><span class="p">[</span><span class="n">C</span><span class="p">]</span> <span class="o">/</span> <span class="n">ds1</span><span class="p">[</span><span class="n">GA</span><span class="p">]</span>
+    <span class="n">ds2</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;C/A&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">bnn_tools.basic_funs</span> <span class="k">as</span> <span class="nn">bfu</span>
+
+    <span class="n">zz</span> <span class="o">=</span> <span class="n">bfu</span><span class="o">.</span><span class="n">infer_interval_breaks</span><span class="p">(</span><span class="n">ds2</span><span class="p">[</span><span class="n">Z</span><span class="p">])</span>
+
+    <span class="n">z1</span> <span class="o">=</span> <span class="n">zz</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">z2</span> <span class="o">=</span> <span class="n">zz</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="kc">None</span><span class="p">]</span>
+
+    <span class="n">ds2</span><span class="p">[</span><span class="s1">&#39;ZT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">z2</span> <span class="o">+</span> <span class="n">ds2</span><span class="p">[</span><span class="n">Z</span><span class="p">]</span> <span class="o">*</span> <span class="mi">0</span>
+    <span class="n">ds2</span><span class="p">[</span><span class="s1">&#39;ZB&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">z1</span> <span class="o">+</span> <span class="n">ds2</span><span class="p">[</span><span class="n">Z</span><span class="p">]</span> <span class="o">*</span> <span class="mi">0</span>
+
+    <span class="n">zz</span> <span class="o">=</span> <span class="n">bfu</span><span class="o">.</span><span class="n">infer_interval_breaks</span><span class="p">(</span><span class="n">ds2</span><span class="p">[</span><span class="n">R</span><span class="p">])</span>
+
+    <span class="n">z1</span> <span class="o">=</span> <span class="n">zz</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">z2</span> <span class="o">=</span> <span class="n">zz</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="kc">None</span><span class="p">]</span>
+
+    <span class="n">ds2</span><span class="p">[</span><span class="s1">&#39;RN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">z2</span> <span class="o">+</span> <span class="n">ds2</span><span class="p">[</span><span class="n">R</span><span class="p">]</span> <span class="o">*</span> <span class="mi">0</span>
+    <span class="n">ds2</span><span class="p">[</span><span class="s1">&#39;RF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">z1</span> <span class="o">+</span> <span class="n">ds2</span><span class="p">[</span><span class="n">R</span><span class="p">]</span> <span class="o">*</span> <span class="mi">0</span>
+    <span class="n">ds2</span><span class="o">.</span><span class="n">load</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">ds2</span></div>
+
+<div class="viewcode-block" id="open_ds_alto"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs_bokeh_flx.open_ds_alto">[docs]</a><span class="k">def</span> <span class="nf">open_ds_alto</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="s2">&quot;/media/volume/paper-2/data-flexpart/alto_new_log_pol_ds_asl.nc&quot;</span>
+    <span class="k">def</span> <span class="nf">_rellC</span><span class="p">(</span><span class="n">d3</span><span class="p">):</span>
+        <span class="n">d3</span><span class="p">[</span><span class="n">xL</span><span class="p">]</span> <span class="o">=</span> <span class="n">d3</span><span class="p">[</span><span class="n">R</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">d3</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">+</span> <span class="n">ALT_LON</span>
+        <span class="n">d3</span><span class="p">[</span><span class="n">yL</span><span class="p">]</span> <span class="o">=</span> <span class="n">d3</span><span class="p">[</span><span class="n">R</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">d3</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">+</span> <span class="n">ALT_LAT</span>
+        <span class="k">return</span> <span class="n">d3</span>
+
+    <span class="k">def</span> <span class="nf">_get_lt</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+        <span class="n">ds1</span> <span class="o">=</span> <span class="n">ds</span>
+        <span class="n">ds1</span> <span class="o">=</span> <span class="n">ds1</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">({</span><span class="s1">&#39;lt&#39;</span><span class="p">:</span> <span class="n">ds1</span><span class="p">[</span><span class="s1">&#39;releases&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;hours&#39;</span><span class="p">)})</span>
+        <span class="n">ds1</span> <span class="o">=</span> <span class="n">ds1</span><span class="o">.</span><span class="n">swap_dims</span><span class="p">({</span><span class="s1">&#39;releases&#39;</span><span class="p">:</span> <span class="s1">&#39;lt&#39;</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">ds1</span>
+
+    <span class="n">dc</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span> <span class="o">=</span> <span class="n">_rellC</span><span class="p">(</span><span class="n">_get_lt</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">(</span><span class="n">p</span><span class="p">)))</span>
+    <span class="n">dc</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;lc&#39;</span><span class="p">:</span> <span class="s1">&#39;ALTO&#39;</span><span class="p">})</span>
+
+    <span class="n">ds1</span> <span class="o">=</span> <span class="n">dc</span><span class="o">.</span><span class="n">loc</span><span class="p">[{</span><span class="s1">&#39;lt&#39;</span><span class="p">:</span> <span class="nb">slice</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">)}]</span>
+    <span class="n">ds2</span> <span class="o">=</span> <span class="n">ds1</span><span class="p">[</span><span class="n">C</span><span class="p">]</span> <span class="o">/</span> <span class="n">ds1</span><span class="p">[</span><span class="n">GA</span><span class="p">]</span>
+    <span class="n">ds2</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;C/A&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">bnn_tools.basic_funs</span> <span class="k">as</span> <span class="nn">bfu</span>
+
+    <span class="n">zz</span> <span class="o">=</span> <span class="n">bfu</span><span class="o">.</span><span class="n">infer_interval_breaks</span><span class="p">(</span><span class="n">ds2</span><span class="p">[</span><span class="n">Z</span><span class="p">])</span>
+
+    <span class="n">z1</span> <span class="o">=</span> <span class="n">zz</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">z2</span> <span class="o">=</span> <span class="n">zz</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="kc">None</span><span class="p">]</span>
+
+    <span class="n">ds2</span><span class="p">[</span><span class="s1">&#39;ZT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">z2</span> <span class="o">+</span> <span class="n">ds2</span><span class="p">[</span><span class="n">Z</span><span class="p">]</span> <span class="o">*</span> <span class="mi">0</span>
+    <span class="n">ds2</span><span class="p">[</span><span class="s1">&#39;ZB&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">z1</span> <span class="o">+</span> <span class="n">ds2</span><span class="p">[</span><span class="n">Z</span><span class="p">]</span> <span class="o">*</span> <span class="mi">0</span>
+
+    <span class="n">zz</span> <span class="o">=</span> <span class="n">bfu</span><span class="o">.</span><span class="n">infer_interval_breaks</span><span class="p">(</span><span class="n">ds2</span><span class="p">[</span><span class="n">R</span><span class="p">])</span>
+
+    <span class="n">z1</span> <span class="o">=</span> <span class="n">zz</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">z2</span> <span class="o">=</span> <span class="n">zz</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="kc">None</span><span class="p">]</span>
+
+    <span class="n">ds2</span><span class="p">[</span><span class="s1">&#39;RN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">z2</span> <span class="o">+</span> <span class="n">ds2</span><span class="p">[</span><span class="n">R</span><span class="p">]</span> <span class="o">*</span> <span class="mi">0</span>
+    <span class="n">ds2</span><span class="p">[</span><span class="s1">&#39;RF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">z1</span> <span class="o">+</span> <span class="n">ds2</span><span class="p">[</span><span class="n">R</span><span class="p">]</span> <span class="o">*</span> <span class="mi">0</span>
+    <span class="n">ds2</span><span class="o">.</span><span class="n">load</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">ds2</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, diego aliaga.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
