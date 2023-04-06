@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bnn_tools.funs &mdash; bnn tools 0.1.111.post4.dev0+gc460eba documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            bnn tools
+          </a>
+              <div class="version">
+                0.1.111.post4.dev0+gc460eba
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">bnn_tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">bnn tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">bnn_tools.funs</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for bnn_tools.funs</h1><div class="highlight"><pre>
+<span></span><span class="c1"># probably this functions should go</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">6/2/21</span>
+
+<span class="sd">diego.aliaga at helsinki dot fi</span>
+<span class="sd">based on Runlongs code</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># import most used packages</span>
+<span class="c1"># import os</span>
+<span class="c1"># import glob</span>
+<span class="c1"># import sys</span>
+<span class="c1"># import pprint</span>
+<span class="c1"># import datetime as dt</span>
+<span class="c1"># import pandas as pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># import matplotlib as mpl</span>
+<span class="c1"># import matplotlib.colors</span>
+<span class="c1"># import matplotlib.pyplot as plt</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="c1"># import seaborn as sns</span>
+<span class="c1"># import cartopy as crt</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.interpolate</span>
+<span class="kn">import</span> <span class="nn">bnn_tools.bnn_array</span>
+
+<span class="c1">## constants come here</span>
+
+<span class="c1"># All the variables are in the SI metric units, e.g., dp in m</span>
+
+
+<span class="n">EC</span> <span class="o">=</span> <span class="mf">1.602176565e-19</span>  <span class="c1"># elementary charge</span>
+<span class="c1"># Dimensions</span>
+<span class="n">DP</span> <span class="o">=</span> <span class="s1">&#39;Dp&#39;</span>
+<span class="n">TIME</span> <span class="o">=</span> <span class="s1">&#39;time&#39;</span>
+
+<span class="c1"># variables</span>
+<span class="n">DNDLDP</span> <span class="o">=</span> <span class="s1">&#39;dndlDp&#39;</span>
+<span class="n">CONC</span> <span class="o">=</span> <span class="s1">&#39;conc&#39;</span>
+<span class="n">LOG_DP_DIS</span> <span class="o">=</span> <span class="s1">&#39;log_Dp_dis&#39;</span>
+
+
+<div class="viewcode-block" id="open_sum2ds_old_wrong"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.open_sum2ds_old_wrong">[docs]</a><span class="k">def</span> <span class="nf">open_sum2ds_old_wrong</span><span class="p">(</span><span class="n">path_sum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    opens a sum path and created an xarray ds out of it</span>
+<span class="sd">    im assuming the dp size from sum is the geomean location of the bin</span>
+<span class="sd">    2022-07-02_01-17-17</span>
+<span class="sd">    this is a wrong assumption. it is the limits and thats why you have an extra lim</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># open ds</span>
+    <span class="n">da</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path_sum</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="c1"># get columns</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># transforming from matlab datenum to python&#39;s timestamps -&gt;</span>
+    <span class="c1"># https://stackoverflow.com/questions/13965740/converting-matlabs-datenum-format-to-python</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="mi">719529</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+
+    <span class="n">geo_mid_size</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">2</span><span class="p">:]</span>
+    <span class="n">conc</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># mid_size = [np.sqrt(size.iloc[i]*size.iloc[i+1])</span>
+    <span class="c1">#             for i in range(0,len(size)-1)]</span>
+
+    <span class="n">log_dis</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">geo_mid_size</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">geo_mid_size</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+               <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">geo_mid_size</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+
+    <span class="n">log_dis</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="o">*</span><span class="n">log_dis</span><span class="p">,</span> <span class="n">log_dis</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="n">index</span><span class="o">=</span><span class="n">geo_mid_size</span><span class="p">)</span>
+    <span class="n">log_dis</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">DP</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">TIME</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">set_axis</span><span class="p">(</span><span class="n">geo_mid_size</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">DP</span>
+
+    <span class="n">conc</span> <span class="o">=</span> <span class="n">conc</span><span class="o">.</span><span class="n">set_axis</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+    <span class="n">conc</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">TIME</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">DNDLDP</span><span class="p">)</span>
+    <span class="n">ds</span><span class="p">[</span><span class="n">CONC</span><span class="p">]</span> <span class="o">=</span> <span class="n">conc</span>
+
+    <span class="n">ds</span><span class="p">[</span><span class="n">LOG_DP_DIS</span><span class="p">]</span> <span class="o">=</span> <span class="n">log_dis</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">set_coords</span><span class="p">(</span><span class="n">LOG_DP_DIS</span><span class="p">)</span>
+
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">DP</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ds</span></div>
+
+
+<div class="viewcode-block" id="open_sum2ds"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.open_sum2ds">[docs]</a><span class="k">def</span> <span class="nf">open_sum2ds</span><span class="p">(</span><span class="n">path_sum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    opens a sum path and created an xarray ds out of it</span>
+<span class="sd">    im assuming the dp size from sum is the geomean location of the bin</span>
+<span class="sd">    2022-07-02_01-17-17</span>
+<span class="sd">    this is a wrong assumption. it is the limits and thats why you have an extra lim</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># open ds</span>
+    <span class="n">da</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path_sum</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="c1"># get columns</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># transforming from matlab datenum to python&#39;s timestamps -&gt;</span>
+    <span class="c1"># https://stackoverflow.com/questions/13965740/converting-matlabs-datenum-format-to-python</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="mi">719529</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+
+    <span class="n">geo_mid_edge</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">log_geo_mid_edge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">geo_mid_edge</span><span class="p">)</span>
+    <span class="n">log_geo_mid_size</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([(</span><span class="n">d</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">d</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)])</span>
+    <span class="n">geo_mid_size</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">log_geo_mid_size</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">conc</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># mid_size = [np.sqrt(size.iloc[i]*size.iloc[i+1])</span>
+    <span class="c1">#             for i in range(0,len(size)-1)]</span>
+
+    <span class="n">log_dis</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">geo_mid_size</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">geo_mid_size</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+               <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">geo_mid_size</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+
+    <span class="n">log_dis</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="o">*</span><span class="n">log_dis</span><span class="p">,</span> <span class="n">log_dis</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="n">index</span><span class="o">=</span><span class="n">geo_mid_size</span><span class="p">)</span>
+    <span class="n">log_dis</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">DP</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">TIME</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">set_axis</span><span class="p">(</span><span class="n">geo_mid_size</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">DP</span>
+
+    <span class="n">conc</span> <span class="o">=</span> <span class="n">conc</span><span class="o">.</span><span class="n">set_axis</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+    <span class="n">conc</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">TIME</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">DNDLDP</span><span class="p">)</span>
+    <span class="n">ds</span><span class="p">[</span><span class="n">CONC</span><span class="p">]</span> <span class="o">=</span> <span class="n">conc</span>
+
+    <span class="n">ds</span><span class="p">[</span><span class="n">LOG_DP_DIS</span><span class="p">]</span> <span class="o">=</span> <span class="n">log_dis</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">set_coords</span><span class="p">(</span><span class="n">LOG_DP_DIS</span><span class="p">)</span>
+
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">DP</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ds</span></div>
+
+<div class="viewcode-block" id="mob_from_dp_T_P"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.mob_from_dp_T_P">[docs]</a><span class="k">def</span> <span class="nf">mob_from_dp_T_P</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">mfp</span> <span class="o">=</span> <span class="n">cal_mfp</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="o">=</span><span class="n">P</span><span class="p">)</span>
+    <span class="n">vis</span> <span class="o">=</span> <span class="n">cal_vis</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">mob</span> <span class="o">=</span> <span class="n">dp2Z</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="n">mfp</span><span class="p">,</span> <span class="n">vis</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mob</span></div>
+
+
+<div class="viewcode-block" id="dp_from_mob_T_P"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.dp_from_mob_T_P">[docs]</a><span class="k">def</span> <span class="nf">dp_from_mob_T_P</span><span class="p">(</span><span class="n">mob_in</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;this method uses 3rd order interpolation and therefore is not</span>
+<span class="sd">    exact but should by a very fast good approx&quot;&quot;&quot;</span>
+
+    <span class="c1"># in case we are only using one number</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">mob_in</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">Z2dp</span><span class="p">(</span><span class="n">mob_in</span><span class="p">,</span> <span class="n">cal_mfp</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">),</span> <span class="n">cal_vis</span><span class="p">(</span><span class="n">T</span><span class="p">),</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="c1"># else lets assume the type of mob_in will have max and min methods</span>
+    <span class="n">dp_min</span> <span class="o">=</span> <span class="n">Z2dp</span><span class="p">(</span><span class="n">mob_in</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">cal_mfp</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">),</span> <span class="n">cal_vis</span><span class="p">(</span><span class="n">T</span><span class="p">),</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">dp_max</span> <span class="o">=</span> <span class="n">Z2dp</span><span class="p">(</span><span class="n">mob_in</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">cal_mfp</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">),</span> <span class="n">cal_vis</span><span class="p">(</span><span class="n">T</span><span class="p">),</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="c1"># print(dp_min,dp_max)</span>
+    <span class="n">dp_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="mf">0.95</span> <span class="o">*</span> <span class="n">dp_min</span><span class="p">,</span> <span class="mf">1.05</span> <span class="o">*</span> <span class="n">dp_max</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="n">mob_range</span> <span class="o">=</span> <span class="n">mob_from_dp_T_P</span><span class="p">(</span><span class="n">dp_range</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">int_mob_to_dp</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">mob_range</span><span class="p">,</span> <span class="n">dp_range</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;cubic&#39;</span><span class="p">)</span>
+
+    <span class="n">dp_out</span> <span class="o">=</span> <span class="n">int_mob_to_dp</span><span class="p">(</span><span class="n">mob_in</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dp_out</span></div>
+
+
+<span class="c1">##########</span>
+<span class="c1"># main functions, see the formulae for mfp and vis below</span>
+<span class="c1"># convert particle electrical moblity diameter (dp) to electrical mobility (Z)</span>
+<div class="viewcode-block" id="dp2Z"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.dp2Z">[docs]</a><span class="k">def</span> <span class="nf">dp2Z</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="n">mfp</span><span class="p">,</span> <span class="n">vis</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;the usual expression of electrical mobility, fractal dimension is</span>
+<span class="sd">    assumed to be 1.0 see, e.g., Eq. 15.21, P322, Aerosol Technology,</span>
+<span class="sd">    Second Edition by William Hinds</span>
+<span class="sd">    :param dp: diameter particle</span>
+<span class="sd">    :param mfp: mean free path</span>
+<span class="sd">    :param vis: viscosity</span>
+<span class="sd">    :param n:</span>
+<span class="sd">    :return: electric mobility Z</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Kn</span> <span class="o">=</span> <span class="n">cal_Kn</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="n">mfp</span><span class="p">)</span>
+    <span class="n">Cs</span> <span class="o">=</span> <span class="n">cal_Cs</span><span class="p">(</span><span class="n">Kn</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">EC</span> <span class="o">*</span> <span class="n">Cs</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">dp</span><span class="p">)</span> <span class="o">/</span> <span class="n">vis</span></div>
+
+
+<div class="viewcode-block" id="Z2dp"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.Z2dp">[docs]</a><span class="k">def</span> <span class="nf">Z2dp</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">mfp</span><span class="p">,</span> <span class="n">vis</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;convert electrical mobility (Z) to particle electrical mobility diameter (</span>
+<span class="sd">    dp) according to line 12, dp/Cs(dp) is inversely proportional to Z so some</span>
+<span class="sd">    iteration is needed to solve dp from dp/Cs(dp), e.g., using a solver.</span>
+<span class="sd">    This function use a straightforward iteration method since it is not</span>
+<span class="sd">    computionally expensive</span>
+<span class="sd">    - diego: i feel this function is prone to errors and is not vectorizable</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dp_Cs</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">EC</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">vis</span> <span class="o">*</span> <span class="n">Z</span><span class="p">)</span>
+    <span class="n">dp_old</span> <span class="o">=</span> <span class="n">dp_Cs</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>  <span class="c1"># perhaps dangerous</span>
+        <span class="n">Kn</span> <span class="o">=</span> <span class="n">cal_Kn</span><span class="p">(</span><span class="n">dp_old</span><span class="p">,</span> <span class="n">mfp</span><span class="p">)</span>
+        <span class="n">Cs</span> <span class="o">=</span> <span class="n">cal_Cs</span><span class="p">(</span><span class="n">Kn</span><span class="p">)</span>
+        <span class="n">dp_new</span> <span class="o">=</span> <span class="p">(</span><span class="n">dp_Cs</span> <span class="o">*</span> <span class="n">Cs</span> <span class="o">+</span> <span class="n">dp_old</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c1"># avoid oscillations</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">((</span><span class="n">dp_new</span> <span class="o">-</span> <span class="n">dp_old</span><span class="p">)</span> <span class="o">/</span> <span class="n">dp_old</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mf">1e-3</span><span class="p">:</span>
+            <span class="n">dp_old</span> <span class="o">=</span> <span class="n">dp_new</span>
+            <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dp_old</span> <span class="o">=</span> <span class="n">dp_new</span>
+
+    <span class="k">return</span> <span class="n">dp_old</span></div>
+
+
+<span class="c1">##########</span>
+
+<span class="c1"># Mean free path of air, Eq. 2-10, P19, Aerosol Measurement, Third Edition</span>
+<div class="viewcode-block" id="cal_mfp"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.cal_mfp">[docs]</a><span class="k">def</span> <span class="nf">cal_mfp</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mf">293.15</span><span class="p">,</span> <span class="n">P</span><span class="o">=</span><span class="mi">101325</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">66.5</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">101325</span> <span class="o">/</span> <span class="n">P</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">T</span> <span class="o">/</span> <span class="mf">293.15</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+            <span class="mi">1</span> <span class="o">+</span> <span class="mf">110.4</span> <span class="o">/</span> <span class="mf">293.15</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">110.4</span> <span class="o">/</span> <span class="n">T</span><span class="p">)</span>  <span class="c1"># in m</span></div>
+
+
+<span class="c1"># Dynamic viscosity (rather than kinetic viscosity which is divided by</span>
+<span class="c1"># density) of air using Sutherland equation, Eq. 2-8, P18, Aerosol</span>
+<span class="c1"># Measurement, Third Edition</span>
+<div class="viewcode-block" id="cal_vis"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.cal_vis">[docs]</a><span class="k">def</span> <span class="nf">cal_vis</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mf">293.15</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">18.203</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">293.15</span> <span class="o">+</span> <span class="mf">110.4</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">T</span> <span class="o">+</span> <span class="mf">110.4</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+            <span class="n">T</span> <span class="o">/</span> <span class="mf">293.15</span><span class="p">)</span> <span class="o">**</span> <span class="mf">1.5</span>  <span class="c1"># Pa*s</span></div>
+
+
+<span class="c1"># Knudsen number</span>
+<div class="viewcode-block" id="cal_Kn"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.cal_Kn">[docs]</a><span class="k">def</span> <span class="nf">cal_Kn</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="n">mfp</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">mfp</span> <span class="o">/</span> <span class="n">dp</span></div>
+
+
+<span class="c1"># Cunningham slip correction factor, equation and parameters by Allen &amp; Raabe</span>
+<span class="c1"># 1985, for solid particles Can also be found in Eq. 2-14, P20,  Aerosol</span>
+<span class="c1"># Measurement, Third Edition</span>
+<div class="viewcode-block" id="cal_Cs"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.cal_Cs">[docs]</a><span class="k">def</span> <span class="nf">cal_Cs</span><span class="p">(</span><span class="n">Kn</span><span class="p">):</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.142</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="mf">0.558</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.999</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">Kn</span> <span class="o">*</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">gamma</span> <span class="o">/</span> <span class="n">Kn</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="timestamp2matlab"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.timestamp2matlab">[docs]</a><span class="k">def</span> <span class="nf">timestamp2matlab</span><span class="p">(</span><span class="n">timestamp</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;return matlab time in days from pd.Timestamp&quot;&quot;&quot;</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">timestamp</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;1970&#39;</span><span class="p">)</span>
+    <span class="n">ml_time</span> <span class="o">=</span> <span class="n">dt</span> <span class="o">/</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;days&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">719529</span>
+    <span class="k">return</span> <span class="n">ml_time</span></div>
+
+
+<div class="viewcode-block" id="ds2sum"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.ds2sum">[docs]</a><span class="k">def</span> <span class="nf">ds2sum</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">path_out</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;dndlDp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
+    <span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;dndlDp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s1">&#39;Dp&#39;</span><span class="p">)</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">conc</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;conc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()[</span><span class="s1">&#39;conc&#39;</span><span class="p">]</span>
+    <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;conc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conc</span>
+    <span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[[</span><span class="s1">&#39;conc&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">cols</span><span class="p">]]</span>
+
+    <span class="n">df2</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;conc&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">df2</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="n">df2</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">timestamp2matlab</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="n">df2</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path_out</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">float_format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.15e</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="open_psm2ds"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.open_psm2ds">[docs]</a><span class="k">def</span> <span class="nf">open_psm2ds</span><span class="p">(</span><span class="n">pp</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_arr</span><span class="p">(</span><span class="n">pp</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">pp</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">mt</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">mt</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;mt&#39;</span>
+
+        <span class="n">d1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">dp</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-9</span>
+
+        <span class="n">time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">mt</span> <span class="o">-</span> <span class="mi">719529</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+
+        <span class="n">da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                          <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;Dp_i&#39;</span><span class="p">],</span>
+                          <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">time</span><span class="p">},</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;dN&#39;</span>
+                          <span class="p">)</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">dp</span><span class="p">,</span> <span class="n">da</span>
+
+    <span class="k">def</span> <span class="nf">resample</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">f_ldp_i</span><span class="p">,</span> <span class="n">ldp</span><span class="p">,</span> <span class="n">ser</span><span class="p">):</span>
+        <span class="n">dldp</span> <span class="o">=</span> <span class="n">ldp</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">ldp</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">da1</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">({</span><span class="s1">&#39;dldp&#39;</span><span class="p">:</span> <span class="n">da</span><span class="p">[</span><span class="s1">&#39;Dp_i&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">0</span> <span class="o">+</span> <span class="n">dldp</span><span class="p">})</span>
+        <span class="n">dis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ser</span><span class="p">[</span><span class="s1">&#39;ldp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ser</span><span class="p">[</span><span class="s1">&#39;ldp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mf">.005</span><span class="p">)</span>
+        <span class="n">da1</span><span class="p">[</span><span class="s1">&#39;dndlDp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">da1</span><span class="p">[</span><span class="s1">&#39;dN&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">da1</span><span class="p">[</span><span class="s1">&#39;dldp&#39;</span><span class="p">]</span>
+        <span class="n">da2</span> <span class="o">=</span> <span class="n">da1</span><span class="p">[</span><span class="s1">&#39;dndlDp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">interp</span><span class="p">({</span><span class="s1">&#39;Dp_i&#39;</span><span class="p">:</span> <span class="n">f_ldp_i</span><span class="p">(</span><span class="n">dis</span><span class="p">)},</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">,</span>
+                                   <span class="n">kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="s2">&quot;extrapolate&quot;</span><span class="p">))</span>
+        <span class="n">da2</span><span class="p">[</span><span class="s1">&#39;lDp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">da2</span><span class="p">[</span><span class="s1">&#39;Dp_i&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">0</span> <span class="o">+</span> <span class="n">dis</span>
+        <span class="n">da2</span><span class="p">[</span><span class="s1">&#39;Dp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">da2</span><span class="p">[</span><span class="s1">&#39;Dp_i&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">0</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">dis</span>
+        <span class="n">da2</span>
+        <span class="n">da3</span> <span class="o">=</span> <span class="n">da2</span><span class="o">.</span><span class="n">swap_dims</span><span class="p">({</span><span class="s1">&#39;Dp_i&#39;</span><span class="p">:</span> <span class="s1">&#39;Dp&#39;</span><span class="p">})</span>
+        <span class="n">da4</span> <span class="o">=</span> <span class="n">da3</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Dp_i&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">da4</span>
+
+    <span class="k">def</span> <span class="nf">get_int</span><span class="p">(</span><span class="n">ser</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span>
+        <span class="n">f_ldp_i</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">ser</span><span class="p">[</span><span class="s1">&#39;ldp&#39;</span><span class="p">],</span> <span class="n">ser</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+        <span class="c1"># f_ldp_dp = interp1d(ser[&#39;ldp&#39;],ser[&#39;dp&#39;],kind=&#39;linear&#39;)</span>
+        <span class="k">return</span> <span class="n">f_ldp_i</span>
+
+    <span class="k">def</span> <span class="nf">get_series</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="n">ldp</span><span class="p">):</span>
+        <span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">ldp</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ldp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;i&#39;</span><span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ser</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ser</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">.5</span>
+        <span class="n">ser</span><span class="p">[</span><span class="s1">&#39;dp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span>
+        <span class="k">return</span> <span class="n">ser</span>
+
+    <span class="n">dp</span><span class="p">,</span> <span class="n">da</span> <span class="o">=</span> <span class="n">get_arr</span><span class="p">(</span><span class="n">pp</span><span class="p">)</span>
+    <span class="n">ldp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span>
+    <span class="n">ser</span> <span class="o">=</span> <span class="n">get_series</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="n">ldp</span><span class="p">)</span>
+    <span class="n">f_ldp_i</span> <span class="o">=</span> <span class="n">get_int</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span>
+    <span class="n">da4</span> <span class="o">=</span> <span class="n">resample</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">f_ldp_i</span><span class="p">,</span> <span class="n">ldp</span><span class="p">,</span> <span class="n">ser</span><span class="p">)</span>
+
+    <span class="n">da5</span> <span class="o">=</span> <span class="n">da4</span><span class="o">.</span><span class="n">bnn</span><span class="o">.</span><span class="n">dp_regrid</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">.05</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">da5</span></div>
+
+
+<div class="viewcode-block" id="is_regular_grid"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.is_regular_grid">[docs]</a><span class="k">def</span> <span class="nf">is_regular_grid</span><span class="p">(</span><span class="n">coor</span><span class="p">,</span> <span class="n">tolerance_percentage</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">xarray.plot.utils</span> <span class="kn">import</span> <span class="n">_infer_interval_breaks</span> <span class="k">as</span> <span class="n">infer_interval_breaks</span>
+
+    <span class="n">tol</span> <span class="o">=</span> <span class="n">tolerance_percentage</span> <span class="o">/</span> <span class="mi">100</span>
+
+    <span class="n">bks</span> <span class="o">=</span> <span class="n">infer_interval_breaks</span><span class="p">(</span><span class="n">coor</span><span class="p">,</span> <span class="n">check_monotonic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">bks</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">bo</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>
+
+    <span class="c1">#     print(tol)</span>
+
+    <span class="k">return</span> <span class="n">bo</span></div>
+
+
+<div class="viewcode-block" id="combine_2_spectras"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.combine_2_spectras">[docs]</a><span class="k">def</span> <span class="nf">combine_2_spectras</span><span class="p">(</span>
+        <span class="n">darray_min_</span><span class="p">,</span>
+        <span class="n">darray_max_</span><span class="p">,</span>
+        <span class="n">cut_dim</span><span class="p">,</span>
+        <span class="n">cut_point</span>
+
+<span class="p">):</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="n">cut_point</span>
+    <span class="n">cor</span> <span class="o">=</span> <span class="n">cut_dim</span>
+
+    <span class="n">darray_min</span> <span class="o">=</span> <span class="n">darray_min_</span><span class="o">.</span><span class="n">reset_coords</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">darray_max</span> <span class="o">=</span> <span class="n">darray_max_</span><span class="o">.</span><span class="n">reset_coords</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">darray_min</span> <span class="o">=</span> <span class="n">darray_min</span><span class="o">.</span><span class="n">bnn</span><span class="o">.</span><span class="n">set_lDp</span><span class="p">()</span>
+    <span class="n">darray_max</span> <span class="o">=</span> <span class="n">darray_max</span><span class="o">.</span><span class="n">bnn</span><span class="o">.</span><span class="n">set_lDp</span><span class="p">()</span>
+
+    <span class="n">darray_min</span> <span class="o">=</span> <span class="n">darray_min</span><span class="o">.</span><span class="n">bnn</span><span class="o">.</span><span class="n">set_sec</span><span class="p">()</span>
+    <span class="n">darray_max</span> <span class="o">=</span> <span class="n">darray_max</span><span class="o">.</span><span class="n">bnn</span><span class="o">.</span><span class="n">set_sec</span><span class="p">()</span>
+
+    <span class="n">darray_min</span> <span class="o">=</span> <span class="n">darray_min</span><span class="o">.</span><span class="n">reset_coords</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">darray_max</span> <span class="o">=</span> <span class="n">darray_max</span><span class="o">.</span><span class="n">reset_coords</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">is_regular_grid</span><span class="p">(</span><span class="n">darray_min</span><span class="p">[</span><span class="s1">&#39;lDp&#39;</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">is_regular_grid</span><span class="p">(</span><span class="n">darray_max</span><span class="p">[</span><span class="s1">&#39;lDp&#39;</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">is_regular_grid</span><span class="p">(</span><span class="n">darray_min</span><span class="p">[</span><span class="s1">&#39;secs&#39;</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">is_regular_grid</span><span class="p">(</span><span class="n">darray_max</span><span class="p">[</span><span class="s1">&#39;secs&#39;</span><span class="p">])</span>
+
+    <span class="c1"># i changed sum to max in the line below</span>
+    <span class="c1"># assert (darray_min[&#39;secs&#39;] - darray_max[&#39;secs&#39;]).max().item() == 0</span>
+
+    <span class="n">d11</span> <span class="o">=</span> <span class="n">darray_min</span><span class="o">.</span><span class="n">loc</span><span class="p">[{</span><span class="n">cor</span><span class="p">:</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">y1</span><span class="p">)}]</span>
+    <span class="n">d22</span> <span class="o">=</span> <span class="n">darray_max</span><span class="o">.</span><span class="n">loc</span><span class="p">[{</span><span class="n">cor</span><span class="p">:</span> <span class="nb">slice</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="kc">None</span><span class="p">)}]</span>
+
+    <span class="n">first</span> <span class="o">=</span> <span class="n">d22</span><span class="p">[</span><span class="n">cor</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="n">last</span> <span class="o">=</span> <span class="n">d11</span><span class="p">[</span><span class="n">cor</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="n">dx</span> <span class="o">=</span> <span class="n">d11</span><span class="p">[</span><span class="n">cor</span><span class="p">]</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">dis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">first</span> <span class="o">-</span> <span class="p">(</span><span class="n">last</span><span class="p">))</span> <span class="o">/</span> <span class="n">dx</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">dis</span> <span class="o">&lt;</span> <span class="mf">.01</span><span class="p">:</span>
+        <span class="n">d11</span> <span class="o">=</span> <span class="n">d11</span><span class="p">[{</span><span class="n">cor</span><span class="p">:</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)}]</span>
+
+    <span class="n">d3</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">d11</span><span class="p">,</span> <span class="n">d22</span><span class="p">],</span> <span class="n">cor</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">d3</span>
+
+    <span class="c1"># return d3,d22,d11</span>
+
+    <span class="k">assert</span> <span class="n">is_regular_grid</span><span class="p">(</span><span class="n">d3</span><span class="p">[</span><span class="s1">&#39;lDp&#39;</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">is_regular_grid</span><span class="p">(</span><span class="n">d3</span><span class="p">[</span><span class="s1">&#39;secs&#39;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">d3</span></div>
+
+
+<div class="viewcode-block" id="open_smps2ds"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.funs.open_smps2ds">[docs]</a><span class="k">def</span> <span class="nf">open_smps2ds</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="n">UTC</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;ISO-8859-1&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+
+    <span class="n">dd</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;.*\d\d\.\d&#39;</span><span class="p">)</span>
+
+    <span class="n">sizes</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">dd</span><span class="p">]</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">sizes</span><span class="p">]</span>
+
+    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;time_&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;Start Time&#39;</span><span class="p">]</span>
+
+    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;time_&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%y_%H:%M:%S&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">UTC</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+
+    <span class="n">d1</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">sizes</span><span class="p">]</span>
+
+    <span class="n">d1</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Dp&#39;</span>
+    <span class="n">d1</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-9</span>
+
+    <span class="n">d2</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span>
+
+    <span class="n">d2</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;dndlDp&#39;</span>
+
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">d2</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">()</span>
+
+    <span class="n">dtt</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;Total Conc.(#/cm³)&#39;</span><span class="p">]</span>
+
+    <span class="n">dtt</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;total conc #/cm3&#39;</span>
+
+    <span class="n">ds</span><span class="p">[</span><span class="n">dtt</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">dtt</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">ds</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, diego aliaga.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

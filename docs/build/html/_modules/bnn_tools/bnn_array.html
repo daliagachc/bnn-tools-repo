@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bnn_tools.bnn_array &mdash; bnn tools 0.1.111.post4.dev0+gc460eba documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            bnn tools
+          </a>
+              <div class="version">
+                0.1.111.post4.dev0+gc460eba
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">bnn_tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">bnn tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">bnn_tools.bnn_array</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for bnn_tools.bnn_array</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">add accessors to xarray so that conversions are easier</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">xarray.plot.utils</span> <span class="kn">import</span> <span class="n">_infer_interval_breaks</span> <span class="k">as</span> <span class="n">infer_interval_breaks</span>
+<span class="c1"># import matplotlib as mpl</span>
+<span class="c1"># import matplotlib.colors</span>
+<span class="c1"># import matplotlib.pyplot as plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">bnn_tools.basic_funs</span> <span class="k">as</span> <span class="nn">bfu</span>
+
+<span class="c1"># @xr.register_dataset_accessor(&quot;geo&quot;)</span>
+<span class="c1"># class GeoAccessor:</span>
+<span class="c1">#     def __init__(self, xarray_obj):</span>
+<span class="c1">#         self._obj = xarray_obj</span>
+<span class="c1">#         self._center = None</span>
+<span class="c1">#</span>
+<span class="c1">#     @property</span>
+<span class="c1">#     def center(self):</span>
+<span class="c1">#         &quot;&quot;&quot;Return the geographic center point of this dataset.&quot;&quot;&quot;</span>
+<span class="c1">#         if self._center is None:</span>
+<span class="c1">#             # we can use a cache on our accessor objects, because accessors</span>
+<span class="c1">#             # themselves are cached on instances that access them.</span>
+<span class="c1">#             lon = self._obj.latitude</span>
+<span class="c1">#             lat = self._obj.longitude</span>
+<span class="c1">#             self._center = (float(lon.mean()), float(lat.mean()))</span>
+<span class="c1">#         return self._center</span>
+<span class="c1">#</span>
+<span class="c1">#     def plot(self):</span>
+<span class="c1">#         &quot;&quot;&quot;Plot data on a map.&quot;&quot;&quot;</span>
+<span class="c1">#         return &quot;plotting!&quot;</span>
+
+
+
+
+<div class="viewcode-block" id="BNN"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN">[docs]</a><span class="nd">@xr</span><span class="o">.</span><span class="n">register_dataset_accessor</span><span class="p">(</span><span class="s2">&quot;bnn&quot;</span><span class="p">)</span>
+<span class="nd">@xr</span><span class="o">.</span><span class="n">register_dataarray_accessor</span><span class="p">(</span><span class="s2">&quot;bnn&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">BNN</span><span class="p">:</span>
+
+
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xarray_obj</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span> <span class="o">=</span> <span class="n">xarray_obj</span>
+    <span class="c1">#         self._center = None</span>
+
+    <span class="c1">#     @property</span>
+
+
+<div class="viewcode-block" id="BNN.dp_regrid"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.dp_regrid">[docs]</a>    <span class="k">def</span> <span class="nf">dp_regrid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_subs</span><span class="p">,</span> <span class="n">log_dy</span><span class="p">):</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span>
+        <span class="n">o1</span> <span class="o">=</span> <span class="n">bfu</span><span class="o">.</span><span class="n">dp_regrid</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="n">n_subs</span> <span class="o">=</span> <span class="n">n_subs</span><span class="p">,</span><span class="n">log_dy</span><span class="o">=</span><span class="n">log_dy</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">o1</span></div>
+
+
+<div class="viewcode-block" id="BNN.from_time2sec"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.from_time2sec">[docs]</a>    <span class="k">def</span> <span class="nf">from_time2sec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;change time to sec&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">bfu</span><span class="o">.</span><span class="n">from_time2sec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.from_sec2time"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.from_sec2time">[docs]</a>    <span class="k">def</span> <span class="nf">from_sec2time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bfu</span><span class="o">.</span><span class="n">from_sec2time</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.from_Dp2lDp"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.from_Dp2lDp">[docs]</a>    <span class="k">def</span> <span class="nf">from_Dp2lDp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bfu</span><span class="o">.</span><span class="n">from_Dp2lDp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.from_lDp2Dp"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.from_lDp2Dp">[docs]</a>    <span class="k">def</span> <span class="nf">from_lDp2Dp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bfu</span><span class="o">.</span><span class="n">from_lDp2Dp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.from_lDp2dlDp"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.from_lDp2dlDp">[docs]</a>    <span class="k">def</span> <span class="nf">from_lDp2dlDp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bfu</span><span class="o">.</span><span class="n">from_lDp2dlDp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.from_Dp2dDp"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.from_Dp2dDp">[docs]</a>    <span class="k">def</span> <span class="nf">from_Dp2dDp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bfu</span><span class="o">.</span><span class="n">from_Dp2dDp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.set_time"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.set_time">[docs]</a>    <span class="k">def</span> <span class="nf">set_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span>  <span class="n">bfu</span><span class="o">.</span><span class="n">set_time</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.set_Dp"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.set_Dp">[docs]</a>    <span class="k">def</span> <span class="nf">set_Dp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">bfu</span><span class="o">.</span><span class="n">set_Dp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.set_lDp"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.set_lDp">[docs]</a>    <span class="k">def</span> <span class="nf">set_lDp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">bfu</span><span class="o">.</span><span class="n">set_lDp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.set_sec"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.set_sec">[docs]</a>    <span class="k">def</span> <span class="nf">set_sec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bfu</span><span class="o">.</span><span class="n">set_sec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.plot_psd"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.plot_psd">[docs]</a>    <span class="k">def</span> <span class="nf">plot_psd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">bfu</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.get_dN"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.get_dN">[docs]</a>    <span class="k">def</span> <span class="nf">get_dN</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bfu</span><span class="o">.</span><span class="n">get_dN</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">,</span><span class="n">d1</span><span class="p">,</span><span class="n">d2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.get_exact_N"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.get_exact_N">[docs]</a>    <span class="k">def</span> <span class="nf">get_exact_N</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Dp_min</span><span class="p">,</span><span class="n">Dp_max</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        counts the exact number of particles in the range Dp_min Dp_max using linear intregration</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        Dp_min : float</span>
+<span class="sd">            inferior particle diameter limit in meters</span>
+<span class="sd">        Dp_max : float</span>
+<span class="sd">            superior particle diameter limit in meters</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        array like</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span>
+        <span class="k">return</span> <span class="n">bfu</span><span class="o">.</span><span class="n">get_exact_N</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Dp_min</span><span class="p">,</span> <span class="n">Dp_max</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.get_N"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.get_N">[docs]</a>    <span class="k">def</span> <span class="nf">get_N</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bfu</span><span class="o">.</span><span class="n">get_N</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">,</span><span class="n">d1</span><span class="p">,</span><span class="n">d2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.resample_ts"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.resample_ts">[docs]</a>    <span class="k">def</span> <span class="nf">resample_ts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dt</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bfu</span><span class="o">.</span><span class="n">resample_ts</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.upsample_ts"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.upsample_ts">[docs]</a>    <span class="k">def</span> <span class="nf">upsample_ts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">bfu</span><span class="o">.</span><span class="n">upsample_ts</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BNN.u"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.u">[docs]</a>    <span class="k">def</span> <span class="nf">u</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">u</span><span class="p">):</span>
+        <span class="n">o</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span>
+        <span class="n">o</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;units&#39;</span><span class="p">:</span><span class="n">u</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="BNN.ln"><a class="viewcode-back" href="../../bnn_tools.html#bnn_tools.bnn_array.BNN.ln">[docs]</a>    <span class="k">def</span> <span class="nf">ln</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ln</span><span class="p">):</span>
+        <span class="n">o</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span>
+        <span class="n">o</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span><span class="n">ln</span><span class="p">})</span></div></div>
+
+
+
+
+
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, diego aliaga.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
