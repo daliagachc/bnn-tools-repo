@@ -4,4 +4,6 @@ Installation
 
 At the command line::
 
-    $ pip install bnn-tools
+    $ git clone https://github.com/daliagachc/bnn-tools-repo.git
+    $ cd bnn-tools-repo
+    $ conda develop ./src

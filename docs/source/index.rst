@@ -10,6 +10,7 @@ bnn tools Documentation
    :maxdepth: 2
 
    installation
+   modules
    usage
    release-history
    min_versions

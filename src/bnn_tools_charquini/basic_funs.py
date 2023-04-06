@@ -1,22 +1,35 @@
-"""
-this module contains basic funcionts that are used in other modules
-it should bot import anything from this packages except maybe constants
+# probably this functions should go
 
-some of the function are loosely based on Runlongs code
+"""
+6/2/21
+
+diego.aliaga at helsinki dot fi
+based on Runlongs code
 """
 
 ####################
 # before using functions from here
 # most likely you need to first import bnn_array (not here but in the destination script)
 
-
+# import most used packages
+# import os
+# import glob
+# import sys
+# import pprint
+# import datetime as dt
+# import pandas as pd
 import numpy as np
 import matplotlib as mpl
 import matplotlib.colors
 import matplotlib.pyplot as plt
 import pandas as pd
 import xarray as xr
+# import seaborn as sns
+# import cartopy as crt
 
+# import pandas as pd
+# import scipy.interpolate
+# import bnn_tools.bnn_array
 
 from xarray.plot.utils import _infer_interval_breaks as infer_interval_breaks
 
@@ -25,75 +38,20 @@ from xarray.plot.utils import _infer_interval_breaks as infer_interval_breaks
 # All the variables are in the SI metric units, e.g., dp in m
 
 def format_ticks(ax):
-    """
-    Format ticks on the x-axis of a matplotlib plot with dates.
-    In increases the numbers of ticks
-    This funcitons is superseded by format_ticks2 and is only kept for
-    backward compatibility
-
-    Parameters
-    ----------
-    ax : matplotlib.axes.Axes
-        The axes object to format ticks.
-
-    Returns
-    -------
-    None
-
-    Examples
-    --------
-    >>> import matplotlib.pyplot as plt
-    >>> fig, ax = plt.subplots()
-    >>> ax.plot([1, 2, 3], [4, 5, 6])
-    >>> format_ticks(ax)
-    """
-
     import matplotlib.dates as mdates
-
-    # Set up locator and formatter for major ticks
     locator = mdates.AutoDateLocator(minticks=5, maxticks=10)
     formatter = mdates.ConciseDateFormatter(locator)
     ax.xaxis.set_major_locator(locator)
     ax.xaxis.set_major_formatter(formatter)
-
-    # Set up locator for minor ticks
     locator = mdates.AutoDateLocator(minticks=50, maxticks=60)
     ax.xaxis.set_minor_locator(locator)
+    # ax.xaxis.set_minor_formatter(formatter)
 
-    # Set the rotation and horizontal alignment of xtick labels
     for xlabels in ax.get_xticklabels():
         xlabels.set_rotation(0)
         xlabels.set_ha("center")
 
 def format_ticks2(ax,M,m):
-    """
-    Format the x-axis of a matplotlib plot to show dates and ticks.
-
-    Parameters
-    ----------
-    ax : matplotlib.axes.Axes
-        The axes object to be modified.
-    M : int
-        The maximum number of major ticks to be displayed.
-    m : int
-        The maximum number of minor ticks to be displayed.
-
-    Returns
-    -------
-    None
-
-    Examples
-    --------
-    >>> import matplotlib.pyplot as plt
-    >>> import datetime
-    >>> fig, ax = plt.subplots()
-    >>> dates = [datetime.datetime(2022, 1, 1) + datetime.timedelta(days=i) for i in range(365)]
-    >>> values = range(365)
-    >>> ax.plot(dates, values)
-    >>> format_ticks2(ax, 10, 50)
-    >>> plt.show()
-
-    """
     import matplotlib.dates as mdates
     locator = mdates.AutoDateLocator(minticks=int(M/2), maxticks=int(2*M))
     formatter = mdates.ConciseDateFormatter(locator)
@@ -101,6 +59,7 @@ def format_ticks2(ax,M,m):
     ax.xaxis.set_major_formatter(formatter)
     locator = mdates.AutoDateLocator(minticks=int(m/2), maxticks=(m*2))
     ax.xaxis.set_minor_locator(locator)
+    # ax.xaxis.set_minor_formatter(formatter)
 
     for xlabels in ax.get_xticklabels():
         xlabels.set_rotation(0)
@@ -113,22 +72,7 @@ def format_ticks2(ax,M,m):
 # bnn funs
 ####################
 
-from typing import Union
-def from_time2sec(o: Union[xr.Dataset, xr.DataArray]) -> Union[xr.Dataset, xr.DataArray]:
-    """
-    Convert time to seconds since 1970-01-01
-
-    Parameters
-    ----------
-    o : Union[xr.Dataset, xr.DataArray]
-        DataArray or Dataset with a 'time' coordinate
-
-    Returns
-    -------
-    Union[xr.Dataset, xr.DataArray]
-        DataArray or Dataset with a 'secs' coordinate added,
-        where 'secs' is the time in seconds since 1970-01-01.
-    """
+def from_time2sec(o):
     date = o['time']
     s1 = date - np.datetime64(0, 'Y')
     s2 = s1 / np.timedelta64(1, 's')
@@ -136,95 +80,35 @@ def from_time2sec(o: Union[xr.Dataset, xr.DataArray]) -> Union[xr.Dataset, xr.Da
     return o
 
 
-def from_sec2time(o: Union[xr.Dataset, xr.DataArray]) -> Union[xr.Dataset, xr.DataArray]:
-    """
-    Convert seconds since 1970-01-01 to time
-
-    Parameters
-    ----------
-    o : Union[xr.Dataset, xr.DataArray]
-        DataArray or Dataset with a 'secs' coordinate
-
-    Returns
-    -------
-    Union[xr.Dataset, xr.DataArray]
-        DataArray or Dataset with a 'time' coordinate added,
-        where 'time' is the date and time corresponding to the
-        number of seconds since 1970-01-01.
-    """
+def from_sec2time(o):
     secs = o['secs'].astype('datetime64[s]')
     o = o.assign_coords({'time': secs})
     return o
 
 
-def from_Dp2lDp(o: Union[xr.Dataset, xr.DataArray]) -> Union[xr.Dataset,
-xr.DataArray]:
-    """
-    Convert particle diameter to log10(particle diameter)
-
-    Parameters
-    ----------
-    o : xr.Dataset
-        Dataset with a 'Dp' variable
-
-    Returns
-    -------
-    xr.Dataset
-        Dataset with a 'lDp' variable added,
-        where 'lDp' is the base-10 logarithm of 'Dp'.
-    """
+def from_Dp2lDp(o):
     lDp = np.log10(o['Dp'])
     o = o.assign_coords({'lDp': lDp})
     return o
 
 
-def from_lDp2Dp(o: Union[xr.Dataset, xr.DataArray]) -> Union[xr.Dataset,
-xr.DataArray]:
-    """
-    Convert log10(particle diameter) to particle diameter
-
-    Parameters
-    ----------
-    o : xr.Dataset
-        Dataset with a 'lDp' variable
-
-    Returns
-    -------
-    xr.Dataset
-        Dataset with a 'Dp' variable added,
-        where 'Dp' is the base-10 exponential of 'lDp'.
-    """
+def from_lDp2Dp(o):
     Dp = 10 ** (o['lDp'])
     o = o.assign_coords({'Dp': Dp})
     return o
 
 
-def from_lDp2dlDp(o: Union[xr.Dataset, xr.DataArray]) -> Union[xr.Dataset,
-xr.DataArray]:
-    """
-    Calculate the interval between log10(particle diameters)
-
-    Parameters
-    ----------
-    o : xr.Dataset
-        Dataset with a 'lDp' variable
-
-    Returns
-    -------
-    xr.Dataset
-        Dataset with a 'dlDp' variable added,
-        where 'dlDp' is the difference in log10(particle diameter)
-        between consecutive bins.
-    """
+def from_lDp2dlDp(o):
+    o = set_lDp(o)
     lDp = o['lDp']
     borders = infer_interval_breaks(lDp)
     d = borders[1:] - borders[:-1]
     d1 = lDp * 0 + d
-    o = o
+    o = o.assign_coords({'dlDp': d1})
+    return o
 
 
-def from_Dp2dDp(o: Union[xr.Dataset, xr.DataArray]) -> Union[xr.Dataset,
-xr.DataArray]:
+def from_Dp2dDp(o):
     #todo this should de done in lDp and not Dp since interval breaks are prone to erros in Dp
     Dp = o['Dp']
     borders = infer_interval_breaks(Dp)
@@ -375,38 +259,6 @@ def get_N(o, d1, d2):
 
 
 def resample_ts(o, dt_secs):
-    """
-    Resamples a time series with a given time step.
-    it assumes that the time stamp is centered aligned.
-    the result is also ceter aligned
-
-    Parameters
-    ----------
-    o : Union[xr.Dataset, xr.DataArray]
-        A dataset or data array with a time dimension.
-    dt_secs : float
-        The new time step in seconds. Must be greater than or equal to the original time step.
-
-    Returns
-    -------
-    Union[xr.Dataset, xr.DataArray]
-        The resampled time series.
-
-    Notes
-    -----
-    This function resamples the time series to a new time step using linear interpolation.
-    It is intended for use with xarray data arrays and datasets.
-
-    Examples
-    --------
-    >>> # Resample a dataset with a new time step of 10 seconds
-    >>> new_ds = resample_ts(orig_ds, 10)
-
-    >>> # Resample a data array with a new time step of 60 seconds
-    >>> new_da = resample_ts(orig_da, 60)
-    """
-
-
     orig_dim = list(o.dims)
 
     orgi_dt = set_sec(o)['secs'].diff('secs').median().item()
@@ -519,13 +371,7 @@ def dp_regrid(da, *, n_subs, log_dy):
     )
 
 
-    # g = d1.groupby(np.round(d1['lDp']/log_dy)*log_dy)
-
-    g = (
-        d1
-        .assign_coords({'lDp': np.round(d1['lDp'] / log_dy) * log_dy})
-        .groupby('lDp')
-    )
+    g = d1.groupby(np.round(d1['lDp']/log_dy)*log_dy)
 
     # return g
 
@@ -550,28 +396,23 @@ def dp_regrid(da, *, n_subs, log_dy):
 
 def get_exact_N(dc1, Dp_min, Dp_max):
     """
-    Counts the exact number of particles in the range Dp_min to Dp_max using linear integration.
-
+    counts the exact number of particles in the range Dp_min Dp_max using linear intregration
     Parameters
     ----------
-    dc1 : xr.DataArray
-        Array-like variable containing the number distribution function with log-normal diameter.
+    dc1_ : array like
     Dp_min : float
-        Minimum diameter in meters for which particle number is to be calculated.
     Dp_max : float
-        Maximum diameter in meters for which particle number is to be calculated.
 
     Returns
     -------
-    xr.DataArray
-        Array-like variable containing the exact number of particles in the specified diameter range.
+    array like
+
     """
     assert dc1.name == 'dndlDp', 'you can only calc N on dndlogDp'
     assert Dp_min < Dp_max, 'd1 not < d2'
 
     dc1_ = dc1.bnn.set_lDp()
     _breaks = infer_interval_breaks(dc1_['lDp'])
-    # print(_breaks)
     lDp1 = _breaks[0]
     lDp2 = _breaks[-1]
 
@@ -611,15 +452,14 @@ from bokeh.models import LogColorMapper, ColorBar, CustomJS
 from bokeh.layouts import Row
 from bokeh.plotting import Figure, output_notebook, show
 
-def bokeh_plot_psd(ds,width = 1000):
+def bokeh_plot_psd(ds):
 
     output_notebook()
-    cb, p = basic_bokeh_plot(ds,width)
+    cb, p = basic_bokeh_plot(ds)
     show(Row(p,cb))
-    return p,cb
 
 
-def basic_bokeh_plot(ds, width=1000):
+def basic_bokeh_plot(ds):
     ######### EDGES #########
     vmin = 100
     vmax = 10_000
@@ -629,7 +469,7 @@ def basic_bokeh_plot(ds, width=1000):
     y0, y1 = infer_interval_breaks(ds['lDp'])[[0, -1]] + 9
     ######### FIGURE ############
     _w = bokeh.models.tools.WheelZoomTool()
-    p = Figure(x_axis_type='datetime', width=width, height=400,
+    p = Figure(x_axis_type='datetime', width=1000, height=400,
                tools=["pan", "box_zoom", "reset", _w, "crosshair", "hover"],
                y_axis_type="log")
     p.toolbar.active_scroll = _w
@@ -667,31 +507,3 @@ def get_colorbar(color_mapper, p, vmax, vmin):
     cbar.major_label_text_font_size = "0.1px"
     return cb
 
-
-def remote_jupyter_proxy_url(port):
-    """
-    Callable to configure Bokeh's show method when a proxy must be
-    configured.
-
-    If port is None we're asking about the URL
-    for the origin header.
-    """
-    # asdf
-    import os
-    import urllib
-
-    # base_url = os.environ['EXTERNAL_URL']
-    base_url = "http://128.214.253.41"
-    host = urllib.parse.urlparse(base_url).netloc
-
-    # If port is None we're asking for the URL origin
-    # so return the public hostname.
-    if port is None:
-        return host
-
-    service_url_path = os.environ["JUPYTERHUB_SERVICE_PREFIX"]
-    proxy_url_path = "proxy/%d" % port
-
-    user_url = urllib.parse.urljoin(base_url, service_url_path)
-    full_url = urllib.parse.urljoin(user_url, proxy_url_path)
-    return full_url

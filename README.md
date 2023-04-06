@@ -21,13 +21,12 @@ collection of functions and extensions to xarray for working with atmospehric pa
 ## install 
 in develope mode
 ```bash 
-git install -e git+https://github.com/daliagachc/bnn-tools-repo.git
+git clone https://github.com/daliagachc/bnn-tools-repo.git
+cd bnn-tools-repo
+conda develop ./src
 ```
 
-full install—not recommended yet. 
-```bash 
-git install git+https://github.com/daliagachc/bnn-tools-repo.git
-```
+
 
 
 ## docs 

@@ -97,7 +97,6 @@ class BNN:
     def get_exact_N(self, Dp_min,Dp_max):
         """
         counts the exact number of particles in the range Dp_min Dp_max using linear intregration
-
         Parameters
         ----------
 

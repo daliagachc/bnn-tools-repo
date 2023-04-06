@@ -9,6 +9,7 @@ kB = 1.38064852e-23
 
 def calc_coag_coef_fuchs(d1, dens1, d2, dens2, T, P, alpha):
     """
+    The input are:
     diameter1, density1, diameter2, density2, temperature, pressure,
     mass accomodation coefficient
     The output is : coagulation coefficient between
@@ -16,7 +17,6 @@ def calc_coag_coef_fuchs(d1, dens1, d2, dens2, T, P, alpha):
     Considering that T and P may vary with time in some
     appications and the d1, d2 arrays may not be predetermined
     we use a least efficient way to calculate the coagulation coefficient
-
     Parameters
     ----------
     d1 :
@@ -62,7 +62,6 @@ def calc_coag_coef_fuchs(d1, dens1, d2, dens2, T, P, alpha):
 def calc_MFP(T, P):
     """
     mean free path approx in air
-
     Returns
     -------
     float
@@ -164,34 +163,20 @@ def add_lims_lDp(dc):
 
 def calc_coag_snk_xr(*, dN_tot_m3, d1, d2, P, T, alpha, dens1, dens2):
     """
-    Calculate coagulation sink.
-
-    Parameters
-    ----------
-    dN_tot_m3 : float
-        Number of particles in the bin per m3.
-    d1 : float
-        Lower diameter in m.
-    d2 : float
-        Upper diameter in m.
-    P : float
-        Pressure in pascals.
-    T : float
-        Temperature in Kelvin.
-    alpha : float, optional
-        Mass accommodation coefficient (usually 1).
-    dens1 : float, optional
-        Density 1 kg/m3, usually 1200.
-    dens2 : float, optional
-        Density 2 kg/m3, usually 1200.
-
-    Returns
-    -------
-    tuple
-        A tuple containing:
-            - Number of particles lost to coagulation between d1 and d2 in [# m-3 s-1]
-            - The true minimum diameter
-            - The true max bin
+    calculates de coagulation sink
+    :param dN_tot_m3: number of particle in the bin per m3
+    :param d1: lower diameter in m
+    :param d2: upper diameter in m
+    :param P: pressure in pascals
+    :param T: temperature in kelvin
+    :param alpha: mass accommodation coefficient (usually 1 )
+    :param dens1: density 1 kg/m3  usually 1200
+    :param dens2: density 2 kg/m3  usually 1200
+    :return: (
+        number of particles lost to coagulation between d1 and d2 in [# m-3 s-1 ] ,
+        the true minimum diameter,
+        the true max bin
+        )
     """
 
     assert d1<d2, \
@@ -242,22 +227,10 @@ def calc_coag_snk_xr(*, dN_tot_m3, d1, d2, P, T, alpha, dens1, dens2):
 
 def calc_coagS(Dp_d1_d2, P, T, alpha, dN_total_, dens1, dens2):
     """
-    be aware that we are only considering coagS due to
-    particle higher thant Dp_d1_d2
-
-    Parameters
-    ----------
-    Dp_d1_d2 :
-    P :
-    T :
-    alpha :
-    dN_total_ :
-    dens1 :
-    dens2 :
-
+    be aware that we are only considering coagS due to particle higher thant Dp_d1_d2
     Returns
     -------
-
+    object
     """
     Dp_, Dp12_ = xr.broadcast(dN_total_['Dp'], Dp_d1_d2)
     beta_ = calc_coag_coef_fuchs(

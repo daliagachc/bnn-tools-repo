@@ -43,11 +43,10 @@ LOG_DP_DIS = 'log_Dp_dis'
 
 
 def open_sum2ds_old_wrong(path_sum):
-    """
-    opens a sum path and created an xarray ds out of it
-    im assuming the dp size from sum is the geomean location of the bin
-    2022-07-02_01-17-17
-    this is a wrong assumption. it is the limits and thats why you have an extra lim
+    """opens a sum path and created an xarray ds out of it
+    - im assuming the dp size from sum is the geomean location of the bin
+    2022-07-02_01-17-17_
+         - this is a wrong assumption. it is the limits and thats why you have an extra lim
     """
 
     # open ds
@@ -92,11 +91,10 @@ def open_sum2ds_old_wrong(path_sum):
 
 
 def open_sum2ds(path_sum):
-    """
-    opens a sum path and created an xarray ds out of it
-    im assuming the dp size from sum is the geomean location of the bin
-    2022-07-02_01-17-17
-    this is a wrong assumption. it is the limits and thats why you have an extra lim
+    """opens a sum path and created an xarray ds out of it
+    - im assuming the dp size from sum is the geomean location of the bin
+    2022-07-02_01-17-17_
+         - this is a wrong assumption. it is the limits and thats why you have an extra lim
     """
 
     # open ds
