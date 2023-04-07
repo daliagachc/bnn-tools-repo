@@ -1,0 +1,10 @@
+# List required packages in this file, one per line.
+
+
+numpy
+xarray
+pandas
+scipy
+matplotlib
+setuptools
+

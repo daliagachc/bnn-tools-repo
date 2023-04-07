@@ -1,22 +1,22 @@
 # Intro
-- The session will focus on documenting a scientific Python package naned bnn-tools.
-- The package is designed to analyze and plot particle size distributions and new particle formation.
-- The context for these analyses is atmospheric aerosols.
+The bnn_tools package provides functions for analyzing and plotting 
+atmospheric aerosol particle size distributions.
 
-# bnn_tools
 The package has the following structure:
 - bnn_tools
     - basic_funs.py  
-      a module in the bnn_tools package that contains functions for analyzing and plotting atmospheric aerosol particle size distribution
+      - a module in the bnn_tools package that contains functions for 
+      analyzing and plotting atmospheric aerosol particle size distribution
     - bnn_array.py  
-      an accessor to some of the functions in basic_funs that can be applied directly to xarray DataArrays/Sets.
+      - an accessor to some of the functions in basic_funs that can be 
+      applied directly to xarray DataArrays/Sets.
     - coag_sink.py
     - funs.py
     - funs_bokeh_flx.py
     - gr_gui.py
 
 
-## basic_funs.py:
+## basic_funs.py
 this is a summary of the functions in the module
 - `format_ticks(ax)`: Format ticks on the x-axis of a matplotlib plot with dates.
 - `format_ticks2(ax,M,m)`: Format the x-axis of a matplotlib plot to show dates and ticks.
@@ -68,7 +68,7 @@ this is a summary of the functions in the module
 - `u`: Sets the units metadata attribute of an xarray DataArray object.
 - `ln`: Sets the long_name metadata attribute of an xarray DataArray object.
 
-## concection between bnn_array and basic_funs
+## connection between bnn_array and basic_funs
 - `bnn_tools.basic_funs` and `bnn_array` are two modules in the `bnn_tools` package for analyzing atmospheric aerosol particle size distributions.
 - They have similar functions such as converting between different units of particle diameter and time, setting coordinates, and plotting particle size distribution.
     - in fact bnn_array is just an accesor to bnn_tools basic funs.

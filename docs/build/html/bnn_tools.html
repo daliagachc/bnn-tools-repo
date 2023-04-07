@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>bnn_tools package &mdash; bnn tools 0.1.111.post4.dev0+gc460eba documentation</title>
+  <title>bnn_tools package &mdash; bnn tools 0.1.111.post7.dev0+g76caa29 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
@@ -37,7 +37,7 @@
             bnn tools
           </a>
               <div class="version">
-                0.1.111.post4.dev0+gc460eba
+                0.1.111.post7.dev0+g76caa29
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -48,6 +48,8 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme.html#bnn-tools">bnn_tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">bnn_tools</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">bnn_tools package</a><ul>
@@ -194,6 +196,36 @@
 <p>this module contains basic funcionts that are used in other modules
 it should bot import anything from this packages except maybe constants</p>
 <p>some of the function are loosely based on Runlongs code</p>
+<p>this i as summary of basic_funs.py:</p>
+<ul class="simple">
+<li><p><cite>format_ticks(ax)</cite>: Format ticks on the x-axis of a matplotlib plot with dates.</p></li>
+<li><p><cite>format_ticks2(ax,M,m)</cite>: Format the x-axis of a matplotlib plot to show dates and ticks.</p></li>
+<li><p><cite>from_time2sec(o)</cite>: Convert time to seconds since 1970-01-01.</p></li>
+<li><p><cite>from_sec2time(o)</cite>: Convert seconds since 1970-01-01 to time.</p></li>
+<li><p><cite>from_Dp2lDp(o)</cite>: Convert particle diameter to log10(particle diameter).</p></li>
+<li><p><cite>from_lDp2Dp(o)</cite>: Convert log10(particle diameter) to particle diameter.</p></li>
+<li><p><cite>from_lDp2dlDp(o)</cite>: Calculate the interval between log10(particle diameters).</p></li>
+<li><p><cite>from_Dp2dDp(o)</cite>: Convert particle diameter to the difference in particle diameters for consecutive bins.</p></li>
+<li><p><cite>set_time(o)</cite>: Set the time as either coordinate or dimension depending on the current form.</p></li>
+<li><p><cite>set_Dp(o)</cite>: Set the Dp as either coordinate or dimension depending on the current form.</p></li>
+<li><p><cite>set_lDp(o)</cite>: Set the lDp as either coordinate or dimension depending on the current form.</p></li>
+<li><p><cite>set_sec(o)</cite>: Set the sec as either coordinate or dimension depending on the current form.</p></li>
+<li><p><cite>plot_psd(o, **kwargs)</cite>: Plot particle size distribution with some optional arguments.</p></li>
+<li><p><cite>get_dN(o, d1, d2)</cite>: Calculate the differential number concentration between d1 and d2 micrometers.</p></li>
+<li><p><cite>get_N(o, d1, d2)</cite>: Calculate the total number concentration between d1 and d2 micrometers.</p></li>
+<li><p><cite>resample_ts(o, dt_secs)</cite>: Resamples a time series with a given time step. It assumes that the time stamp is centered aligned. The result is also center aligned.</p></li>
+<li><p><cite>upsample_ts(o, dt)</cite>: Upsamples a time series with a given time step.</p></li>
+<li><p><cite>dp_regrid(da, *, n_subs, log_dy)</cite>: Regrids the diameter distribution of
+an aerosol particle dataset linearly over a logarithmic diameter range.
+The number of subintervals per bin is controlled by <cite>n_subs</cite>–the more the
+better accuracy and more computation power needed–and the size of
+the interval in logarithmic diameter is controlled by <cite>log_dy</cite>.</p></li>
+<li><p><cite>get_exact_N(dc1, Dp_min, Dp_max)</cite>: Counts the exact number of particles in the range Dp_min to Dp_max using linear integration.</p></li>
+<li><p><cite>bokeh_plot_psd(ds,width)</cite>: Plots particle size distribution using Bokeh plotting library.</p></li>
+<li><p><cite>basic_bokeh_plot(ds, width)</cite>: Creates a basic Bokeh plot.</p></li>
+<li><p><cite>get_colorbar(color_mapper, p, vmax, vmin)</cite>: Creates a color bar for a Bokeh plot.</p></li>
+<li><p><cite>remote_jupyter_proxy_url(port)</cite>: Configures Bokeh’s show method when a proxy must be configured.</p></li>
+</ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="bnn_tools.basic_funs.basic_bokeh_plot">
 <span class="sig-prename descclassname"><span class="pre">bnn_tools.basic_funs.</span></span><span class="sig-name descname"><span class="pre">basic_bokeh_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/basic_funs.html#basic_bokeh_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.basic_funs.basic_bokeh_plot" title="Permalink to this definition">¶</a></dt>
@@ -511,7 +543,7 @@ It is intended for use with xarray data arrays and datasets.</p>
 </section>
 <section id="module-bnn_tools.bnn_array">
 <span id="bnn-tools-bnn-array-module"></span><h2>bnn_tools.bnn_array module<a class="headerlink" href="#module-bnn_tools.bnn_array" title="Permalink to this heading">¶</a></h2>
-<p>add accessors to xarray so that conversions are easier</p>
+<p>The module bnn_array.py provides a set of data accessors for xarray objects. It enables conversions between different units and representations of particle size distributions, resampling of time series, and setting metadata attributes.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="bnn_tools.bnn_array.BNN">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bnn_tools.bnn_array.</span></span><span class="sig-name descname"><span class="pre">BNN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xarray_obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bnn_tools/bnn_array.html#BNN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bnn_tools.bnn_array.BNN" title="Permalink to this definition">¶</a></dt>
