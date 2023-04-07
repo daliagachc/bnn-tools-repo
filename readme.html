@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intro &mdash; bnn tools 0.1.111.post7.dev0+g76caa29 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="bnn tools Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            bnn tools
+          </a>
+              <div class="version">
+                0.1.111.post7.dev0+g76caa29
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#bnn-tools">bnn_tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-funs-py">basic_funs.py:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bnn-array-py">bnn_array.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#concection-between-bnn-array-and-basic-funs">concection between bnn_array and basic_funs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">bnn_tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bnn tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Intro</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/readme.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="intro">
+<h1>Intro<a class="headerlink" href="#intro" title="Permalink to this heading">¶</a></h1>
+<ul class="simple">
+<li><p>The session will focus on documenting a scientific Python package naned bnn-tools.</p></li>
+<li><p>The package is designed to analyze and plot particle size distributions and new particle formation.</p></li>
+<li><p>The context for these analyses is atmospheric aerosols.</p></li>
+</ul>
+</section>
+<section id="bnn-tools">
+<h1>bnn_tools<a class="headerlink" href="#bnn-tools" title="Permalink to this heading">¶</a></h1>
+<p>The package has the following structure:</p>
+<ul class="simple">
+<li><p>bnn_tools</p>
+<ul>
+<li><p>basic_funs.py<br />
+a module in the bnn_tools package that contains functions for analyzing and plotting atmospheric aerosol particle size distribution</p></li>
+<li><p>bnn_array.py<br />
+an accessor to some of the functions in basic_funs that can be applied directly to xarray DataArrays/Sets.</p></li>
+<li><p>coag_sink.py</p></li>
+<li><p>funs.py</p></li>
+<li><p>funs_bokeh_flx.py</p></li>
+<li><p>gr_gui.py</p></li>
+</ul>
+</li>
+</ul>
+<section id="basic-funs-py">
+<h2>basic_funs.py:<a class="headerlink" href="#basic-funs-py" title="Permalink to this heading">¶</a></h2>
+<p>this is a summary of the functions in the module</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">format_ticks(ax)</span></code>: Format ticks on the x-axis of a matplotlib plot with dates.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">format_ticks2(ax,M,m)</span></code>: Format the x-axis of a matplotlib plot to show dates and ticks.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_time2sec(o)</span></code>: Convert time to seconds since 1970-01-01.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_sec2time(o)</span></code>: Convert seconds since 1970-01-01 to time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_Dp2lDp(o)</span></code>: Convert particle diameter to log10(particle diameter).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_lDp2Dp(o)</span></code>: Convert log10(particle diameter) to particle diameter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_lDp2dlDp(o)</span></code>: Calculate the interval between log10(particle diameters).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_Dp2dDp(o)</span></code>: Convert particle diameter to the difference in particle diameters for consecutive bins.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_time(o)</span></code>: Set the time as either coordinate or dimension depending on the current form.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_Dp(o)</span></code>: Set the Dp as either coordinate or dimension depending on the current form.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_lDp(o)</span></code>: Set the lDp as either coordinate or dimension depending on the current form.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_sec(o)</span></code>: Set the sec as either coordinate or dimension depending on the current form.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_psd(o,</span> <span class="pre">**kwargs)</span></code>: Plot particle size distribution with some optional arguments.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_dN(o,</span> <span class="pre">d1,</span> <span class="pre">d2)</span></code>: Calculate the differential number concentration between d1 and d2 meters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_N(o,</span> <span class="pre">d1,</span> <span class="pre">d2)</span></code>: Calculate the total number concentration between d1 and d2 meters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resample_ts(o,</span> <span class="pre">dt_secs)</span></code>: Resamples a time series with a given time step. It assumes that the time stamp is centered aligned. The result is also center aligned.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">upsample_ts(o,</span> <span class="pre">dt)</span></code>: Upsamples a time series with a given time step.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_regrid(da,</span> <span class="pre">*,</span> <span class="pre">n_subs,</span> <span class="pre">log_dy)</span></code>: Regrids the diameter distribution of
+an aerosol particle dataset linearly over a logarithmic diameter range.
+The number of subintervals per bin is controlled by <code class="docutils literal notranslate"><span class="pre">n_subs</span></code>–the more the
+better accuracy and more computation power needed–and the size of
+the interval in logarithmic diameter is controlled by <code class="docutils literal notranslate"><span class="pre">log_dy</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_exact_N(dc1,</span> <span class="pre">Dp_min,</span> <span class="pre">Dp_max)</span></code>: Counts the exact number of particles in the range Dp_min to Dp_max using linear integration.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bokeh_plot_psd(ds,width)</span></code>: Plots particle size distribution using Bokeh plotting library.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">basic_bokeh_plot(ds,</span> <span class="pre">width)</span></code>: Creates a basic Bokeh plot.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_colorbar(color_mapper,</span> <span class="pre">p,</span> <span class="pre">vmax,</span> <span class="pre">vmin)</span></code>: Creates a color bar for a Bokeh plot.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">remote_jupyter_proxy_url(port)</span></code>: Configures Bokeh’s show method when a proxy must be configured.</p></li>
+</ul>
+</section>
+<section id="bnn-array-py">
+<h2>bnn_array.py<a class="headerlink" href="#bnn-array-py" title="Permalink to this heading">¶</a></h2>
+<p>this is a summary of the functions in the module</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp_regrid</span></code>: Regrids the diameter distribution of an aerosol particle dataset linearly over a logarithmic diameter range.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_time2sec</span></code>: Converts time to seconds since 1970-01-01.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_sec2time</span></code>: Converts seconds since 1970-01-01 to time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_Dp2lDp</span></code>: Converts particle diameter to log10(particle diameter).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_lDp2Dp</span></code>: Converts log10(particle diameter) to particle diameter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_lDp2dlDp</span></code>: Calculates the interval between log10(particle diameters).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_Dp2dDp</span></code>: Converts particle diameter to the difference in particle diameters for consecutive bins.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_time</span></code>: Sets the time as either coordinate or dimension depending on the current form.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_Dp</span></code>: Sets the Dp as either coordinate or dimension depending on the current form.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_lDp</span></code>: Sets the lDp as either coordinate or dimension depending on the current form.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_sec</span></code>: Sets the sec as either coordinate or dimension depending on the current form.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_psd</span></code>: Plots particle size distribution with some optional arguments.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_dN</span></code>: Calculates the differential number concentration between d1 and d2 meters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_exact_N</span></code>: Counts the exact number of particles in the range Dp_min to Dp_max using linear integration.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_N</span></code>: Calculates the total number concentration between d1 and d2 meters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resample_ts</span></code>: Resamples a time series with a given time step. It assumes that the time stamp is center aligned. The result is also center aligned.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">upsample_ts</span></code>: Upsamples a time series with a given time step.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">u</span></code>: Sets the units metadata attribute of an xarray DataArray object.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ln</span></code>: Sets the long_name metadata attribute of an xarray DataArray object.</p></li>
+</ul>
+</section>
+<section id="concection-between-bnn-array-and-basic-funs">
+<h2>concection between bnn_array and basic_funs<a class="headerlink" href="#concection-between-bnn-array-and-basic-funs" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">bnn_tools.basic_funs</span></code> and <code class="docutils literal notranslate"><span class="pre">bnn_array</span></code> are two modules in the <code class="docutils literal notranslate"><span class="pre">bnn_tools</span></code> package for analyzing atmospheric aerosol particle size distributions.</p></li>
+<li><p>They have similar functions such as converting between different units of particle diameter and time, setting coordinates, and plotting particle size distribution.</p>
+<ul>
+<li><p>in fact bnn_array is just an accesor to bnn_tools basic funs.</p>
+<ul>
+<li><p>so that the functions from basic_funs can directly be aplied to xr.
+DataArrays/sets with the following notation:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="o">.</span><span class="n">bnn</span><span class="o">.</span><span class="n">function</span><span class="p">()</span>    
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="bnn tools Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, diego aliaga.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
