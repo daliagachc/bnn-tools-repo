@@ -250,7 +250,8 @@ xr.DataArray]:
     borders = infer_interval_breaks(lDp)
     d = borders[1:] - borders[:-1]
     d1 = lDp * 0 + d
-    o = o
+    return o
+
 
 
 def from_Dp2dDp(o: Union[xr.Dataset, xr.DataArray]) -> Union[xr.Dataset,
