@@ -48,11 +48,10 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Intro</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#bnn-tools">bnn_tools</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#basic-funs-py">basic_funs.py:</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Intro</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-funs-py">basic_funs.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#bnn-array-py">bnn_array.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#concection-between-bnn-array-and-basic-funs">concection between bnn_array and basic_funs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#connection-between-bnn-array-and-basic-funs">connection between bnn_array and basic_funs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
@@ -88,22 +87,24 @@
              
   <section id="intro">
 <h1>Intro<a class="headerlink" href="#intro" title="Permalink to this heading">¶</a></h1>
-<ul class="simple">
-<li><p>The session will focus on documenting a scientific Python package naned bnn-tools.</p></li>
-<li><p>The package is designed to analyze and plot particle size distributions and new particle formation.</p></li>
-<li><p>The context for these analyses is atmospheric aerosols.</p></li>
-</ul>
-</section>
-<section id="bnn-tools">
-<h1>bnn_tools<a class="headerlink" href="#bnn-tools" title="Permalink to this heading">¶</a></h1>
+<p>The bnn_tools package provides functions for analyzing and plotting
+atmospheric aerosol particle size distributions.</p>
 <p>The package has the following structure:</p>
 <ul class="simple">
 <li><p>bnn_tools</p>
 <ul>
-<li><p>basic_funs.py<br />
-a module in the bnn_tools package that contains functions for analyzing and plotting atmospheric aerosol particle size distribution</p></li>
-<li><p>bnn_array.py<br />
-an accessor to some of the functions in basic_funs that can be applied directly to xarray DataArrays/Sets.</p></li>
+<li><p>basic_funs.py</p>
+<ul>
+<li><p>a module in the bnn_tools package that contains functions for
+analyzing and plotting atmospheric aerosol particle size distribution</p></li>
+</ul>
+</li>
+<li><p>bnn_array.py</p>
+<ul>
+<li><p>an accessor to some of the functions in basic_funs that can be
+applied directly to xarray DataArrays/Sets.</p></li>
+</ul>
+</li>
 <li><p>coag_sink.py</p></li>
 <li><p>funs.py</p></li>
 <li><p>funs_bokeh_flx.py</p></li>
@@ -112,7 +113,7 @@ an accessor to some of the functions in basic_funs that can be applied directly 
 </li>
 </ul>
 <section id="basic-funs-py">
-<h2>basic_funs.py:<a class="headerlink" href="#basic-funs-py" title="Permalink to this heading">¶</a></h2>
+<h2>basic_funs.py<a class="headerlink" href="#basic-funs-py" title="Permalink to this heading">¶</a></h2>
 <p>this is a summary of the functions in the module</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">format_ticks(ax)</span></code>: Format ticks on the x-axis of a matplotlib plot with dates.</p></li>
@@ -169,8 +170,8 @@ the interval in logarithmic diameter is controlled by <code class="docutils lite
 <li><p><code class="docutils literal notranslate"><span class="pre">ln</span></code>: Sets the long_name metadata attribute of an xarray DataArray object.</p></li>
 </ul>
 </section>
-<section id="concection-between-bnn-array-and-basic-funs">
-<h2>concection between bnn_array and basic_funs<a class="headerlink" href="#concection-between-bnn-array-and-basic-funs" title="Permalink to this heading">¶</a></h2>
+<section id="connection-between-bnn-array-and-basic-funs">
+<h2>connection between bnn_array and basic_funs<a class="headerlink" href="#connection-between-bnn-array-and-basic-funs" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">bnn_tools.basic_funs</span></code> and <code class="docutils literal notranslate"><span class="pre">bnn_array</span></code> are two modules in the <code class="docutils literal notranslate"><span class="pre">bnn_tools</span></code> package for analyzing atmospheric aerosol particle size distributions.</p></li>
 <li><p>They have similar functions such as converting between different units of particle diameter and time, setting coordinates, and plotting particle size distribution.</p>

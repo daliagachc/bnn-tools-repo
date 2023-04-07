@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>bnn_tools.basic_funs &mdash; bnn tools 0.1.111.post4.dev0+gc460eba documentation</title>
+  <title>bnn_tools.basic_funs &mdash; bnn tools 0.1.111.post7.dev0+g76caa29 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
@@ -34,7 +34,7 @@
             bnn tools
           </a>
               <div class="version">
-                0.1.111.post4.dev0+gc460eba
+                0.1.111.post7.dev0+g76caa29
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -45,6 +45,8 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#bnn-tools">bnn_tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">bnn_tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
@@ -82,6 +84,36 @@
 <span class="sd">it should bot import anything from this packages except maybe constants</span>
 
 <span class="sd">some of the function are loosely based on Runlongs code</span>
+
+<span class="sd">this i as summary of basic_funs.py:</span>
+
+<span class="sd">- `format_ticks(ax)`: Format ticks on the x-axis of a matplotlib plot with dates.</span>
+<span class="sd">- `format_ticks2(ax,M,m)`: Format the x-axis of a matplotlib plot to show dates and ticks.</span>
+<span class="sd">- `from_time2sec(o)`: Convert time to seconds since 1970-01-01.</span>
+<span class="sd">- `from_sec2time(o)`: Convert seconds since 1970-01-01 to time.</span>
+<span class="sd">- `from_Dp2lDp(o)`: Convert particle diameter to log10(particle diameter).</span>
+<span class="sd">- `from_lDp2Dp(o)`: Convert log10(particle diameter) to particle diameter.</span>
+<span class="sd">- `from_lDp2dlDp(o)`: Calculate the interval between log10(particle diameters).</span>
+<span class="sd">- `from_Dp2dDp(o)`: Convert particle diameter to the difference in particle diameters for consecutive bins.</span>
+<span class="sd">- `set_time(o)`: Set the time as either coordinate or dimension depending on the current form.</span>
+<span class="sd">- `set_Dp(o)`: Set the Dp as either coordinate or dimension depending on the current form.</span>
+<span class="sd">- `set_lDp(o)`: Set the lDp as either coordinate or dimension depending on the current form.</span>
+<span class="sd">- `set_sec(o)`: Set the sec as either coordinate or dimension depending on the current form.</span>
+<span class="sd">- `plot_psd(o, **kwargs)`: Plot particle size distribution with some optional arguments.</span>
+<span class="sd">- `get_dN(o, d1, d2)`: Calculate the differential number concentration between d1 and d2 micrometers.</span>
+<span class="sd">- `get_N(o, d1, d2)`: Calculate the total number concentration between d1 and d2 micrometers.</span>
+<span class="sd">- `resample_ts(o, dt_secs)`: Resamples a time series with a given time step. It assumes that the time stamp is centered aligned. The result is also center aligned.</span>
+<span class="sd">- `upsample_ts(o, dt)`: Upsamples a time series with a given time step.</span>
+<span class="sd">- `dp_regrid(da, *, n_subs, log_dy)`: Regrids the diameter distribution of</span>
+<span class="sd">  an aerosol particle dataset linearly over a logarithmic diameter range.</span>
+<span class="sd">  The number of subintervals per bin is controlled by `n_subs`--the more the</span>
+<span class="sd">  better accuracy and more computation power needed--and the size of</span>
+<span class="sd">  the interval in logarithmic diameter is controlled by `log_dy`.</span>
+<span class="sd">- `get_exact_N(dc1, Dp_min, Dp_max)`: Counts the exact number of particles in the range Dp_min to Dp_max using linear integration.</span>
+<span class="sd">- `bokeh_plot_psd(ds,width)`: Plots particle size distribution using Bokeh plotting library.</span>
+<span class="sd">- `basic_bokeh_plot(ds, width)`: Creates a basic Bokeh plot.</span>
+<span class="sd">- `get_colorbar(color_mapper, p, vmax, vmin)`: Creates a color bar for a Bokeh plot.</span>
+<span class="sd">- `remote_jupyter_proxy_url(port)`: Configures Bokeh&#39;s show method when a proxy must be configured.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1">####################</span>
