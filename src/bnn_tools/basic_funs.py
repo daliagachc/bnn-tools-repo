@@ -636,11 +636,13 @@ def get_exact_N(dc1, Dp_min, Dp_max):
 
     return new_inte
 
-
-import bokeh.models
-from bokeh.models import LogColorMapper, ColorBar, CustomJS
-from bokeh.layouts import Row
-from bokeh.plotting import Figure, output_notebook, show
+try:
+  import bokeh.models
+  from bokeh.models import LogColorMapper, ColorBar, CustomJS
+  from bokeh.layouts import Row
+  from bokeh.plotting import Figure, output_notebook, show
+except: 
+  print('warning bokeh not installed')
 
 def bokeh_plot_psd(ds,width = 1000):
 
