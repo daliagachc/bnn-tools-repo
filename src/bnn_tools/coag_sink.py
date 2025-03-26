@@ -305,14 +305,14 @@ def calCS_single_par(dp_m, T, P):
     return CS
 
 def calc_CS(*,dN_m3, T, P):
-    dN_m3: xr.DataArray
     '''data array containing the particle number concentration
-    - Dp is in meters 
-    - Concentration in m-3, etc. 
-    - T in Kelvin 
-    - P in PA 
+    - Dp is in meters
+    - Concentration in m-3, etc.
+    - T in Kelvin
+    - P in PA
     '''
 
+    dN_m3: xr.DataArray
     cs_ = calc_bin_CS(dN_m3 = dN_m3, T = T, P = P)
     cs = cs_.sum('Dp')
 

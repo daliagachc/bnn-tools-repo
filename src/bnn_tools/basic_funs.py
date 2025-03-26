@@ -246,11 +246,12 @@ xr.DataArray]:
         where 'dlDp' is the difference in log10(particle diameter)
         between consecutive bins.
     """
-    lDp = o['lDp']
+    o_=set_lDp(o)
+    lDp = o_['lDp']
     borders = infer_interval_breaks(lDp)
     d = borders[1:] - borders[:-1]
     d1 = lDp * 0 + d
-    return o
+    return d1
 
 
 
@@ -384,13 +385,14 @@ def get_dN(o, d1, d2):
     if isinstance(o, xr.Dataset):
         o = o['dndlDp']
     assert o.name == 'dndlDp'
-    o = from_lDp2dlDp(o)
     o = set_Dp(o)
     o1 = o.loc[{'Dp': slice(d1, d2)}]
+    o_dldp = from_lDp2dlDp(o1)
     dmin = o1['Dp'].min().item()
     dmax = o1['Dp'].max().item()
 
-    o1['dN'] = (o1 * o1['dlDp'])
+    
+    o1['dN'] = (o1.bnn.set_Dp() * o_dldp.bnn.set_Dp())
 
     dN = o1['dN']
 
